@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif; }
 
-h1 {
+h1.title {
   color: gray; }
 
 button {
@@ -32,8 +32,8 @@ a.exit-button {
   bottom: 0;
   left: 25px; }
 
-h1,
-.subtitle {
+.lobby-screen h1,
+.lobby-screen .subtitle {
   color: #276980; }
 
 p {

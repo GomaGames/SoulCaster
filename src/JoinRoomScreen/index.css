@@ -31,3 +31,26 @@ a.exit-button {
   position: absolute;
   bottom: 0;
   left: 25px; }
+
+.join-room-screen h1,
+.join-room-screen .subtitle {
+  color: #DF5455; }
+
+.join-room-screen .code {
+  padding: 15px; }
+
+.code {
+  border: 1px solid #4A4A4A; }
+  .code input {
+    font-size: 36px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center; }
+  .code p.error-message {
+    font-size: 14px;
+    color: #DF5455;
+    font-style: italic; }
+  @media (min-width: 70em) {
+    .code {
+      width: 30%;
+      margin: 0 auto; } }

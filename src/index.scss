@@ -1,5 +1,6 @@
 $gray: #4A4A4A;
 $blue: #276980;
+$red: #DF5455;
 
 @mixin breakpoint($point) {
   @if $point == large {
@@ -20,7 +21,7 @@ body {
   font-family: sans-serif;
 }
 
-h1{
+h1.title{
   color: gray;
 }
 
