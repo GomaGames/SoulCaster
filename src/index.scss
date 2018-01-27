@@ -1,0 +1,46 @@
+@import './TitleScreen/index.scss';
+
+$gray: #4A4A4A;
+
+@mixin breakpoint($point) {
+  @if $point == large {
+     @media (min-width: 70em) { @content ; }
+  }
+    @else if $point == medium {
+     @media (min-width: 50em) { @content ; }
+  }
+  @else if $point == small {
+    @media (max-width: 37.5em)  { @content ; }
+  }
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1{
+  color: gray;
+}
+
+button{
+  display: block;
+  background-color: gray;
+  color: white;
+  font-size: 20px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+  margin-top: 15px;
+
+  @include breakpoint(large){
+    width: 30%;
+  }
+}
+
+.screen{
+  text-align: center;
+  padding: 25px;
+}
