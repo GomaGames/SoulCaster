@@ -31,3 +31,20 @@ a.exit-button {
   position: absolute;
   bottom: 0;
   left: 25px; }
+
+h1,
+.subtitle {
+  color: #276980; }
+
+p {
+  color: #4A4A4A; }
+
+.code {
+  border: 1px solid #4A4A4A; }
+  .code p {
+    font-size: 36px;
+    font-weight: bold; }
+  @media (min-width: 70em) {
+    .code {
+      width: 30%;
+      margin: 0 auto; } }

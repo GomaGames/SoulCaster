@@ -1,0 +1,24 @@
+@import '../index.scss';
+
+h1,
+.subtitle{
+  color: $blue;
+}
+
+p{
+  color: $gray;
+}
+
+.code{
+  border: 1px solid $gray;
+
+  p{
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  @include breakpoint(large){
+    width: 30%;
+    margin: 0 auto;
+  }
+}

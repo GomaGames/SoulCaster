@@ -1,6 +1,5 @@
-@import './TitleScreen/index.scss';
-
 $gray: #4A4A4A;
+$blue: #276980;
 
 @mixin breakpoint($point) {
   @if $point == large {
@@ -43,4 +42,14 @@ button{
 .screen{
   text-align: center;
   padding: 25px;
+  position: relative;
+}
+
+a.exit-button{
+  text-decoration: none;
+  font-size: 20px;
+  color: $gray;
+  position: absolute;
+  bottom: 0;
+  left: 25px;
 }
