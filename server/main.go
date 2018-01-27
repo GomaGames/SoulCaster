@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	"./sockets"
 )
 
 var (
@@ -25,6 +27,14 @@ func main() {
 	flag.StringVar(&port, "port", defaultPort, portFlagDesc)
 	flag.StringVar(&port, "p", defaultPort, portFlagDesc)
 	flag.Parse()
+
+	hub := sockets.NewHub()
+	go hub.Run()
+
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		sockets.ServeWs(hub, w, r)
+	})
+
 	http.Handle("/", http.FileServer(http.Dir("../public")))
 
 	addr := host + ":" + port
