@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './index.css';
 
-type Props = {
-  player2: Object
-};
+class LobbyScreen extends React.Component<Props, State> {
 
-class LobbyScreen extends React.Component<Props> {
+  componentDidMount() {
+    if(this.props.code === null) {
+      this.props.history.push('/');
+    }
+  }
 
   startGame = (event: SyntheticEvent<HTMLButtonElement>) => {
     (event.currentTarget: HTMLButtonElement);
@@ -17,19 +20,19 @@ class LobbyScreen extends React.Component<Props> {
   render() {
     let content = null;
 
-    if(this.props.player) {
+    if(this.props.playerNumber === 2) {
       content = <button className="button start-game-button" type="button" onClick={ this.startGame }>Start Game</button>
     } else {
       content = <div>
         <p>Tell your opponent this code:</p>
         <div className="code">
-          <p>XLRT</p>
+          <p>{ this.props.code }</p>
         </div>
       </div>
     }
 
     return (
-      <div className="lobby-screen screen">
+      <div className={ this.props.playerNumber === 2 ? "player2 lobby-screen screen" : "lobby-screen screen" } >
         <h1>Ready?</h1>
         <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for Player 2...' }</p>
         { content }
@@ -39,4 +42,12 @@ class LobbyScreen extends React.Component<Props> {
   }
 }
 
-export default LobbyScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  };
+};
+
+const mapStateToProps = (state) => state;
+const ConnectedLobbyScreen = connect(mapStateToProps, mapDispatchToProps)(LobbyScreen);
+export default ConnectedLobbyScreen;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect} from 'react-redux';
 
 type Props = {};
 
@@ -9,4 +10,12 @@ class GameScreen extends React.Component<Props> {
   }
 }
 
-export default GameScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+   
+  };
+};
+
+const mapStateToProps = (state) => state;
+const ConnectedGameScreen = connect(mapStateToProps, mapDispatchToProps)(GameScreen);
+export default ConnectedGameScreen;

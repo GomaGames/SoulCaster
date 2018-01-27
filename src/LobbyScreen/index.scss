@@ -5,6 +5,13 @@
   .subtitle{
     color: $blue;
   }
+
+  &.player2{
+    h1,
+    .subtitle{
+      color: $red;
+    }
+  }
 }
 
 p{

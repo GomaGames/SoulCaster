@@ -36,6 +36,10 @@ a.exit-button {
 .lobby-screen .subtitle {
   color: #276980; }
 
+.lobby-screen.player2 h1,
+.lobby-screen.player2 .subtitle {
+  color: #DF5455; }
+
 p {
   color: #4A4A4A; }
 

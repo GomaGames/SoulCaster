@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './index.css';
-
-type Props = {
-
-};
+import { JOIN_ROOM } from '../store';
 
 type State = {
   code: string, //?
@@ -22,7 +20,9 @@ class JoinRoomScreen extends React.Component<Props, State> {
     (event.currentTarget: HTMLButtonElement);
 
     if(this.state.code === 'xlrt') {
-      this.props.history.push('/lobby')
+      this.props.history.push('/lobby');
+      let data = { CODE: this.state.code, PLAYER_NUMBER: 2 };
+      this.props.join_room(data)
     } else {
       this.setState({ invalidCode: true });
     }
@@ -69,4 +69,14 @@ class JoinRoomScreen extends React.Component<Props, State> {
   }
 }
 
-export default JoinRoomScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    join_room: data => {
+      dispatch({ type: JOIN_ROOM, code: data.CODE, player_number: data.PLAYER_NUMBER });
+    }
+  };
+};
+
+const mapStateToProps = (state) => state;
+const ConnectedJoinRoom = connect(mapStateToProps, mapDispatchToProps)(JoinRoomScreen);
+export default ConnectedJoinRoom;
