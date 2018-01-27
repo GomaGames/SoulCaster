@@ -11,9 +11,7 @@ class LobbyScreen extends React.Component<Props, State> {
     }
   }
 
-  startGame = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
-
+  startGame = () => {
     this.props.history.push('/game')
   }
 

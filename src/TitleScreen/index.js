@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { CREATE_ROOM } from '../store';
+import { SET_SOCKET, CREATE_ROOM } from '../store';
+import Websocket from 'react-websocket';
+
+const socket = new Websocket({ url: 'ws://localhost:8000/ws' });
 
 type Props = {};
 
 class TitleScreen extends React.Component<Props> {
-  createRoom = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
+  componentDidMount() {
+    this.props.set_socket(socket);
+  }
 
+  createRoom = () => {
     this.props.create_room({ CODE: 'xlrt' });
     this.props.history.push('/lobby')
   }
 
-  joinRoom = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
-
+  joinRoom = () => {
     this.props.history.push('/join')
   }
 
@@ -34,6 +37,9 @@ class TitleScreen extends React.Component<Props> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    set_socket: socket => {
+      dispatch({ type: SET_SOCKET, socket });
+    },
     create_room: data => {
       dispatch({ type: CREATE_ROOM, code: data.CODE });
     }

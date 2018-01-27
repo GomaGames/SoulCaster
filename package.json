@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bufferutil": "^3.0.3",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
@@ -10,7 +11,10 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2"
+    "react-websocket": "^2.0.0",
+    "redux": "^3.7.2",
+    "utf-8-validate": "^4.0.0",
+    "ws": "^4.0.0"
   },
   "devDependencies": {
     "flow-bin": "^0.64.0",

@@ -16,9 +16,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
     invalidCode: false
   }
 
-	join = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
-
+	join = () => {
     if(this.state.code === 'xlrt') {
       this.props.history.push('/lobby');
       let data = { CODE: this.state.code, PLAYER_NUMBER: 2 };
