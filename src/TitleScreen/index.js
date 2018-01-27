@@ -19,7 +19,7 @@ class TitleScreen extends React.Component<Props> {
 
     return (
       <div className="title-screen">
-        <h1>Codename Transmission</h1>
+        <h1>Soul Caster</h1>
         <button className="button create-room-button" type="button" onClick={ this.createRoom }>Create Room</button>
         <button className="button join-room-button" type="button" onClick={ this.joinRoom }>Join Room</button>
       </div>
