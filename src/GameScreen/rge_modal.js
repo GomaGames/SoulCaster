@@ -1,17 +1,15 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import './index.css';
 
 class RgeModal extends React.Component<Props, State> {
-  componentDidMount() {
-
-  }
 
   pay = () => {
-
+    this.props.socket.send(JSON.stringify({ op: 'RGE_PAID', payload : { id : this.props.id } }));
   }
 
   decline = () => {
-
+    this.props.socket.send(JSON.stringify({ op: 'RGE_DECLINED', payload : { id : this.props.id } }));
   }
 
   render() {
@@ -28,4 +26,7 @@ class RgeModal extends React.Component<Props, State> {
     </div>;
   }
 }
-export default RgeModal;
+
+const mapStateToProps = (state) => state;
+const ConnectedRgeModal = connect(mapStateToProps)(RgeModal);
+export default ConnectedRgeModal;
