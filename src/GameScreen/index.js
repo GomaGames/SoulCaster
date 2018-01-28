@@ -4,10 +4,13 @@ import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
 const characters = { 
-  level3_player1_idle: '/assets/wizard-level3-color1-idle-high.png',
+  level3_player1_idle: '/assets/wizard-level3-color1-idle-high.png', //not sure how to set this up yet
   level3_player2_idle: '/assets/wizard-level3-color2-idle-high.png'
 }
 
+const weapons = {
+  weapon_staff_button_high: '/assets/weapon-staff-button-high.png'
+}
 
 type State = {
   money: number,
@@ -31,9 +34,9 @@ class GameScreen extends React.Component<Props, State> {
   }
 
   state = {
-    money: this.props.money || 0,
-    health: this.props.health || 1000,
-    income: this.props.income || 0
+    money: this.props.money,
+    health: this.props.health,
+    income: this.props.income
   }
 
   attack = () => {
@@ -48,11 +51,11 @@ class GameScreen extends React.Component<Props, State> {
           <div className="health-container">
             <div className="player-1">
               <p className="health player1-health">{ this.state.health }</p>
-              <p>{ this.props.playerNumber === 1 ? 'You' : 'You'}</p>
+              <p>{ this.props.playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
-              <p className="health player1-health">{ this.state.health }</p>
-              <p>{ this.props.playerNumber === 1 ? 'You' : 'You'}</p>
+              <p className="health player2-health">{ this.state.health }</p>
+              <p>{ this.props.playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
           <div className="player player-1">
@@ -65,8 +68,12 @@ class GameScreen extends React.Component<Props, State> {
         <div className="game-ui">
           <p className="money">{ this.state.money } <span>+3.13/s</span></p>
           <div className="weapons">
-            <div className="weapon">200</div>
-            <div className="weapon">380</div>
+            <div className="weapon">
+              <img src={ weapons.weapon_staff_button_high } />
+            </div>
+            <div className="weapon">
+              <img src={ weapons.weapon_staff_button_high } />
+            </div>
           </div>
           <button className="attack-button" type="button attack-button" onClick={ this.attack }>Attack</button>
         </div>
