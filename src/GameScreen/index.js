@@ -232,6 +232,8 @@ class GameScreen extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    // @DEV for dev of modal
+    setTimeout(() => this.props.rge_triggered({ id : 1 }), 2500 );
     // uncomment when done working with characters and ui
     if( this.props.socket === null ) return;
 
@@ -300,9 +302,6 @@ class GameScreen extends React.Component<Props, State> {
 
     return (
       <div className={ res +  " game-screen screen" }>
-        { this.props.rge !== null ?
-          <RgeModal { ...this.props.rge } /> : ''
-        }
         <div className="players">
           <div className="health-container">
             <div className="player-1">
@@ -362,6 +361,10 @@ class GameScreen extends React.Component<Props, State> {
           </div>
           <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
         </div>
+
+        { this.props.rge !== null ?
+          <RgeModal { ...this.props.rge } /> : ''
+        }
       </div>
     )
   }
