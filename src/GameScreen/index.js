@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK, RGE_TRIGGERED } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE } from '../store';
 import Player from './player';
 import RgeModal from './rge_modal';
 import './index.css';
@@ -10,7 +10,7 @@ import './index.css';
 // Levels > Res > States??
 const characters = {
   level3: {
-    high: {
+    3: {
       idle: {
         color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res1.png',
         color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res1.png'
@@ -24,7 +24,7 @@ const characters = {
         color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
         color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res2.png',
         color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res2.png'
@@ -38,7 +38,7 @@ const characters = {
         color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
         color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res3.png',
         color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res3.png'
@@ -52,7 +52,7 @@ const characters = {
         color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
         color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res4.png',
         color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res4.png'
@@ -68,7 +68,7 @@ const characters = {
     }
   },
   level2: {
-    high: {
+    3: {
       idle: {
         color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res1.png',
         color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res1.png'
@@ -82,7 +82,7 @@ const characters = {
         color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
         color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res2.png',
         color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res2.png'
@@ -96,7 +96,7 @@ const characters = {
         color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
         color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res3.png',
         color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res3.png'
@@ -110,7 +110,7 @@ const characters = {
         color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
         color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res4.png',
         color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res4.png'
@@ -126,7 +126,7 @@ const characters = {
     }
   },
   level1: {
-    high: {
+    3: {
       idle: {
         color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res1.png',
         color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res1.png'
@@ -140,7 +140,7 @@ const characters = {
         color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
         color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res2.png',
         color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res2.png'
@@ -154,7 +154,7 @@ const characters = {
         color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
         color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res3.png',
         color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res3.png'
@@ -168,7 +168,7 @@ const characters = {
         color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
         color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res4.png',
         color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res4.png'
@@ -191,36 +191,36 @@ const buttons = {
 }
 const weapons = {
   staff: {
-    high: '/assets/weapons/weapon_staff_attack_res1.png',
-    med: '/assets/weapons/weapon_staff_attack_res1.png',
-    medlo: '/assets/weapons/weapon_staff_attack_res1.png',
-    lo: '/assets/weapons/weapon_staff_attack_res1.png'
+    3: '/assets/weapons/weapon_staff_attack_res1.png',
+    2: '/assets/weapons/weapon_staff_attack_res1.png',
+    1: '/assets/weapons/weapon_staff_attack_res1.png',
+    0: '/assets/weapons/weapon_staff_attack_res1.png'
   },
   stick: {
-    high: '/assets/weapons/weapon_stick_attack_res1.png',
-    med: '/assets/weapons/weapon_stick_attack_res1.png',
-    medlo: '/assets/weapons/weapon_stick_attack_res1.png',
-    lo: '/assets/weapons/weapon_stick_attack_res1.png'
+    3: '/assets/weapons/weapon_stick_attack_res1.png',
+    2: '/assets/weapons/weapon_stick_attack_res1.png',
+    1: '/assets/weapons/weapon_stick_attack_res1.png',
+    0: '/assets/weapons/weapon_stick_attack_res1.png'
   },
   broomstick: {
-    high: '/assets/weapons/weapon_broomstick_attack_res1.png',
-    med: '/assets/weapons/weapon_broomstick_attack_res1.png',
-    medlo: '/assets/weapons/weapon_broomstick_attack_res1.png',
-    lo: '/assets/weapons/weapon_stick_broomattack_res1.png'
+    3: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    2: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    1: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    0: '/assets/weapons/weapon_stick_broomattack_res1.png'
   }
 }
 const icons = {
   heart: {
-    high: '/assets/icons/icon_heart_res1.png',
-    med: '/assets/icons/icon_heart_res2.png',
-    medlo: '/assets/icons/icon_heart_res3.png',
-    lo: '/assets/icons/icon_heart_res4.png'
+    3: '/assets/icons/icon_heart_res1.png',
+    2: '/assets/icons/icon_heart_res2.png',
+    1: '/assets/icons/icon_heart_res3.png',
+    0: '/assets/icons/icon_heart_res4.png'
   },
   coin: {
-    high: '/assets/icons/icon_coin_res1.png',
-    med: '/assets/icons/icon_coin_res2.png',
-    medlo: '/assets/icons/icon_coin_res3.png',
-    lo: '/assets/icons/icon_coin_res4.png'
+    3: '/assets/icons/icon_coin_res1.png',
+    2: '/assets/icons/icon_coin_res2.png',
+    1: '/assets/icons/icon_coin_res3.png',
+    0: '/assets/icons/icon_coin_res4.png'
   }
 }
 
@@ -252,6 +252,9 @@ class GameScreen extends React.Component<Props, State> {
       const { op, payload } = JSON.parse(event.data);
       if(op === 'RECEIVE_ATTACK' || op === 'SENT_ATTACK') {}
       switch(op) {
+        case 'RGE':
+          this.props.rge(JSON.parse(payload));
+          break;
         case 'RGE_TRIGGERED':
           this.props.rge_triggered(JSON.parse(payload));
           break;
@@ -310,29 +313,22 @@ class GameScreen extends React.Component<Props, State> {
     if(this.props.socket === null) return <Redirect to='/' />;
 
     let weaponCost = 200; //remove this when implemented. used to "disable" weapon button
-    let res = 'high'; //remove this when resolution implemented.
     let playerNumber = this.props.playerNumber;
 
-    // dev
-    // playerNumber = 1;
-
     return (
-      <div className={ res +  " game-screen screen" }>
-        { this.props.rge !== null ?
-          <RgeModal { ...this.props.rge } /> : ''
-        }
+      <div className={ "res-" + this.props.resolution + " game-screen screen" }>
         <div className="players">
           <div className="health-container">
             <div className="player-1">
               <div className="life-counter">
-                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
+                <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
                 <p className="health player1-health">{ this.state.health }</p>
               </div>
               <p className="player-marker">{ playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
               <div className="life-counter">
-                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
+                <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
                 <p className="health player2-health">{ this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
@@ -341,21 +337,21 @@ class GameScreen extends React.Component<Props, State> {
           <Player 
             number={1}
             playerNumber={playerNumber} 
-            characterSrc={ characters.level3[res] }
+            characterSrc={ characters.level3[this.props.resolution] }
             animationFrame={this.state.animationFrame}
             opponentAnimationFrame={this.state.opponentAnimationFrame}
-            weaponSrc={ weapons.stick.high } />
+            weaponSrc={ weapons.stick[this.props.resolution] } />
           <Player 
             number={2}
             playerNumber={playerNumber} 
-            characterSrc={ characters.level3[res] }
+            characterSrc={ characters.level3[this.props.resolution] }
             animationFrame={this.state.animationFrame}
             opponentAnimationFrame={this.state.opponentAnimationFrame}
-            weaponSrc={ weapons.stick.high } />
+            weaponSrc={ weapons.stick[this.props.resolution] } />
         </div>
         <div className="game-ui">
           <div className="money">
-            <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+            <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
             <p>{ this.state.money } <span>+3.13/s</span></p>
           </div>
           <div className="weapons">
@@ -364,7 +360,7 @@ class GameScreen extends React.Component<Props, State> {
                 <img src={ buttons.stick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
@@ -373,13 +369,18 @@ class GameScreen extends React.Component<Props, State> {
                 <img src={ buttons.broomstick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
           </div>
           <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
         </div>
+
+        { this.props.rge !== null ?
+          <RgeModal { ...this.props.rge } /> : ''
+        }
+
       </div>
     )
   }
@@ -392,6 +393,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     rge_triggered: ({ id }) => {
       dispatch({ type: RGE_TRIGGERED, id });
+    },
+    rge_activate: ({ id }) => {
+      dispatch({ type: RGE_ACTIVATE, id });
     }
   };
 };
