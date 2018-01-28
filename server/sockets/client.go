@@ -54,6 +54,9 @@ type Client struct {
 	// Buffered channel of outbound messages.
 	send chan []byte
 
+	// Current room
+	currentRoom *Room
+
 	// The last time the client tried to attack
 	lastAttack *time.Time
 
@@ -68,6 +71,37 @@ type Client struct {
 
 	// Income per tick
 	income int
+}
+
+func (c *Client) SetCurrentRoom(room *Room) {
+	c.LeaveRoom(false)
+	c.currentRoom = room
+}
+
+func (c *Client) LeaveRoom(disconnected bool) {
+	if c.currentRoom != nil {
+		var message []byte = nil
+		if disconnected {
+			var err error
+			message, err = createMessage(DISCONNECT, "")
+			if err != nil {
+				message = nil
+			}
+		}
+
+		c.hub.leave <- newOpponentMessage(c, c.currentRoom, message)
+		c.currentRoom = nil
+	}
+}
+
+func (c *Client) ReceiveAttack(damage int) {
+	c.health -= damage
+	payload, err := createHealthPayload(c.health)
+	if err == nil {
+		if msg, err := createMessage(RECEIVE_ATTACK, string(payload)); err == nil {
+			c.send <- msg
+		}
+	}
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -102,12 +136,12 @@ func (c *Client) readPump() {
 			now := time.Now()
 			if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
 				c.lastAttack = &now
-				// TODO: send attack to opponent (need "rooms")
+				c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
 			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
 		case JOIN:
-			c.hub.join <- &ClientMessage{client: c, message: message}
+			c.hub.join <- &ClientMessage{client: c, message: []byte(m.Payload)}
 		case PURCHASE_UPGRADE:
 			itemId, err := strconv.Atoi(m.Payload)
 			if err != nil {
@@ -197,7 +231,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
+	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256), money: 10000, attackPower: 10}
 	client.hub.register <- client
 	go client.writePump()
 	client.readPump()
