@@ -30,8 +30,7 @@ const (
 	attackWait = time.Second
 
 	// Starting attack power
-	// startingAttackPower = 10
-	startingAttackPower = 500 // TODO: remove!
+	startingAttackPower = 10
 
 	// Starting health
 	startingHealth = 1000
@@ -44,6 +43,11 @@ const (
 
 	// Maximum message size allowed from peer.
 	maxMessageSize = 51200
+
+	// Number of attacks before affecting resolution
+	attackResolutionCapCount1 = 10
+	attackResolutionCapCount2 = 20
+	attackResolutionCapCount3 = 50
 )
 
 var (
@@ -90,6 +94,9 @@ type Client struct {
 
 	// Amount of money spent on RGE
 	rgePaidMoney int
+
+	// Counter for Attack count for RGE
+	rgeAttackCount int	
 }
 
 func (c *Client) SetCurrentRoom(room *Room) {
@@ -126,6 +133,7 @@ func (c *Client) StartGame() {
 		c.income = startingIncome
 		c.rgePaidHealth = 0
 		c.rgePaidMoney = 0
+		c.rgeAttackCount = 0
 		msg, err := createStartGameMessage(c.health, c.money, c.income)
 		if err == nil {
 			c.send <- msg
@@ -185,8 +193,14 @@ func (c *Client) readPump() {
 			if c.currentRoom != nil && c.currentRoom.ready >= 2 {
 				now := time.Now()
 				if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
-					c.lastAttack = &now
+					c.lastAttack = &now					
 					c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
+					c.rgeAttackCount += 1
+					if c.rgeAttackCount == attackResolutionCapCount1 {
+						if resp, err := createRgeTriggerMessage(1); err == nil {
+							c.send <- resp
+						}
+					}
 				}
 			}
 		case CREATE:
