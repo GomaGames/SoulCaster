@@ -266,6 +266,11 @@ class GameScreen extends React.Component<Props, State> {
           let opponentHealth = JSON.parse(payload).health
           this.setState({ opponentHealth })
           break;
+        case 'SET_MONEY':
+          const money = +payload;
+          this.setState({ money });
+        default:
+          break;
       }
     });
   }
