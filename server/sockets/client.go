@@ -286,11 +286,11 @@ func (c *Client) readPump() {
 				// TODO: return error to client
 				continue
 			}
-		case RGE_PAID:
-			rgeId, err := strconv.Atoi(m.Payload)
-			if err != nil {
-				continue
-			}
+		// case RGE_PAID:
+		// 	rgeId, err := strconv.Atoi(m.Payload)
+		// 	if err != nil {
+		// 		continue
+		// 	}
 		case RGE_DECLINED:
 			if msg, err := createMessage(RGE_ACTIVATE, m.Payload); err == nil {
 				c.send <- msg
