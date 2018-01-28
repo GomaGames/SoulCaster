@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { SET_SOCKET, CREATE_ROOM } from '../store';
 import './index.css';
 
-const ws = new WebSocket(`ws://${window.location.host}/ws`);
+const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}/ws`);
 
 class TitleScreen extends React.Component<Props> {
 
