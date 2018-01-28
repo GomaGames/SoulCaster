@@ -73,7 +73,8 @@ export const store = createStore((state = initialState, action) => {
     case RGE_TRIGGERED:
       return {
         ...state,
-        rge : RGE[action.id]
+        rge : RGE[action.id],
+        text : RGE[action.id].text(state.resolution)
       };
     case RGE_ACTIVATE:
       if( RGE[action.id].effect.hasOwnProperty('resolution') ){
