@@ -3,7 +3,6 @@
 .title-screen{
   width: 375px;
   height: 667px;
-  border: 1px solid red;
 	background-image: url('/assets/title_screen/title_screen.jpg');
 	background-size: contain;
 }
@@ -13,5 +12,5 @@
 }
 
 .button.join-room-button{
-  background-color: $green;
+  background-color: $blue;
 }

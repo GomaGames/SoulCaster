@@ -24,8 +24,9 @@ p {
   margin-top: 10px; }
 
 .player-ready {
-  border: 1px solid green;
-  width: 300px;
+  border: 5px solid red;
+  background-color: pink;
+  width: 100%;
   height: 300px;
   margin: 25px auto 25px; }
 
@@ -74,15 +75,14 @@ a.exit-button {
   left: 25px;
   bottom: 25px; }
 
-.code-area {
-  border: 1px solid red; }
-  .code-area > p {
-    margin-bottom: 5px; }
+.code-area > p {
+  margin-bottom: 5px; }
 
 .code {
-  border: 1px solid #4A4A4A;
-  margin: 0;
-  padding: 0; }
+  border: 1px solid #CCCCCC;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%; }
   .code p {
     margin: 0;
     padding: 0;
@@ -102,7 +102,8 @@ a.exit-button {
     font-weight: bold;
     width: 100%;
     text-align: center;
-    color: black; }
+    color: black;
+    border: 0; }
   .code p.error-message {
     font-size: 14px;
     color: #DF5455;
@@ -230,7 +231,7 @@ img.attack-weapon {
   text-align: left;
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   margin-left: -3px; }
   .money img {
     margin-right: 4px;
@@ -257,7 +258,7 @@ img.attack-weapon {
 
 .weapon {
   background-color: white;
-  height: 128px;
+  height: 115px;
   border-radius: 2px; }
   .weapon + .weapon {
     margin-top: 20px; }
@@ -277,7 +278,9 @@ img.attack-weapon {
 .weapon-cost {
   background-color: #DDDDDD;
   border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px; }
+  border-bottom-right-radius: 2px;
+  height: 35px;
+  line-height: 28px; }
   .weapon-cost p, .weapon-cost img {
     display: inline-block;
     vertical-align: middle; }
@@ -287,7 +290,7 @@ img.attack-weapon {
     margin-right: 4px; }
 
 button.attack-button {
-  width: 155px;
+  width: 150px;
   background-color: #A30D13;
   color: #efaaaa;
-  height: 281px; }
+  height: 250px; }
