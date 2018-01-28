@@ -70,50 +70,52 @@ class GameScreen extends React.Component<Props, State> {
   render() {
     // uncomment when done working with characters and ui
     // if(this.props.socket === null) return <Redirect to='/' />;
-    
+
+    let weaponCost = 200; //remove this when implemented
+
     return (
       <div className="game-screen screen">
         <div className="players">
           <div className="health-container">
             <div className="player-1">
-              <img className="icon-heart icon" src={ icons.heart_high }/>
+              <img className="icon-heart icon" src={ icons.heart_high } alt="icon-heart"/>
               <p className="health player1-health">{ this.state.health }</p>
               <p>{ this.props.playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
-              <img className="icon-heart icon" src={ icons.heart_high }/>
+              <img className="icon-heart icon" src={ icons.heart_high } alt="icon-heart"/>
               <p className="health player2-health">{ this.state.health }</p>
               <p>{ this.props.playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
           <div className="player player-1">
-            <img src={ characters.level3.high.idle.color1 } />
+            <img src={ characters.level3.high.idle.color1 } alt="player"/>
           </div>
           <div className="player player-2">
-            <img src={ characters.level3.high.idle.color2 } />
+            <img src={ characters.level3.high.idle.color2 } alt="player"/>
           </div>
         </div>
         <div className="game-ui">
           <div className="money">
-            <img className="icon-coin icon" src={ icons.coin_high } />
+            <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
             <p>{ this.state.money } <span>+3.13/s</span></p>
           </div>
           <div className="weapons">
-            <div className="weapon">
+            <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
               <div className="weapon-image">
-                <img src={ weapons.weapon_stick_button_high } />
+                <img src={ weapons.weapon_stick_button_high } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin_high } />
+                <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
-            <div className="weapon disabled">
+            <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
               <div className="weapon-image">
-                <img src={ weapons.weapon_broomstick_button_high } />
+                <img src={ weapons.weapon_broomstick_button_high } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin_high } />
+                <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
