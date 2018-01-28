@@ -10,6 +10,7 @@ import (
 
 type Room struct {
 	code    string
+	ready   int
 	player1 *Client
 	player2 *Client
 }

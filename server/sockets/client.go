@@ -29,6 +29,10 @@ const (
 	// Time a client must wait before sending another attack
 	attackWait = time.Second
 
+	// Starting attack power
+	// startingAttackPower = 10
+	startingAttackPower = 500 // TODO: remove!
+
 	// Starting health
 	startingHealth = 1000
 
@@ -80,6 +84,12 @@ type Client struct {
 
 	// Income per tick
 	income int
+
+	// Amount of health spent on RGE
+	rgePaidHealth int
+
+	// Amount of money spent on RGE
+	rgePaidMoney int
 }
 
 func (c *Client) SetCurrentRoom(room *Room) {
@@ -88,8 +98,11 @@ func (c *Client) SetCurrentRoom(room *Room) {
 }
 
 func (c *Client) LeaveRoom(disconnected bool) {
+	// TODO: stop income timer
 	if c.currentRoom != nil {
 		log.Printf("%p leaving room %v", c, c.currentRoom.code)
+		c.currentRoom.ready--
+
 		var message []byte = nil
 		if disconnected {
 			var err error
@@ -105,12 +118,19 @@ func (c *Client) LeaveRoom(disconnected bool) {
 }
 
 func (c *Client) StartGame() {
-	c.health = startingHealth
-	c.money = startingMoney
-	c.income = startingIncome
-	msg, err := createStartGameMessage(c.health, c.money, c.income)
-	if err == nil {
-		c.send <- msg
+	if c.currentRoom != nil {
+		// TODO: start income timer
+		c.attackPower = startingAttackPower
+		c.health = startingHealth
+		c.money = startingMoney
+		c.income = startingIncome
+		c.rgePaidHealth = 0
+		c.rgePaidMoney = 0
+		msg, err := createStartGameMessage(c.health, c.money, c.income)
+		if err == nil {
+			c.send <- msg
+		}
+		c.currentRoom.ready++
 	}
 }
 
@@ -121,7 +141,16 @@ func (c *Client) ReceiveAttack(damage int) {
 		if msg, err := createMessage(RECEIVE_ATTACK, string(payload)); err == nil {
 			c.send <- msg
 		}
+
+		if c.health <= 0 {
+			log.Printf("Player %p has died!", c)
+			c.hub.gameover <- &RoomMessage{client: c, room: c.currentRoom}
+		}
 	}
+}
+
+func (c *Client) GetFinalPlayerInfo(winner bool) *FinalPlayerInfo {
+	return createFinalPlayerInfo(winner, c.health, c.money, c.income, c.rgePaidHealth, c.rgePaidMoney)
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -146,26 +175,34 @@ func (c *Client) readPump() {
 		m := &Message{}
 		if err := json.Unmarshal(message, m); err != nil {
 			log.Printf("error: %v", err)
-			return
+			break
 		}
 
 		log.Printf("message: %s", message)
 
 		switch m.Op {
 		case ATTACK:
-			now := time.Now()
-			if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
-				c.lastAttack = &now
-				c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
+			if c.currentRoom != nil && c.currentRoom.ready >= 2 {
+				now := time.Now()
+				if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
+					c.lastAttack = &now
+					c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
+				}
 			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
 		case JOIN:
 			c.hub.join <- &ClientMessage{client: c, message: []byte(m.Payload)}
 		case START_GAME:
-			c.hub.start <- newOpponentMessage(c, c.currentRoom, nil)
-			c.StartGame()
+			if c.currentRoom != nil {
+				c.hub.start <- &RoomMessage{client: c, room: c.currentRoom}
+				c.StartGame()
+			}
 		case PURCHASE_UPGRADE:
+			if c.currentRoom == nil || c.currentRoom.ready < 2 {
+				continue
+			}
+
 			itemId, err := strconv.Atoi(m.Payload)
 			if err != nil {
 				// TODO: return error to client
@@ -254,7 +291,7 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256), money: 10000, attackPower: 10}
+	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
 	client.hub.register <- client
 	go client.writePump()
 	client.readPump()
