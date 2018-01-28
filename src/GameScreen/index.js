@@ -4,18 +4,25 @@ import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
 // Levels > Res > States??
-// level3: { ???
-//   high: {
-//     idle,
-//     attack,
-//     hit
-//   }
-// }
-
-const characters = { 
-  level3_player1_idle: '/assets/wizard-level3-color1-idle-high.png', //not sure how to set this up yet
-  level3_player2_idle: '/assets/wizard-level3-color2-idle-high.png'
+const characters = {
+  level3: {
+    high: {
+      idle: {
+        color1: '/assets/wizard-level3-color1-idle-high.png',
+        color2: '/assets/wizard-level3-color2-idle-high.png'
+      },
+      attack: {
+        color1: '/assets/wizard-level3-color1-attack-high.png'
+        // color2: '/assets/wizard-level3-color2-attack-high.png'
+      },
+      hit: {
+        color1: '/assets/wizard-level3-color1-hit-high.png'
+        // color2: '/assets/wizard-level3-color2-hit-high.png'
+      }
+    }
+  }
 }
+
 const weapons = {
   weapon_stick_button_high: '/assets/weapon-stick-button-high.png',
   weapon_broomstick_button_high: '/assets/weapon-broomstick-button-high.png'
@@ -79,10 +86,10 @@ class GameScreen extends React.Component<Props, State> {
             </div>
           </div>
           <div className="player player-1">
-            <img src={ characters.level3_player1_idle } />
+            <img src={ characters.level3.high.idle.color1 } />
           </div>
           <div className="player player-2">
-            <img src={ characters.level3_player2_idle } />
+            <img src={ characters.level3.high.idle.color2 } />
           </div>
         </div>
         <div className="game-ui">
@@ -100,7 +107,7 @@ class GameScreen extends React.Component<Props, State> {
                 <p>200</p>
               </div>
             </div>
-            <div className="weapon">
+            <div className="weapon disabled">
               <div className="weapon-image">
                 <img src={ weapons.weapon_broomstick_button_high } />
               </div>

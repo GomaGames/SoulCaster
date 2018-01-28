@@ -31,7 +31,8 @@ button {
 .screen {
   text-align: center;
   position: relative;
-  height: 100%; }
+  height: 100%;
+  overflow: hidden; }
 
 a.exit-button {
   text-decoration: none;
