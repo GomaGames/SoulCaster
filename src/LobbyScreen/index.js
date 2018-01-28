@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PLAYER_JOINED } from '../store';
 import './index.css';
 
 class LobbyScreen extends React.Component<Props, State> {
@@ -9,6 +10,16 @@ class LobbyScreen extends React.Component<Props, State> {
     if(this.props.code === null) {
       this.props.history.push('/');
     }
+
+    this.props.socket.addEventListener('message', function(data) {
+      switch(data.op) {
+        case 'PLAYER_JOINED':
+          this.props.player_joined(true);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   startGame = () => {
@@ -18,7 +29,7 @@ class LobbyScreen extends React.Component<Props, State> {
   render() {
     let content = null;
 
-    if(this.props.playerNumber === 2) {
+    if(this.props.joined) {
       content = <button className="button start-game-button" type="button" onClick={ this.startGame }>Start Game</button>
     } else {
       content = <div>
@@ -42,7 +53,9 @@ class LobbyScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    
+    player_joined: joined => {
+      dispatch({ type: PLAYER_JOINED, joined });
+    }
   };
 };
 
