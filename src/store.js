@@ -8,6 +8,7 @@ export const PLAYER_JOINED = 'PLAYER_JOINED';
 export const GAME_STARTED = 'GAME_STARTED';
 export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
 export const RGE_TRIGGERED = 'RGE_TRIGGERED';
+export const RGE_ACTIVATE = 'RGE_ACTIVATE';
 
 const initialState = {
   joined: false,
@@ -18,7 +19,8 @@ const initialState = {
   health: null,
   money: null,
   income: null,
-  rge: null
+  rge: null,
+  resolution: 3
 };
 
 class Room {
@@ -73,6 +75,15 @@ export const store = createStore((state = initialState, action) => {
         ...state,
         rge : RGE[action.id]
       };
+    case RGE_ACTIVATE:
+      if( RGE[action.id].effect.hasOwnProperty('resolution') ){
+        return {
+          ...state,
+          resolution : state.resolution + RGE[action.id].effect.resolution
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }
