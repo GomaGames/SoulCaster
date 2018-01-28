@@ -3,12 +3,22 @@ import { connect} from 'react-redux';
 import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
+// Levels > Res > States??
+// level3: { ???
+//   high: {
+//     idle,
+//     attack,
+//     hit
+//   }
+// }
+
 const characters = { 
   level3_player1_idle: '/assets/wizard-level3-color1-idle-high.png', //not sure how to set this up yet
   level3_player2_idle: '/assets/wizard-level3-color2-idle-high.png'
 }
 const weapons = {
-  weapon_staff_button_high: '/assets/weapon-staff-button-high.png'
+  weapon_staff_button_high: '/assets/weapon-staff-button-high.png',
+  weapon_broomstick_button_high: '/assets/weapon-broomstick-button-high.png'
 }
 const icons = {
   heart_high: '/assets/icon-heart-high.png',
@@ -92,7 +102,7 @@ class GameScreen extends React.Component<Props, State> {
             </div>
             <div className="weapon">
               <div className="weapon-image">
-                <img src={ weapons.weapon_staff_button_high } />
+                <img src={ weapons.weapon_broomstick_button_high } />
               </div>
               <div className="weapon-cost">
                 <img className="icon-coin icon" src={ icons.coin_high } />
