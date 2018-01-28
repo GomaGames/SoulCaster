@@ -27,6 +27,7 @@ class TitleScreen extends React.Component<Props> {
   createRoom = () => {
     let OP = 'CREATE_ROOM';
     ws.send(JSON.stringify({ op: "CREATE_ROOM" }));
+    this.props.history.push('/lobby'); //remve this
   }
 
   joinRoom = () => {
@@ -37,10 +38,12 @@ class TitleScreen extends React.Component<Props> {
 
     return (
       <div className="title-screen screen">
-        <h1 className="title">Soul Caster</h1>
-        <div className="buttons">
-          <button className="button create-room-button" type="button" onClick={ this.createRoom }>Create Room</button>
-          <button className="button join-room-button" type="button" onClick={ this.joinRoom }>Join Room</button>
+        <div className="container">
+          <h1 className="title">Soul Caster</h1>
+          <div className="buttons">
+            <button className="button create-room-button" type="button" onClick={ this.createRoom }>Create Room</button>
+            <button className="button join-room-button" type="button" onClick={ this.joinRoom }>Join Room</button>
+          </div>
         </div>
       </div>
     );

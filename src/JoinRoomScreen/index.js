@@ -76,10 +76,12 @@ class JoinRoomScreen extends React.Component<Props, State> {
 
     return (
     	<div className="join-room-screen screen">
-    		<h1>Ready?</h1>
-        <p className="subtitle">Looking for opponent...</p>
-    		{ content }
-        <Link className='exit-button' to='/'>&#8249; Exit</Link>
+        <div className="container">
+    		  <h1>Ready?</h1>
+          <p className="subtitle">Looking for opponent...</p>
+    		  { content }
+          <Link className='exit-button' to='/'>&#8249; Exit</Link>
+        </div>
     	</div>
     );
   }

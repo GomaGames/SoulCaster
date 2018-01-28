@@ -7,9 +7,9 @@ import './index.css';
 class LobbyScreen extends React.Component<Props, State> {
 
   componentDidMount() {
-    if(this.props.code === null) {
-      this.props.history.push('/');
-    }
+    // if(this.props.code === null) {
+    //   this.props.history.push('/');
+    // }
 
     this.props.socket.addEventListener('message', function(data) {
       switch(data.op) {
@@ -46,10 +46,12 @@ class LobbyScreen extends React.Component<Props, State> {
 
     return (
       <div className={ this.props.playerNumber === 2 ? "player2 lobby-screen screen" : "lobby-screen screen" } >
-        <h1>Ready?</h1>
-        <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for Player 2...' }</p>
-        { content }
-        <Link className='exit-button' to='/'>&#8249; Exit</Link>
+        <div className="container">
+          <h1>Ready?</h1>
+          <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for Player 2...' }</p>
+          { content }
+          <Link className='exit-button' to='/'>&#8249; Exit</Link>
+        </div>
       </div>
     );
   }
