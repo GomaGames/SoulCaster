@@ -17,7 +17,7 @@ class LobbyScreen extends React.Component<Props, State> {
       const { op, payload } = JSON.parse(event.data);
       switch(op) {
         case 'PLAYER_JOINED':
-          this.props.player_joined(true);
+          this.props.player_joined();
           break;
         case 'GAME_STARTED':
           this.props.game_started(payload);
@@ -64,8 +64,8 @@ class LobbyScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    player_joined: joined => {
-      dispatch({ type: PLAYER_JOINED, joined });
+    player_joined: () => {
+      dispatch({ type: PLAYER_JOINED });
     },
     game_started: ({ health, money, income }) => {
       dispatch({ type: GAME_STARTED, health, money, income });

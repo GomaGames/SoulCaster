@@ -31,6 +31,9 @@ type Hub struct {
 	// Join room channel for clients.
 	join chan *ClientMessage
 
+	// Start game channel for clients.
+	start chan *ClientMessage
+
 	// Leave a channel
 	leave chan *OpponentMessage
 
