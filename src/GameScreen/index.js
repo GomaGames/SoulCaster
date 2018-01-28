@@ -2,7 +2,9 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED } from '../store';
+import Player from './player';
+import RgeModal from './rge_modal';
 import './index.css';
 
 // Levels > Res > States??
@@ -228,7 +230,7 @@ type State = {
   income: number
 }
 
-const AnimationFrame = {
+export const AnimationFrame = {
   IDLE : "idle",
   ATTACK : "attack",
   HIT : "hit"
@@ -243,21 +245,20 @@ class GameScreen extends React.Component<Props, State> {
 
   componentDidMount() {
     // uncomment when done working with characters and ui
-    // if( this.props.socket === null ) return;
+    if( this.props.socket === null ) return;
 
-    // this.props.socket.addEventListener('message', function(data) {
-    //   switch(data.op) {
-    //     case 'RECEIVE_ATTACK':
-    //       // trigger animation
-    //       this.setState({
-    //         health: data.health
-    //       });
-    //       break;
-    //     case 'SET_MONEY':
-    //       this.setState({ money: data.money });
-    //       break;
-    //   }
-    // });
+    this.props.socket.addEventListener('message', event => {
+      const { op, payload } = JSON.parse(event.data);
+      switch(op) {
+        case 'RGE_TRIGGERED':
+          this.props.rge_triggered(JSON.parse(payload));
+          break;
+        case 'RECEIVE_ATTACK':
+          const { health } = JSON.parse(payload);
+          this.hit(health);
+          break;
+      }
+    });
   }
 
   state = {
@@ -265,29 +266,55 @@ class GameScreen extends React.Component<Props, State> {
     health: this.props.health,
     income: this.props.income,
     animationFrame: AnimationFrame.IDLE,
-    opponentState: AnimationFrame.IDLE
+    opponentAnimationFrame: AnimationFrame.IDLE
+  }
+
+  hit(health) {
+    // trigger self animation
+    this.setState({
+      animationFrame: AnimationFrame.HIT,
+      health
+    });
+    setTimeout(() => this.setState({animationFrame: AnimationFrame.IDLE}), 350);
+
+    // trigger other player animation
+    this.setState({
+      opponentAnimationFrame: AnimationFrame.ATTACK
+    });
+    setTimeout(() => this.setState({opponentAnimationFrame: AnimationFrame.IDLE}), 300);
   }
 
   attack() {
     // uncomment when done working with characters and ui
-    // this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+    this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+
+    // trigger self animation
     this.setState({ animationFrame: AnimationFrame.ATTACK });
     setTimeout(() => this.setState({animationFrame: AnimationFrame.IDLE}), 300);
+
+    // trigger other player animation
+    this.setState({
+      opponentAnimationFrame: AnimationFrame.HIT
+    });
+    setTimeout(() => this.setState({opponentAnimationFrame: AnimationFrame.IDLE}), 350);
   }
 
   render() {
     // uncomment when done working with characters and ui
-    // if(this.props.socket === null) return <Redirect to='/' />;
+    if(this.props.socket === null) return <Redirect to='/' />;
 
     let weaponCost = 200; //remove this when implemented. used to "disable" weapon button
     let res = 'high'; //remove this when resolution implemented.
     let playerNumber = this.props.playerNumber;
 
     // dev
-    playerNumber = 1;
+    // playerNumber = 1;
 
     return (
       <div className={ res +  " game-screen screen" }>
+        { this.props.rge !== null ?
+          <RgeModal { ...this.props.rge } /> : ''
+        }
         <div className="players">
           <div className="health-container">
             <div className="player-1">
@@ -305,24 +332,20 @@ class GameScreen extends React.Component<Props, State> {
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
-          <div className={ this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ? 'player player-1 player-1-attack' : 'player player-1'}>
-            <img src={ characters.level3[res][this.state.animationFrame].color1 } alt="player"/>
-            {
-              this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ?
-               <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/> : ''
-            }
-          </div>
-          <div className={ this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ? 'player player-2 player-2-attack' : 'player player-2'}>
-            <img src={ characters.level3[res].idle.color2 } alt="player"/>
-            {
-              this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 2 ?
-               <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/> : ''
-            }
-          </div>
+          <Player 
+            number={1}
+            playerNumber={playerNumber} 
+            characterSrc={ characters.level3[res] }
+            animationFrame={this.state.animationFrame}
+            opponentAnimationFrame={this.state.opponentAnimationFrame}
+            weaponSrc={ weapons.stick.high } />
+          <Player 
+            number={2}
+            playerNumber={playerNumber} 
+            characterSrc={ characters.level3[res] }
+            animationFrame={this.state.animationFrame}
+            opponentAnimationFrame={this.state.opponentAnimationFrame}
+            weaponSrc={ weapons.stick.high } />
         </div>
         <div className="game-ui">
           <div className="money">
@@ -358,8 +381,11 @@ class GameScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   receive_attack: health => {
+    receive_attack: health => {
       dispatch({ type: RECEIVE_ATTACK, health });
+    },
+    rge_triggered: ({ id }) => {
+      dispatch({ type: RGE_TRIGGERED, id });
     }
   };
 };
