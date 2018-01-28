@@ -9,8 +9,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
+	"../game"
 	"github.com/gorilla/websocket"
 )
 
@@ -54,6 +56,18 @@ type Client struct {
 
 	// The last time the client tried to attack
 	lastAttack *time.Time
+
+	// Attack Power
+	attackPower int
+
+	// Health
+	health int
+
+	// Money
+	money int
+
+	// Income per tick
+	income int
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -92,6 +106,35 @@ func (c *Client) readPump() {
 			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
+		case PURCHASE_UPGRADE:
+			itemId, err := strconv.Atoi(m.Payload)
+			if err != nil {
+				// TODO: return error to client
+				continue
+			}
+
+			item, ok := game.Items[itemId]
+			if !ok {
+				// TODO: return error to client
+				continue
+			}
+
+			if c.money >= item.Cost {
+				response, err := createObtainUpgradeMessage(itemId, c.health, c.money-item.Cost, c.income+item.AdditionalIncome)
+				if err != nil {
+					// TODO: return error to client
+					continue
+				}
+
+				c.money -= item.Cost
+				c.attackPower += item.AdditionalPower
+				c.income += item.AdditionalIncome
+
+				c.send <- []byte(response)
+			} else {
+				// TODO: return error to client
+				continue
+			}
 		case ECHO:
 			c.hub.echo <- &ClientMessage{client: c, message: message}
 		}
