@@ -252,7 +252,7 @@ class GameScreen extends React.Component<Props, State> {
       const { op, payload } = JSON.parse(event.data);
       if(op === 'RECEIVE_ATTACK' || op === 'SENT_ATTACK') {}
       switch(op) {
-        case 'RGE':
+        case 'RGE_ACTIVATE':
           this.props.rge(JSON.parse(payload));
           break;
         case 'RGE_TRIGGERED':
