@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { SET_SOCKET, CREATE_ROOM } from '../store';
+import './index.css';
 
 const ws = new WebSocket(`ws://${window.location.host}/ws`);
 
