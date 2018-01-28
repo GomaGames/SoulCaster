@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect} from 'react-redux';
+import { RECEIVE_ATTACK } from '../../store';
 import './index.css';
 
 type State = {
@@ -9,6 +10,19 @@ type State = {
 }
 
 class GameScreen extends React.Component<Props, State> {
+
+  onComponentDidMount() {
+    this.props.socket.addEventListener('message', function(data) {
+      switch(data.op) {
+        case 'RECEIVE_ATTACK':
+          // trigger animation
+          this.setState({
+            health: data.health
+          });
+          break;
+      }
+    });
+  }
 
   state = {
     money: this.props.money || 0,
@@ -52,7 +66,9 @@ class GameScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   
+   receive_attack: health => {
+      dispatch({ type: RECEIVE_ATTACK, health });
+    }
   };
 };
 

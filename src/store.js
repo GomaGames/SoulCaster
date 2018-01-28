@@ -5,6 +5,7 @@ export const JOIN_ROOM = 'JOIN_ROOM';
 export const CREATE_ROOM = 'CREATE_ROOM';
 export const PLAYER_JOINED = 'PLAYER_JOINED';
 export const GAME_STARTED = 'GAME_STARTED';
+export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
 
 const initialState = {
   joined: false,
@@ -47,6 +48,8 @@ export const store = createStore((state = initialState, action) => {
       state.health = action.health;
       state.money = action.money;
       state.income = action.income;
+    case `${RECEIVE_ATTACK}`:
+      state.health = action.health;
       return state;
     default:
       return state;
