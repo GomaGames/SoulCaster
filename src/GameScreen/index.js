@@ -216,6 +216,12 @@ type State = {
   income: number
 }
 
+const AnimationFrame = {
+  IDLE : "idle",
+  ATTACK : "attack",
+  HIT : "hit"
+}
+
 class GameScreen extends React.Component<Props, State> {
 
   constructor(props) {
@@ -243,15 +249,15 @@ class GameScreen extends React.Component<Props, State> {
     money: this.props.money,
     health: this.props.health,
     income: this.props.income,
-    playerState: 'idle',
-    opponentState: 'idle'
+    animationFrame: AnimationFrame.IDLE,
+    opponentState: AnimationFrame.IDLE
   }
 
   attack() {
     // uncomment when done working with characters and ui
     // this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
-    this.setState({ playerState: 'attack' });
-    setTimeout(() => this.setState({playerState: 'idle'}), 300);
+    this.setState({ animationFrame: AnimationFrame.ATTACK });
+    setTimeout(() => this.setState({animationFrame: AnimationFrame.IDLE}), 300);
   }
 
   render() {
@@ -277,7 +283,7 @@ class GameScreen extends React.Component<Props, State> {
             </div>
           </div>
           <div className="player player-1">
-            <img src={ characters.level3[res][this.state.playerState].color1 } alt="player"/>
+            <img src={ characters.level3[res][this.state.animationFrame].color1 } alt="player"/>
             <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/>
           </div>
           <div className="player player-2">
