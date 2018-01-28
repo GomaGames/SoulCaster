@@ -4,6 +4,7 @@ const (
 	// ops
 	ECHO = "ECHO"
 	CREATE = "CREATE_ROOM"
+	JOIN = "JOIN_ROOM"	
 )
 
 type Message struct {

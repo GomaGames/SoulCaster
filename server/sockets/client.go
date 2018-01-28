@@ -82,6 +82,8 @@ func (c *Client) readPump() {
 			c.hub.echo <- &ClientMessage{client: c, message: message}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
+		case JOIN:
+			c.hub.join <- &ClientMessage{client: c, message: message}
 		}
 
 	}

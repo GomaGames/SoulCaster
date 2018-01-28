@@ -6,7 +6,15 @@ package sockets
 
 import (
 	"math/rand"	
-)	
+	"bytes"
+	"encoding/json"
+	"log"
+)
+
+type RoomData struct {
+	player1 *Client
+	player2 *Client
+}
 
 const (
 	// room code length
@@ -34,4 +42,14 @@ func createRoomCode() (string, error) {
 		b[i] = roomCodeBytes[rand.Intn(len(roomCodeBytes))]
 	}
 	return string(b), nil
+}
+
+func getPayload(message []byte) (string, error) {
+	messageDecoder := json.NewDecoder(bytes.NewReader(message))
+	msg := &Message{}
+	if err := messageDecoder.Decode(msg); err != nil {
+		log.Fatalf("Error in WS sync, server/hub.go message := <-h.broadcast() :%s", err)
+		return "", err
+	}
+	return msg.Payload, nil
 }
