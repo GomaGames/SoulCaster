@@ -29,28 +29,41 @@ class Room {
 export const store = createStore((state = initialState, action) => {
   switch(action.type) {
     case SET_SOCKET:
-      state.socket = action.socket;
-      return state;
+      return {
+        ...state,
+        socket : action.socket
+      };
     case CREATE_ROOM:
-      state.code = action.code;
-      state.room = new Room(action.code);
-      state.playerNumber = 1;
-      return state;
+      return {
+        ...state,
+        code : action.code,
+        room : new Room(action.code),
+        playerNumber : 1
+      };
     case JOIN_ROOM:
-      state.code = action.code;
-      state.room = new Room(action.code);
-      state.playerNumber = 2;
-      return state;
+      return {
+        ...state,
+        code : action.code,
+        room : new Room(action.code),
+        playerNumber : 2
+      };
     case PLAYER_JOINED:
-      state.joined = true;
-      return state;
+      return {
+        ...state,
+        joined : true
+      };
     case GAME_STARTED:
-      state.health = action.health;
-      state.money = action.money;
-      state.income = action.income;
+      return {
+        ...state,
+        health : action.health,
+        money : action.money,
+        income : action.income
+      };
     case RECEIVE_ATTACK:
-      state.health = action.health;
-      return state;
+      return {
+        ...state,
+        health : action.health
+      };
     default:
       return state;
   }
