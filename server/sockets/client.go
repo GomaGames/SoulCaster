@@ -33,8 +33,7 @@ const (
 	incomePeriod = time.Second
 
 	// Starting attack power
-	// startingAttackPower = 10
-	startingAttackPower = 500 // TODO: remove!
+	startingAttackPower = 10
 
 	// Starting health
 	startingHealth = 1000
