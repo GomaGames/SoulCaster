@@ -4,13 +4,16 @@ export const SET_SOCKET = 'SET_SOCKET';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const CREATE_ROOM = 'CREATE_ROOM';
 export const PLAYER_JOINED = 'PLAYER_JOINED';
+export const GAME_STARTED = 'GAME_STARTED';
 
 const initialState = {
   joined: false,
   room: null,
   code: null,
   socket: null,
-  playerNumber: null
+  health: null,
+  money: null,
+  income: null
 };
 
 class Room {
@@ -39,6 +42,11 @@ export const store = createStore((state = initialState, action) => {
       return state;
     case `${PLAYER_JOINED}`:
       state.joined = true;
+      return state;
+    case `${GAME_STARTED}`:
+      state.health = action.health;
+      state.money = action.money;
+      state.income = action.income;
       return state;
     default:
       return state;

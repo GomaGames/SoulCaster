@@ -34,6 +34,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
   }
 
 	join = () => {
+    this.props.socket.send(JSON.stringify({ op: 'JOIN_ROOM' }));
     // if(this.state.code === 'xlrt') {
     //   this.props.history.push('/lobby');
     //   let data = { CODE: this.state.code, PLAYER_NUMBER: 2 };

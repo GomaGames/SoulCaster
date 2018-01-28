@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { PLAYER_JOINED } from '../store';
+import { PLAYER_JOINED, GAME_STARTED } from '../store';
 import './index.css';
 
 class LobbyScreen extends React.Component<Props, State> {
@@ -16,6 +16,10 @@ class LobbyScreen extends React.Component<Props, State> {
         case 'PLAYER_JOINED':
           this.props.player_joined(true);
           break;
+        case 'GAME_STARTED':
+          this.props.game_started(data);
+          this.props.history.push('/game');
+          break;
         default:
           break;
       }
@@ -23,7 +27,7 @@ class LobbyScreen extends React.Component<Props, State> {
   }
 
   startGame = () => {
-    this.props.history.push('/game')
+    this.props.socket.send(JSON.stringify({ op: 'START_GAME' }));
   }
 
   render() {
@@ -55,6 +59,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     player_joined: joined => {
       dispatch({ type: PLAYER_JOINED, joined });
+    },
+    game_started: data => {
+      dispatch({ type: GAME_STARTED, health: data.health, money: data.money, income: data.income });
     }
   };
 };
