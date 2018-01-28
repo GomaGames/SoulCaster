@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: soulcaster
+  namespace: soulcaster
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - hosts:
+    - soulcaster.gomagames.com
+    secretName: app-tls
+  rules:
+  - host: soulcaster.gomagames.com
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: soulcaster
+          servicePort: 80

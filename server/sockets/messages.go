@@ -7,6 +7,7 @@ const (
 	ATTACK           = "ATTACK"
 	ECHO             = "ECHO"
 	CREATE           = "CREATE_ROOM"
+	JOIN             = "JOIN_ROOM"	
 	OBTAIN_UPGRADE   = "OBTAIN_UPGRADE"
 	PURCHASE_UPGRADE = "PURCHASE_UPGRADE"
 )
