@@ -2,8 +2,9 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED } from '../store';
 import Player from './player';
+import RgeModal from './rge_modal';
 import './index.css';
 
 // Levels > Res > States??
@@ -236,9 +237,12 @@ class GameScreen extends React.Component<Props, State> {
 
     this.props.socket.addEventListener('message', event => {
       const { op, payload } = JSON.parse(event.data);
-      const { health } = JSON.parse(payload);
       switch(op) {
+        case 'RGE_TRIGGERED':
+          this.props.rge_triggered(JSON.parse(payload));
+          break;
         case 'RECEIVE_ATTACK':
+          const { health } = JSON.parse(payload);
           this.hit(health);
           break;
       }
@@ -296,6 +300,9 @@ class GameScreen extends React.Component<Props, State> {
 
     return (
       <div className={ res +  " game-screen screen" }>
+        { this.props.rge !== null ?
+          <RgeModal { ...this.props.rge } /> : ''
+        }
         <div className="players">
           <div className="health-container">
             <div className="player-1">
@@ -362,8 +369,11 @@ class GameScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   receive_attack: health => {
+    receive_attack: health => {
       dispatch({ type: RECEIVE_ATTACK, health });
+    },
+    rge_triggered: ({ id }) => {
+      dispatch({ type: RGE_TRIGGERED, id });
     }
   };
 };
