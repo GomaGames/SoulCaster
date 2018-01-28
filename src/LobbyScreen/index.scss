@@ -1,15 +1,15 @@
 @import '../index.scss';
 
 .lobby-screen{
+  height: 667px;
+  width: 375px;
   background-color: white;
-
-  h1{
-    // margin: 0;
-  }
+  border: 1px solid orange;
 
   h1,
   .subtitle{
     color: $blue;
+    // margin:0;
   }
 
   &.player2{
@@ -20,22 +20,6 @@
   }
 }
 
-p{
-  color: $gray;
-}
-
-.code{
-  border: 1px solid #CCCCCC;
-  // padding: 10px;
-
-  p{
-    font-size: 36px;
-    font-weight: bold;
-    color: black;
-  }
-
-  @include breakpoint(large){
-    width: 30%;
-    margin: 0 auto;
-  }
+.start-game-button{
+  background-color: $green;
 }
