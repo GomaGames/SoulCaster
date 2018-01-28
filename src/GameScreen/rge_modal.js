@@ -13,17 +13,17 @@ class RgeModal extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className='rge-modal'>
+    return <div className='rge-modal-bg'><div className='rge-modal'>
       <p>{this.props.text}</p>
-      <div>
-        <button className='rge-modal rge-modal-pay' onClick={this.pay}>
+      <div className='rge-button-container'>
+        <button className='button rge-modal-decline-button' onClick={this.decline}>
+          No Thanks
+        </button>
+        <button className='button rge-modal-pay-button' onClick={this.pay}>
           Pay
         </button>
-        <button className='rge-modal rge-modal-decline' onClick={this.decline}>
-          Decline
-        </button>
       </div>
-    </div>;
+    </div></div>;
   }
 }
 
