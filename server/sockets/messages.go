@@ -9,6 +9,8 @@ const (
 	CREATE           = "CREATE_ROOM"
 	DISCONNECT       = "DISCONNECT"
 	JOIN             = "JOIN_ROOM"
+	START_GAME       = "START_GAME"
+	GAME_STARTED     = "GAME_STARTED"
 	OBTAIN_UPGRADE   = "OBTAIN_UPGRADE"
 	PURCHASE_UPGRADE = "PURCHASE_UPGRADE"
 	RECEIVE_ATTACK   = "RECEIVE_ATTACK"
@@ -45,6 +47,19 @@ type PlayerInfo struct {
 type ObtainUpgradePayload struct {
 	PlayerInfo
 	Id int `json:"id"`
+}
+
+func createStartGameMessage() ([]byte, error) {
+	payloadObj := PlayerInfo{}
+	payloadObj.Health = 1000
+	payloadObj.Money = 0
+	payloadObj.Income = 5
+	
+	payload, err := json.Marshal(payloadObj)
+	if err != nil {
+		return nil, err
+	}
+	return createMessage(GAME_STARTED, string(payload))
 }
 
 func createObtainUpgradeMessage(id, health, money, income int) ([]byte, error) {
