@@ -2,221 +2,236 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE } from '../store';
+import Player from './player';
+import RgeModal from './rge_modal';
 import './index.css';
 
 // Levels > Res > States??
 const characters = {
   level3: {
-    high: {
+    3: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res4.png'
       }
     }
   },
   level2: {
-    high: {
+    3: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res4.png'
       }
     }
   },
   level1: {
-    high: {
+    3: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res1.png'
       }
     },
-    med: {
+    2: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res2.png'
       }
     },
-    medlo: {
+    1: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res3.png'
       }
     },
-    lo: {
+    0: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res4.png'
       }
     }
   }
 }
 
 const buttons = {
-  broomstick: '/assets/weapons/weapon-broomstick-button.png',
-  stick: '/assets/weapons/weapon-stick-button.png',
+  broomstick: '/assets/weapons/weapon_broomstick_button_res1.png',
+  stick: '/assets/weapons/weapon_stick_button_res1.png',
 }
 const weapons = {
   staff: {
-    high: '/assets/weapons/weapon-staff-high.png'
+    3: '/assets/weapons/weapon_staff_attack_res1.png',
+    2: '/assets/weapons/weapon_staff_attack_res1.png',
+    1: '/assets/weapons/weapon_staff_attack_res1.png',
+    0: '/assets/weapons/weapon_staff_attack_res1.png'
   },
   stick: {
-    high: '/assets/weapons/weapon-stick-high.png'
+    3: '/assets/weapons/weapon_stick_attack_res1.png',
+    2: '/assets/weapons/weapon_stick_attack_res1.png',
+    1: '/assets/weapons/weapon_stick_attack_res1.png',
+    0: '/assets/weapons/weapon_stick_attack_res1.png'
+  },
+  broomstick: {
+    3: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    2: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    1: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    0: '/assets/weapons/weapon_stick_broomattack_res1.png'
   }
 }
 const icons = {
   heart: {
-    high: '/assets/icons/icon-heart-high.png',
-    med: '/assets/icons/icon-heart-med.png',
-    medlo: '/assets/icons/icon-heart-medlo.png',
-    lo: '/assets/icons/icon-heart-lo.png'
+    3: '/assets/icons/icon_heart_res1.png',
+    2: '/assets/icons/icon_heart_res2.png',
+    1: '/assets/icons/icon_heart_res3.png',
+    0: '/assets/icons/icon_heart_res4.png'
   },
   coin: {
-    high: '/assets/icons/icon-coin-high.png',
-    med: '/assets/icons/icon-coin-med.png',
-    medlo: '/assets/icons/icon-coin-high.png',
-    lo: '/assets/icons/icon-coin-lo.png'
+    3: '/assets/icons/icon_coin_res1.png',
+    2: '/assets/icons/icon_coin_res2.png',
+    1: '/assets/icons/icon_coin_res3.png',
+    0: '/assets/icons/icon_coin_res4.png'
   }
 }
 
 type State = {
   money: number,
   health: number,
-  income: number
+  income: number,
+  opponentHealth: number
 }
 
-const AnimationFrame = {
+export const AnimationFrame = {
   IDLE : "idle",
   ATTACK : "attack",
   HIT : "hit"
@@ -231,18 +246,28 @@ class GameScreen extends React.Component<Props, State> {
 
   componentDidMount() {
     // uncomment when done working with characters and ui
-    // if( this.props.socket === null ) return;
+    if( this.props.socket === null ) return;
 
-    // this.props.socket.addEventListener('message', function(data) {
-    //   switch(data.op) {
-    //     case 'RECEIVE_ATTACK':
-    //       // trigger animation
-    //       this.setState({
-    //         health: data.health
-    //       });
-    //       break;
-    //   }
-    // });
+    this.props.socket.addEventListener('message', event => {
+      const { op, payload } = JSON.parse(event.data);
+      if(op === 'RECEIVE_ATTACK' || op === 'SENT_ATTACK') {}
+      switch(op) {
+        case 'RGE':
+          this.props.rge(JSON.parse(payload));
+          break;
+        case 'RGE_TRIGGERED':
+          this.props.rge_triggered(JSON.parse(payload));
+          break;
+        case 'RECEIVE_ATTACK':
+          const { health } = JSON.parse(payload);
+          this.hit(health);
+          break;
+        case 'SENT_ATTACK':
+          let opponentHealth = JSON.parse(payload).health
+          this.setState({ opponentHealth })
+          break;
+      }
+    });
   }
 
   state = {
@@ -250,68 +275,83 @@ class GameScreen extends React.Component<Props, State> {
     health: this.props.health,
     income: this.props.income,
     animationFrame: AnimationFrame.IDLE,
-    opponentState: AnimationFrame.IDLE
+    opponentAnimationFrame: AnimationFrame.IDLE
   }
 
-  attack() {
+  hit(health) {
+    // trigger self animation
+    this.setState({
+      animationFrame: AnimationFrame.HIT,
+      health
+    });
+    setTimeout(() => this.setState({animationFrame: AnimationFrame.IDLE}), 350);
+
+    // trigger other player animation
+    this.setState({
+      opponentAnimationFrame: AnimationFrame.ATTACK
+    });
+    setTimeout(() => this.setState({opponentAnimationFrame: AnimationFrame.IDLE}), 300);
+  }
+
+  attack(health) {
     // uncomment when done working with characters and ui
-    // this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+    this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+
+    // trigger self animation
     this.setState({ animationFrame: AnimationFrame.ATTACK });
     setTimeout(() => this.setState({animationFrame: AnimationFrame.IDLE}), 300);
+
+    // trigger other player animation
+    this.setState({
+      opponentAnimationFrame: AnimationFrame.HIT
+    });
+    setTimeout(() => this.setState({opponentAnimationFrame: AnimationFrame.IDLE}), 350);
   }
 
   render() {
     // uncomment when done working with characters and ui
-    // if(this.props.socket === null) return <Redirect to='/' />;
+    if(this.props.socket === null) return <Redirect to='/' />;
 
     let weaponCost = 200; //remove this when implemented. used to "disable" weapon button
-    let res = 'high'; //remove this when resolution implemented.
     let playerNumber = this.props.playerNumber;
 
-    // dev
-    playerNumber = 1;
-
     return (
-      <div className={ res +  " game-screen screen" }>
+      <div className={ "res-" + this.props.resolution + " game-screen screen" }>
         <div className="players">
           <div className="health-container">
             <div className="player-1">
               <div className="life-counter">
-                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
+                <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
                 <p className="health player1-health">{ this.state.health }</p>
               </div>
               <p className="player-marker">{ playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
               <div className="life-counter">
-                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
-                <p className="health player2-health">{ this.state.health }</p>
+                <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
+                <p className="health player2-health">{ this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
-          <div className={ this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ? 'player player-1 player-1-attack' : 'player player-1'}>
-            <img src={ characters.level3[res][this.state.animationFrame].color1 } alt="player"/>
-            {
-              this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ?
-               <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/> : ''
-            }
-          </div>
-          <div className={ this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 1 ? 'player player-2 player-2-attack' : 'player player-2'}>
-            <img src={ characters.level3[res].idle.color2 } alt="player"/>
-            {
-              this.state.animationFrame === AnimationFrame.ATTACK &&
-              playerNumber === 2 ?
-               <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/> : ''
-            }
-          </div>
+          <Player 
+            number={1}
+            playerNumber={playerNumber} 
+            characterSrc={ characters.level3[this.props.resolution] }
+            animationFrame={this.state.animationFrame}
+            opponentAnimationFrame={this.state.opponentAnimationFrame}
+            weaponSrc={ weapons.stick[this.props.resolution] } />
+          <Player 
+            number={2}
+            playerNumber={playerNumber} 
+            characterSrc={ characters.level3[this.props.resolution] }
+            animationFrame={this.state.animationFrame}
+            opponentAnimationFrame={this.state.opponentAnimationFrame}
+            weaponSrc={ weapons.stick[this.props.resolution] } />
         </div>
         <div className="game-ui">
           <div className="money">
-            <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+            <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
             <p>{ this.state.money } <span>+3.13/s</span></p>
           </div>
           <div className="weapons">
@@ -320,7 +360,7 @@ class GameScreen extends React.Component<Props, State> {
                 <img src={ buttons.stick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
@@ -329,13 +369,18 @@ class GameScreen extends React.Component<Props, State> {
                 <img src={ buttons.broomstick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
           </div>
           <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
         </div>
+
+        { this.props.rge !== null ?
+          <RgeModal { ...this.props.rge } /> : ''
+        }
+
       </div>
     )
   }
@@ -343,8 +388,14 @@ class GameScreen extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   receive_attack: health => {
+    receive_attack: health => {
       dispatch({ type: RECEIVE_ATTACK, health });
+    },
+    rge_triggered: ({ id }) => {
+      dispatch({ type: RGE_TRIGGERED, id });
+    },
+    rge_activate: ({ id }) => {
+      dispatch({ type: RGE_ACTIVATE, id });
     }
   };
 };

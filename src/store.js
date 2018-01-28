@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import RGE from './rge';
 
 export const SET_SOCKET = 'SET_SOCKET';
 export const JOIN_ROOM = 'JOIN_ROOM';
@@ -6,6 +7,8 @@ export const CREATE_ROOM = 'CREATE_ROOM';
 export const PLAYER_JOINED = 'PLAYER_JOINED';
 export const GAME_STARTED = 'GAME_STARTED';
 export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
+export const RGE_TRIGGERED = 'RGE_TRIGGERED';
+export const RGE_ACTIVATE = 'RGE_ACTIVATE';
 
 const initialState = {
   joined: false,
@@ -15,7 +18,9 @@ const initialState = {
   socket: null,
   health: null,
   money: null,
-  income: null
+  income: null,
+  rge: null,
+  resolution: 3
 };
 
 class Room {
@@ -65,6 +70,20 @@ export const store = createStore((state = initialState, action) => {
         ...state,
         health : action.health
       };
+    case RGE_TRIGGERED:
+      return {
+        ...state,
+        rge : RGE[action.id]
+      };
+    case RGE_ACTIVATE:
+      if( RGE[action.id].effect.hasOwnProperty('resolution') ){
+        return {
+          ...state,
+          resolution : state.resolution + RGE[action.id].effect.resolution
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

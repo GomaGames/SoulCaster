@@ -16,6 +16,20 @@ h1 {
 h1.title {
   color: gray; }
 
+p {
+  color: #4A4A4A;
+  margin: 0; }
+
+.subtitle {
+  margin-top: 10px; }
+
+.player-ready {
+  border: 5px solid red;
+  background-color: pink;
+  width: 100%;
+  height: 300px;
+  margin: 25px auto 25px; }
+
 button {
   display: block;
   background-color: gray;
@@ -58,7 +72,42 @@ a.exit-button {
   font-size: 20px;
   color: #4A4A4A;
   position: absolute;
-  left: 25px; }
+  left: 25px;
+  bottom: 25px; }
+
+.code-area > p {
+  margin-bottom: 5px; }
+
+.code {
+  border: 1px solid #CCCCCC;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%; }
+  .code p {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    width: 100%;
+    height: 56px;
+    line-height: 56px; }
+  .code input {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    line-height: 56px;
+    height: 56px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: black;
+    border: 0; }
+  .code p.error-message {
+    font-size: 14px;
+    color: #DF5455;
+    font-style: italic; }
 
 .game-screen {
   background-size: contain;
@@ -66,14 +115,14 @@ a.exit-button {
   height: 667px;
   width: 375px;
   border: 1px solid orange; }
-  .game-screen.high {
-    background-image: url("/assets/backgrounds/background-high.jpg"); }
-  .game-screen.med {
-    background-image: url("/assets/backgrounds/background-med.jpg"); }
-  .game-screen.medlo {
-    background-image: url("/assets/backgrounds/background-medlo.jpg"); }
-  .game-screen.lo {
-    background-image: url("/assets/backgrounds/background-lo.jpg"); }
+  .game-screen.res-3 {
+    background-image: url("/assets/backgrounds/bg_res1.jpg"); }
+  .game-screen.res-2 {
+    background-image: url("/assets/backgrounds/bg_res2.jpg"); }
+  .game-screen.res-1 {
+    background-image: url("/assets/backgrounds/bg_res3.jpg"); }
+  .game-screen.res-0 {
+    background-image: url("/assets/backgrounds/bg_res4.jpg"); }
 
 .players {
   height: 50%; }
@@ -182,7 +231,7 @@ img.attack-weapon {
   text-align: left;
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   margin-left: -3px; }
   .money img {
     margin-right: 4px;
@@ -209,7 +258,7 @@ img.attack-weapon {
 
 .weapon {
   background-color: white;
-  height: 128px;
+  height: 115px;
   border-radius: 2px; }
   .weapon + .weapon {
     margin-top: 20px; }
@@ -229,7 +278,9 @@ img.attack-weapon {
 .weapon-cost {
   background-color: #DDDDDD;
   border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px; }
+  border-bottom-right-radius: 2px;
+  height: 35px;
+  line-height: 28px; }
   .weapon-cost p, .weapon-cost img {
     display: inline-block;
     vertical-align: middle; }
@@ -239,7 +290,48 @@ img.attack-weapon {
     margin-right: 4px; }
 
 button.attack-button {
-  width: 155px;
+  width: 150px;
   background-color: #A30D13;
   color: #efaaaa;
-  height: 281px; }
+  height: 250px; }
+
+.rge-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); }
+
+.rge-modal {
+  width: 350px;
+  margin: 150px auto;
+  height: 250px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+  background-color: white;
+  box-sizing: border-box; }
+  .rge-modal p {
+    box-sizing: border-box;
+    padding: 35px;
+    height: 175px;
+    background-color: white; }
+  .rge-modal .rge-button-container {
+    padding: 15px;
+    box-sizing: border-box;
+    height: 75px;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-top: 1px solid #cacaca; }
+    .rge-modal .rge-button-container button {
+      flex: 0 0 48%;
+      display: block;
+      margin: 0;
+      padding: 0; }
+      .rge-modal .rge-button-container button.rge-modal-pay-button {
+        background-color: #007100; }
+      .rge-modal .rge-button-container button.rge-modal-decline-button {
+        background-color: transparent;
+        color: #cacaca;
+        font-size: 16px; }

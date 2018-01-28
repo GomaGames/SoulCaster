@@ -40,6 +40,9 @@ type Hub struct {
 	// Channel for sending messages to a player's opponent
 	attack chan *AttackMessage
 
+	// Channel for generic opponent messages
+	opponent chan *OpponentMessage
+
 	// Channel for when the game ends
 	gameover chan *RoomMessage
 
@@ -104,6 +107,7 @@ func NewHub() *Hub {
 		start:      make(chan *RoomMessage, 100),
 		leave:      make(chan *OpponentMessage, 100),
 		attack:     make(chan *AttackMessage, 100),
+		opponent:   make(chan *OpponentMessage, 100),
 		gameover:   make(chan *RoomMessage, 100),
 		echo:       make(chan *ClientMessage, 100),
 	}
@@ -164,6 +168,7 @@ func (h *Hub) Run() {
 					log.Printf("Sending disconnect to %p", opponent)
 					opponent.send <- om.message
 				}
+				opponent.LeaveRoom(false)
 			}
 			if om.room != nil {
 				log.Printf("%p left room %v", om.client, om.room.code)
@@ -184,6 +189,13 @@ func (h *Hub) Run() {
 			if _, ok := h.clients[opponent]; ok {
 				log.Printf("Player %p has been attacked for %v!", opponent, am.damage)
 				opponent.ReceiveAttack(am.damage)
+			}
+		case om := <-h.opponent:
+			if om.room != nil && om.message != nil {
+				opponent := om.GetOpponent()
+				if _, ok := h.clients[opponent]; ok {
+					opponent.send <- om.message
+				}
 			}
 		case rm := <-h.gameover:
 			if rm.room != nil {

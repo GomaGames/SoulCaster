@@ -58,7 +58,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
     let content = null;
 
     if(this.state.code.length === 4) {
-      content = <div>
+      content = <div className="code-area"> 
         <div className="code">
           <input value={ this.state.code } onChange={ this.setCode.bind(this) } />
           { this.state.invalidCode !== null ? <p className="error-message">{ this.state.invalidCode }</p> : '' }
@@ -66,7 +66,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
         <button className="button join-button" type="button" onClick={ this.join }>Join</button>
       </div>
     } else {
-      content = <div>
+      content = <div className="code-area">
         <p>Enter code from Player 1:</p>
         <div className="code">
           <input placeholder="Enter Code Here" onChange={ this.setCode.bind(this) } />
@@ -79,6 +79,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
         <div className="container">
     		  <h1>Ready?</h1>
           <p className="subtitle">Looking for opponent...</p>
+          <div className="player-ready"><span>i'm looking for player 1</span></div>
     		  { content }
           <Link className='exit-button' to='/'>&#8249; Exit</Link>
         </div>

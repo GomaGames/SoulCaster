@@ -41,7 +41,7 @@ class LobbyScreen extends React.Component<Props, State> {
     if(this.props.joined) {
       content = <button className="button start-game-button" type="button" onClick={ this.startGame }>Start Game</button>
     } else {
-      content = <div>
+      content = <div className="code-area">
         <p>Tell your opponent this code:</p>
         <div className="code">
           <p>{ this.props.code }</p>
@@ -54,6 +54,7 @@ class LobbyScreen extends React.Component<Props, State> {
         <div className="container">
           <h1>Ready?</h1>
           <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for Player 2...' }</p>
+          <div className="player-ready"><span>i'm player 1 or 2</span></div>
           { content }
           <Link className='exit-button' to='/'>&#8249; Exit</Link>
         </div>
