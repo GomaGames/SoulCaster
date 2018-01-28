@@ -61,6 +61,10 @@ a.exit-button {
   right: 0;
   top: 0; }
 
+.icon {
+  width: 25px;
+  height: 25px; }
+
 .health-container .player-1,
 .health-container .player-2 {
   display: inline-block;
@@ -99,15 +103,25 @@ a.exit-button {
   background-color: white;
   height: 100px;
   margin-top: 20px; }
-  .weapon img {
+
+.weapon-image {
+  border: 1px solid #4A4A4A; }
+  .weapon-image img {
     width: 150px;
     height: 50px; }
+
+.weapon-cost p, .weapon-cost img {
+  display: inline-block; }
 
 .money {
   color: #4A4A4A;
   font-weight: bold;
   font-size: 30px;
   text-align: left; }
+  .money img {
+    margin-right: 10px; }
+  .money p, .money img {
+    display: inline-block; }
   .money span {
     font-size: 14px; }
 
