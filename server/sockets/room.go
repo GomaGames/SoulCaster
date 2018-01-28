@@ -5,13 +5,11 @@
 package sockets
 
 import (
-	"math/rand"	
-	"bytes"
-	"encoding/json"
-	"log"
+	"math/rand"
 )
 
-type RoomData struct {
+type Room struct {
+	code    string
 	player1 *Client
 	player2 *Client
 }
@@ -24,12 +22,12 @@ const (
 	roomCodeBytes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 )
 
-func createUniqueRoomCode() string {
+func (h *Hub) createUniqueRoomCode() string {
 	var roomCode string
 	for {
 		roomCode, _ = createRoomCode()
 		// Check for existence of roomCode
-		if _, ok := rooms[roomCode]; !ok {
+		if _, ok := h.rooms[roomCode]; !ok {
 			break
 		}
 	}
@@ -42,14 +40,4 @@ func createRoomCode() (string, error) {
 		b[i] = roomCodeBytes[rand.Intn(len(roomCodeBytes))]
 	}
 	return string(b), nil
-}
-
-func getPayload(message []byte) (string, error) {
-	messageDecoder := json.NewDecoder(bytes.NewReader(message))
-	msg := &Message{}
-	if err := messageDecoder.Decode(msg); err != nil {
-		log.Fatalf("Error in WS sync, server/hub.go message := <-h.broadcast() :%s", err)
-		return "", err
-	}
-	return msg.Payload, nil
 }
