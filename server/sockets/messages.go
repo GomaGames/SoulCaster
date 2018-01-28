@@ -18,6 +18,9 @@ const (
 	SET_MONEY        = "SET_MONEY"
 	START_GAME       = "START_GAME"
 	RGE_TRIGGERED    = "RGE_TRIGGERED"
+	RGE_PAID         = "RGE_PAID"
+	RGE_DECLINED     = "RGE_DECLINED"
+	RGE_ACTIVATE     = "RGE_ACTIVATE"
 )
 
 type Message struct {
@@ -85,7 +88,7 @@ func createRgeTriggerMessage(id int) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return createMessage(RGE_TRIGGERED, string(payload))	
+	return createMessage(RGE_TRIGGERED, string(payload))
 }
 
 type FinalPlayerInfo struct {

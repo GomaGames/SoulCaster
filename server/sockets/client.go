@@ -102,7 +102,7 @@ type Client struct {
 	rgePaidMoney int
 
 	// Counter for Attack count for RGE
-	rgeAttackCount int	
+	rgeAttackCount int
 }
 
 func (c *Client) SetCurrentRoom(room *Room) {
@@ -234,7 +234,7 @@ func (c *Client) readPump() {
 			if c.currentRoom != nil && c.currentRoom.ready >= 2 {
 				now := time.Now()
 				if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
-					c.lastAttack = &now					
+					c.lastAttack = &now
 					c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
 					c.rgeAttackCount += 1
 					if c.rgeAttackCount == attackResolutionCapCount1 {
@@ -286,6 +286,13 @@ func (c *Client) readPump() {
 				// TODO: return error to client
 				continue
 			}
+		case RGE_PAID:
+			rgeId, err := strconv.Atoi(m.Payload)
+			if err != nil {
+				continue
+			}
+		case RGE_DECLINED:
+			c.send <- createMessage(RGE_ACTIVATE, m.Payload)
 		case ECHO:
 			c.hub.echo <- &ClientMessage{client: c, message: message}
 		}
