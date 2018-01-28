@@ -1,18 +1,26 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { SET_SOCKET, CREATE_ROOM } from '../store';
-import Websocket from 'react-websocket';
+// import WebSocket from 'ws';
 
-const socket = new Websocket({ url: 'ws://localhost:8000/ws' });
-
-type Props = {};
+const ws = new WebSocket('ws://localhost:8000/ws');
 
 class TitleScreen extends React.Component<Props> {
+
   componentDidMount() {
-    this.props.set_socket(socket);
+    ws.addEventListener('open', this.setupSocket.bind(this));
+  }
+
+  setupSocket() {
+    this.props.set_socket(ws);
+    ws.addEventListener('message', function(data) {
+      console.log(data)
+    });
   }
 
   createRoom = () => {
+    let OP = 'CREATE_ROOM';
+    ws.send(JSON.stringify({ op: "CREATE_ROOM" }));
     this.props.create_room({ CODE: 'xlrt' });
     this.props.history.push('/lobby')
   }

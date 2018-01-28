@@ -24,6 +24,7 @@ export const store = createStore((state = initialState, action) => {
   switch(action.type) {
     case `${SET_SOCKET}`:
       state.socket = action.socket;
+      console.log(state.socket)
       return state;
     case `${CREATE_ROOM}`:
       state.code = action.code;
