@@ -16,6 +16,20 @@ h1 {
 h1.title {
   color: gray; }
 
+p {
+  color: #4A4A4A;
+  margin: 0; }
+
+.subtitle {
+  margin-top: 10px; }
+
+.player-ready {
+  border: 5px solid red;
+  background-color: pink;
+  width: 100%;
+  height: 300px;
+  margin: 25px auto 25px; }
+
 button {
   display: block;
   background-color: gray;
@@ -33,7 +47,7 @@ button {
       width: 30%; } }
 
 .bottom-buttons {
-  position: fixed;
+  position: absolute;
   bottom: 50px;
   left: 0;
   width: 100%;
@@ -58,27 +72,49 @@ a.exit-button {
   font-size: 20px;
   color: #4A4A4A;
   position: absolute;
-  left: 25px; }
+  left: 25px;
+  bottom: 25px; }
 
-.join-room-screen h1,
-.join-room-screen .subtitle {
-  color: #DF5455; }
-
-.join-room-screen .code {
-  padding: 15px; }
+.code-area > p {
+  margin-bottom: 5px; }
 
 .code {
-  border: 1px solid #4A4A4A; }
-  .code input {
+  border: 1px solid #CCCCCC;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%; }
+  .code p {
+    margin: 0;
+    padding: 0;
     font-size: 36px;
     font-weight: bold;
+    color: black;
+    text-align: center;
     width: 100%;
-    text-align: center; }
+    height: 56px;
+    line-height: 56px; }
+  .code input {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    line-height: 56px;
+    height: 56px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: black;
+    border: 0; }
   .code p.error-message {
     font-size: 14px;
     color: #DF5455;
     font-style: italic; }
-  @media (min-width: 70em) {
-    .code {
-      width: 30%;
-      margin: 0 auto; } }
+
+.join-room-screen {
+  height: 667px;
+  width: 375px; }
+  .join-room-screen h1,
+  .join-room-screen .subtitle {
+    color: #DF5455; }
+
+.join-button {
+  background-color: #276980; }

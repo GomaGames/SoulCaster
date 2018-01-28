@@ -1,34 +1,16 @@
 @import '../index.scss';
 
 .join-room-screen{
+  height: 667px;
+  width: 375px;
+  // border: 1px solid orange;
+  
   h1,
   .subtitle{
     color: $red;
   }
-
-  .code{
-    padding: 15px;
-  }
 }
 
-.code{
-  border: 1px solid $gray;
-
-  input{
-    font-size: 36px;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-  }
-
-  p.error-message{
-    font-size: 14px;
-    color: $red;
-    font-style: italic;
-  }
-
-  @include breakpoint(large){
-    width: 30%;
-    margin: 0 auto;
-  }
+.join-button{
+  background-color: $blue;
 }

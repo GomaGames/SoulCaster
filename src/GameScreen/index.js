@@ -239,7 +239,6 @@ class GameScreen extends React.Component<Props, State> {
       const { health } = JSON.parse(payload);
       switch(op) {
         case 'RECEIVE_ATTACK':
-          console.log(health)
           this.hit(health);
           break;
       }
@@ -300,14 +299,18 @@ class GameScreen extends React.Component<Props, State> {
         <div className="players">
           <div className="health-container">
             <div className="player-1">
-              <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
-              <p className="health player1-health">{ this.state.health }</p>
-              <p>{ playerNumber === 1 ? 'You' : ''}</p>
+              <div className="life-counter">
+                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
+                <p className="health player1-health">{ this.state.health }</p>
+              </div>
+              <p className="player-marker">{ playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
-              <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
-              <p className="health player2-health">{ this.state.health }</p>
-              <p>{ playerNumber === 2 ? 'You' : ''}</p>
+              <div className="life-counter">
+                <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
+                <p className="health player2-health">{ this.state.health }</p>
+              </div>
+              <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
           <Player 

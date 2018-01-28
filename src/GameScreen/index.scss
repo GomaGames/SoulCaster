@@ -32,8 +32,6 @@
   border: 1px solid red;
   display: block;
   top: 130px;
-  // margin-top: 50px;
-  // position: relative;
   position: absolute;
 
   &.player-1{
@@ -80,12 +78,12 @@
 
 
 .health-container .player-1{
-  left: 25px;
+  left: 15px;
   top: 0;
 }
 
 .health-container .player-2{
-  right: 25px;
+  right: 15px;
   top: 0;
 }
 
@@ -113,46 +111,124 @@ img.attack-weapon{
   position: absolute;
 }
 
-.health{
-  font-weight: bold;
-  font-size: 20px;
+.health-container{
+
+  .player-1 .life-counter{
+    
+  }
+
+  .player-2 .life-counter{
+    justify-content: flex-end;
+  }
+
+  .life-counter{
+    width: 160px;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 25px;
+    margin-top: 10px;
+
+    img{
+      display: block;
+      width: 25px;
+      height: 25px;
+      flex: 0 0 25px;
+      margin-right: 4px;
+    }
+
+    .health{
+      margin:0;
+      background-color: red;
+      display: block;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 25px;
+      color: black;
+      width: 100px; // temporary
+      height: 25px;
+      flex: 0 0 75px;
+    }
+  }
+
+  p.player-marker{
+    margin: 0;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .player-1 p.player-marker{
+    text-align: left;
+  }
+
+  .player-2 p.player-marker{
+    text-align: right;
+  }
 }
 
 .game-ui{
-  background-color: gray;
-  opacity: 0.8;
+  background-color: #333333;
   height: 50%;
   padding: 20px;
 }
 
-.weapons, .attack-button{
-  vertical-align: top;
-}
+.money{
+  color: $gray;
+  text-align: left;
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 15px;
+  margin-left: -3px;
 
-.weapons {
-  display: inline-block;
-  margin-right: 25px;
-  float: left;
-  width: 150px;
-}
+  img{
+    margin-right: 4px;
+    flex: 0 0 25px;
+  }
 
-.weapon {
-  background-color: white;
-  height: 100px;
-  margin-top: 20px;
+  p{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 25px;
+    flex: 1 0 100px;
+    border: 1px solid green;
+    width: 100px;
+    height: 25px;
+    margin: 0;
+    color: $gold;
 
-  &.disabled{
-    background-color: black;
-    opacity: 0.5;
-
-    .weapon-image{
-      border: 1px solid white;
+    span{
+      font-size: 14px;
+      display: inline-block;
     }
   }
 }
 
+.weapons {
+  display: inline-block;
+  margin-right: 20px;
+  float: left;
+  width: 160px;
+}
+
+.weapon {
+  background-color: white;
+  height: 115px;
+  border-radius: 2px;
+
+  + .weapon{
+    margin-top: 20px;
+  }
+
+  &.disabled{
+    opacity: 0.5;
+  }
+}
+
 .weapon-image{
-  border: 1px solid $gray;
+  height: 80px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
 
   img{
     width: 150px;
@@ -161,36 +237,27 @@ img.attack-weapon{
 }
 
 .weapon-cost{
-
+  background-color: #DDDDDD;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  height: 35px;
+  line-height: 28px;
+  
   p,img{
     display: inline-block;
     vertical-align: middle;
   }
-}
-
-.money{
-  color: $gray;
-  font-weight: bold;
-  font-size: 30px;
-  text-align: left;
 
   img{
-    margin-right: 10px;
-  }
-
-  p,img{
-    display: inline-block;
-  }
-
-  span{
-    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
   }
 }
 
 button.attack-button {
   width: 150px;
-  float: right;
-  background-color: white;
-  color: $gray;
-  height: 220px;
+  background-color: $dark-red;
+  color: lighten($red, 20%);
+  height: 250px;
 }

@@ -32,13 +32,16 @@ type Hub struct {
 	join chan *ClientMessage
 
 	// Start game channel for clients.
-	start chan *OpponentMessage
+	start chan *RoomMessage
 
 	// Leave a channel
 	leave chan *OpponentMessage
 
 	// Channel for sending messages to a player's opponent
 	attack chan *AttackMessage
+
+	// Channel for when the game ends
+	gameover chan *RoomMessage
 
 	// Echo channel for clients.
 	echo chan *ClientMessage
@@ -94,14 +97,15 @@ func NewHub() *Hub {
 	return &Hub{
 		clients:    make(map[*Client]bool),
 		rooms:      make(map[string]*Room),
-		register:   make(chan *Client),
-		unregister: make(chan *Client),
-		create:     make(chan *ClientMessage),
-		join:       make(chan *ClientMessage),
-		start:      make(chan *OpponentMessage),
-		leave:      make(chan *OpponentMessage),
-		attack:     make(chan *AttackMessage),
-		echo:       make(chan *ClientMessage),
+		register:   make(chan *Client, 100),
+		unregister: make(chan *Client, 100),
+		create:     make(chan *ClientMessage, 100),
+		join:       make(chan *ClientMessage, 100),
+		start:      make(chan *RoomMessage, 100),
+		leave:      make(chan *OpponentMessage, 100),
+		attack:     make(chan *AttackMessage, 100),
+		gameover:   make(chan *RoomMessage, 100),
+		echo:       make(chan *ClientMessage, 100),
 	}
 }
 
@@ -147,14 +151,13 @@ func (h *Hub) Run() {
 			if err == nil {
 				cm.client.send <- resp
 			}
-		case om := <-h.start:
-			opponent := om.GetOpponent()
+		case rm := <-h.start:
+			opponent := rm.GetOpponent()
 			if _, ok := h.clients[opponent]; ok {
-				log.Printf("Game started between %p and %p", om.client, opponent)
+				log.Printf("Game started between %p and %p", rm.client, opponent)
 				opponent.StartGame()
 			}
 		case om := <-h.leave:
-			log.Print("handling leave...")
 			if om.message != nil {
 				opponent := om.GetOpponent()
 				if _, ok := h.clients[opponent]; ok {
@@ -181,6 +184,40 @@ func (h *Hub) Run() {
 			if _, ok := h.clients[opponent]; ok {
 				log.Printf("Player %p has been attacked for %v!", opponent, am.damage)
 				opponent.ReceiveAttack(am.damage)
+			}
+		case rm := <-h.gameover:
+			if rm.room != nil {
+				// the winner is the player who DIDN'T raise this event
+				log.Printf("Game between %p and %p has ended; loser is %p", rm.room.player1, rm.room.player2, rm.client)
+
+				gameover := &GameOver{}
+				if rm.room.player1 != nil {
+					gameover.Player1 = rm.room.player1.GetFinalPlayerInfo(rm.client != rm.room.player1)
+				}
+				if rm.room.player2 != nil {
+					gameover.Player2 = rm.room.player2.GetFinalPlayerInfo(rm.client != rm.room.player2)
+				}
+
+				payload, err := json.Marshal(gameover)
+				if err != nil {
+					// TODO: send an error
+					continue
+				}
+
+				msg, err := createMessage(GAME_OVER, string(payload))
+				if err != nil {
+					// TODO: send an error
+					continue
+				}
+
+				if rm.room.player1 != nil {
+					rm.room.player1.send <- msg
+					rm.room.player1.LeaveRoom(false)
+				}
+				if rm.room.player2 != nil {
+					rm.room.player2.send <- msg
+					rm.room.player2.LeaveRoom(false)
+				}
 			}
 		case cm := <-h.echo:
 			messageDecoder := json.NewDecoder(bytes.NewReader(cm.message))
