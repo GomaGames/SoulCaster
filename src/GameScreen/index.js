@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 

@@ -6,7 +6,7 @@ import { JOIN_ROOM, PLAYER_JOINED } from '../store';
 
 type State = {
   code: string, //?
-  invalidCode: boolean
+  invalidCode: string
 };
 
 class JoinRoomScreen extends React.Component<Props, State> {
@@ -14,13 +14,16 @@ class JoinRoomScreen extends React.Component<Props, State> {
   componentDidMount() {
     if( this.props.socket === null ) return;
 
-    this.props.socket.addEventListener('message', function(data) {
-      switch(data.op) {
+    this.props.socket.addEventListener('message', event => {
+      const { op, payload } = JSON.parse(event.data);
+      switch(op) {
         case 'PLAYER_JOINED':
           this.props.history.push('/lobby');
-          let data = { code: this.state.code, player_number: 2 };
           this.props.player_joined(true);
-          this.props.join_room(data)
+          this.props.join_room({ code: this.state.code, player_number: 2 })
+          break;
+        case 'JOIN_ROOM_ERROR':
+          this.setState({invalidCode : payload })
           break;
         default:
           break;
@@ -30,7 +33,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
 
   state = {
     code: '',
-    invalidCode: false
+    invalidCode: null
   }
 
 	join = () => {
@@ -45,7 +48,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
   }
 
   setCode = (e) => {
-    this.setState({ invalidCode: false });
+    this.setState({ invalidCode: null });
     this.setState({ code: e.target.value });
   }
 
@@ -53,17 +56,12 @@ class JoinRoomScreen extends React.Component<Props, State> {
     if(this.props.socket === null) return <Redirect to='/' />;
 
     let content = null;
-    let errorMessage = null;
-
-    if(this.state.invalidCode) {
-      errorMessage = <p className="error-message">That code is incorrect!</p>
-    }
 
     if(this.state.code.length === 4) {
       content = <div>
         <div className="code">
           <input value={ this.state.code } onChange={ this.setCode.bind(this) } />
-          { errorMessage }
+          { this.state.invalidCode !== null ? <p className="error-message">{ this.state.invalidCode }</p> : '' }
         </div>
         <button className="button join-button" type="button" onClick={ this.join }>Join</button>
       </div>
