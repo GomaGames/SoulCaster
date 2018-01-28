@@ -24,11 +24,18 @@ p {
   margin-top: 10px; }
 
 .player-ready {
-  border: 5px solid red;
-  background-color: pink;
   width: 100%;
   height: 300px;
-  margin: 25px auto 25px; }
+  margin: 25px auto 25px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+  .player-ready span {
+    display: none; }
+  .player-ready.player1-ready {
+    background-image: url("/assets/characters/ready-player-1.jpg"); }
+  .player-ready.player2-ready {
+    background-image: url("/assets/characters/ready-player-2.jpg"); }
 
 button {
   display: block;
@@ -114,7 +121,7 @@ a.exit-button {
   width: 375px; }
   .join-room-screen h1,
   .join-room-screen .subtitle {
-    color: #DF5455; }
+    color: #555588; }
 
 .join-button {
-  background-color: #276980; }
+  background-color: #555588; }

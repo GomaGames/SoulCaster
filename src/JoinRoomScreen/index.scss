@@ -1,15 +1,17 @@
 @import '../index.scss';
 
+$purple: #555588;
+
 .join-room-screen{
   height: 667px;
   width: 375px;
   
   h1,
   .subtitle{
-    color: $red;
+    color: $purple;
   }
 }
 
 .join-button{
-  background-color: $blue;
+  background-color: $purple;
 }
