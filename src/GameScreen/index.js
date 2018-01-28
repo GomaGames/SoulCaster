@@ -327,14 +327,14 @@ class GameScreen extends React.Component<Props, State> {
             <div className="player-1">
               <div className="life-counter">
                 <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
-                <p className="health player1-health">{ this.state.health }</p>
+                <p className="health player1-health">{ playerNumber === 1 ? this.state.health : this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
               <div className="life-counter">
                 <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
-                <p className="health player2-health">{ this.state.opponentHealth }</p>
+                <p className="health player2-health">{ playerNumber === 2 ? this.state.health : this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
