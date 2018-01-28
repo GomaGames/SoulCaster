@@ -3,6 +3,9 @@
 .game-screen{
   background-size: contain;
   background-repeat: no-repeat;
+  height: 667px;
+  width: 375px;
+  border: 1px solid orange;
 
   &.high{
     background-image: url('/assets/backgrounds/background-high.jpg');
@@ -26,9 +29,41 @@
 }
 
 .player{
-  display: inline-block;
-  margin-top: 50px;
-  position: relative;
+  border: 1px solid red;
+  display: block;
+  top: 130px;
+  // margin-top: 50px;
+  // position: relative;
+  position: absolute;
+
+  &.player-1{
+    border: 1px solid green;
+    left: 20px;
+
+    &.player-1-attack{
+      left: 100px;
+    }
+
+    .attack-weapon{
+      top: -14px;
+      left: 87px;
+    }
+  }
+
+  &.player-2{
+    border: 1px solid purple;
+    right: 20px;
+
+    &.player-2-attack{
+      left: 100px;
+    }
+    
+    // this is a guess.
+    .attack-weapon{
+      top: -14px;
+      right: 87px;
+    }
+  }
 
   img{
     width: 130px;
@@ -36,22 +71,26 @@
   }
 }
 
-.player-1{
-
-  .health-container{
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+.health-container .player-1,
+.health-container .player-2{
+  display: block;
+  position: absolute;
+  top: 0;
 }
 
+
+.health-container .player-1{
+  left: 25px;
+  top: 0;
+}
+
+.health-container .player-2{
+  right: 25px;
+  top: 0;
+}
+
+// reverses player2 assets
 .player-2{
-  
-  .health-container{
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 
   img{
     -moz-transform: scaleX(-1);
@@ -68,41 +107,9 @@
   height: 25px;
 }
 
-.health-container{
-
-  .player-1,
-  .player-2{
-    display: inline-block;
-    width: 50%;
-  }
-}
-
-.player-1{
-  text-align: left;
-  p,img {
-    margin-left: 25px;
-  }
-
-  .attack-weapon{
-    top: -80px;
-    left: 90px;
-  }
-}
-.player-2{
-  text-align: right;
-  p,img {
-    margin-right: 25px;
-  }
-
-  .attack-weapon{
-    top: -80px;
-    right: 90px;
-  }
-}
-
 img.attack-weapon{
-  width: 57px;
-  height: 150px;
+  width: 38px;
+  height: 100px;
   position: absolute;
 }
 
