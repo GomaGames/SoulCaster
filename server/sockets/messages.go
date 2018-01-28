@@ -2,7 +2,8 @@ package sockets
 
 const (
 	// ops
-	ECHO = "ECHO"
+	ATTACK = "ATTACK"
+	ECHO   = "ECHO"
 	CREATE = "CREATE_ROOM"
 )
 
