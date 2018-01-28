@@ -35,7 +35,7 @@ func main() {
 		sockets.ServeWs(hub, w, r)
 	})
 
-	http.Handle("/", http.FileServer(http.Dir("../public")))
+	http.Handle("/", http.FileServer(http.Dir("../build")))
 
 	addr := host + ":" + port
 	fmt.Printf("Server listening on %s\n", addr)

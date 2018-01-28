@@ -2,6 +2,12 @@
   "name": "transmission",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/ws": {
+      "target" : "http://localhost:8000",
+      "ws" : true
+    }
+  },
   "dependencies": {
     "bufferutil": "^3.0.3",
     "node-sass-chokidar": "^0.0.3",
