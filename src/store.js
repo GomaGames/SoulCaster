@@ -67,4 +67,6 @@ export const store = createStore((state = initialState, action) => {
     default:
       return state;
   }
-});
+},
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
