@@ -1,0 +1,15 @@
+@import '../index.scss';
+
+.join-room-screen{
+  height: 667px;
+  width: 375px;
+  
+  h1,
+  .subtitle{
+    color: $red;
+  }
+}
+
+.join-button{
+  background-color: $blue;
+}

@@ -1,0 +1,318 @@
+@import '../index.scss';
+
+.game-screen{
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 667px;
+  width: 375px;
+  border: 1px solid orange;
+
+  &.res-3{
+    background-image: url('/assets/backgrounds/bg_res1.jpg');
+  }
+
+  &.res-2{
+    background-image: url('/assets/backgrounds/bg_res2.jpg');
+  }
+
+  &.res-1{
+    background-image: url('/assets/backgrounds/bg_res3.jpg');
+  }
+
+  &.res-0{
+    background-image: url('/assets/backgrounds/bg_res4.jpg');
+  }
+}
+
+.players{
+  height: 50%;
+}
+
+.player{
+  border: 1px solid red;
+  display: block;
+  top: 130px;
+  position: absolute;
+
+  &.player-1{
+    border: 1px solid green;
+    left: 20px;
+
+    &.player-1-attack{
+      left: 100px;
+    }
+
+    .attack-weapon{
+      top: -14px;
+      left: 87px;
+    }
+  }
+
+  &.player-2{
+    border: 1px solid purple;
+    right: 20px;
+
+    &.player-2-attack{
+      left: 100px;
+    }
+    
+    // this is a guess.
+    .attack-weapon{
+      top: -14px;
+      right: 87px;
+    }
+  }
+
+  img{
+    width: 130px;
+    height: 120px;
+  }
+}
+
+.health-container .player-1,
+.health-container .player-2{
+  display: block;
+  position: absolute;
+  top: 0;
+}
+
+
+.health-container .player-1{
+  left: 15px;
+  top: 0;
+}
+
+.health-container .player-2{
+  right: 15px;
+  top: 0;
+}
+
+// reverses player2 assets
+.player-2{
+
+  img{
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+  }
+}
+
+.icon{
+  width: 25px;
+  height: 25px;
+}
+
+img.attack-weapon{
+  width: 38px;
+  height: 100px;
+  position: absolute;
+}
+
+.health-container{
+
+  .player-1 .life-counter{
+    
+  }
+
+  .player-2 .life-counter{
+    justify-content: flex-end;
+  }
+
+  .life-counter{
+    width: 160px;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 25px;
+    margin-top: 10px;
+
+    img{
+      display: block;
+      width: 25px;
+      height: 25px;
+      flex: 0 0 25px;
+      margin-right: 4px;
+    }
+
+    .health{
+      margin:0;
+      background-color: red;
+      display: block;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 25px;
+      color: black;
+      width: 100px; // temporary
+      height: 25px;
+      flex: 0 0 75px;
+    }
+  }
+
+  p.player-marker{
+    margin: 0;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .player-1 p.player-marker{
+    text-align: left;
+  }
+
+  .player-2 p.player-marker{
+    text-align: right;
+  }
+}
+
+.game-ui{
+  background-color: #333333;
+  height: 50%;
+  padding: 20px;
+}
+
+.money{
+  color: $gray;
+  text-align: left;
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 15px;
+  margin-left: -3px;
+
+  img{
+    margin-right: 4px;
+    flex: 0 0 25px;
+  }
+
+  p{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 25px;
+    flex: 1 0 100px;
+    border: 1px solid green;
+    width: 100px;
+    height: 25px;
+    margin: 0;
+    color: $gold;
+
+    span{
+      font-size: 14px;
+      display: inline-block;
+    }
+  }
+}
+
+.weapons {
+  display: inline-block;
+  margin-right: 20px;
+  float: left;
+  width: 160px;
+}
+
+.weapon {
+  background-color: white;
+  height: 115px;
+  border-radius: 2px;
+
+  + .weapon{
+    margin-top: 20px;
+  }
+
+  &.disabled{
+    opacity: 0.5;
+  }
+}
+
+.weapon-image{
+  height: 80px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  img{
+    width: 150px;
+    height: 50px;
+  }
+}
+
+.weapon-cost{
+  background-color: #DDDDDD;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  height: 35px;
+  line-height: 28px;
+  
+  p,img{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  img{
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+  }
+}
+
+button.attack-button {
+  width: 150px;
+  background-color: $dark-red;
+  color: lighten($red, 20%);
+  height: 250px;
+}
+
+// RGE MODAL
+
+.rge-modal-bg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.rge-modal{
+  width: 350px;
+  margin: 150px auto;
+  height: 250px;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.75);
+  background-color: white;
+  box-sizing: border-box;
+
+  p{
+    box-sizing: border-box;
+    padding: 35px;
+    height: 175px;
+    background-color: white;
+  }
+
+  .rge-button-container{
+    padding: 15px;
+    box-sizing: border-box;
+    height: 75px;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-top: 1px solid lighten($gray, 50%);
+
+    button{
+      flex: 0 0 48%;
+      display: block;
+      margin: 0;
+      padding: 0;
+
+      &.rge-modal-pay-button{
+        background-color: $green;
+      }
+
+      &.rge-modal-decline-button{
+        background-color: transparent;
+        color: lighten($gray, 50%);
+        font-size: 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@import '../index.scss';
+
+.lobby-screen{
+  height: 667px;
+  width: 375px;
+  background-color: white;
+
+  h1,
+  .subtitle{
+    color: $blue;
+  }
+
+  &.player2{
+    h1,
+    .subtitle{
+      color: $red;
+    }
+  }
+}
+
+.start-game-button{
+  background-color: $green;
+}

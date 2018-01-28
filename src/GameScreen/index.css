@@ -1,0 +1,337 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+html,
+.app,
+#root {
+  height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%; }
+
+h1 {
+  margin: 0; }
+
+h1.title {
+  color: gray; }
+
+p {
+  color: #4A4A4A;
+  margin: 0; }
+
+.subtitle {
+  margin-top: 10px; }
+
+.player-ready {
+  border: 5px solid red;
+  background-color: pink;
+  width: 100%;
+  height: 300px;
+  margin: 25px auto 25px; }
+
+button {
+  display: block;
+  background-color: gray;
+  color: white;
+  font-size: 20px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+  margin-top: 15px;
+  border: 0;
+  border-radius: 2px;
+  font-family: 'Open Sans', sans-serif; }
+  @media (min-width: 70em) {
+    button {
+      width: 30%; } }
+
+.bottom-buttons {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  display: block; }
+  .bottom-buttons button {
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto; }
+
+.container {
+  padding: 25px; }
+
+.screen {
+  text-align: center;
+  position: relative;
+  height: 100%;
+  overflow: hidden; }
+
+a.exit-button {
+  text-decoration: none;
+  font-size: 20px;
+  color: #4A4A4A;
+  position: absolute;
+  left: 25px;
+  bottom: 25px; }
+
+.code-area > p {
+  margin-bottom: 5px; }
+
+.code {
+  border: 1px solid #CCCCCC;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%; }
+  .code p {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    width: 100%;
+    height: 56px;
+    line-height: 56px; }
+  .code input {
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    line-height: 56px;
+    height: 56px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    color: black;
+    border: 0; }
+  .code p.error-message {
+    font-size: 14px;
+    color: #DF5455;
+    font-style: italic; }
+
+.game-screen {
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 667px;
+  width: 375px;
+  border: 1px solid orange; }
+  .game-screen.res-3 {
+    background-image: url("/assets/backgrounds/bg_res1.jpg"); }
+  .game-screen.res-2 {
+    background-image: url("/assets/backgrounds/bg_res2.jpg"); }
+  .game-screen.res-1 {
+    background-image: url("/assets/backgrounds/bg_res3.jpg"); }
+  .game-screen.res-0 {
+    background-image: url("/assets/backgrounds/bg_res4.jpg"); }
+
+.players {
+  height: 50%; }
+
+.player {
+  border: 1px solid red;
+  display: block;
+  top: 130px;
+  position: absolute; }
+  .player.player-1 {
+    border: 1px solid green;
+    left: 20px; }
+    .player.player-1.player-1-attack {
+      left: 100px; }
+    .player.player-1 .attack-weapon {
+      top: -14px;
+      left: 87px; }
+  .player.player-2 {
+    border: 1px solid purple;
+    right: 20px; }
+    .player.player-2.player-2-attack {
+      left: 100px; }
+    .player.player-2 .attack-weapon {
+      top: -14px;
+      right: 87px; }
+  .player img {
+    width: 130px;
+    height: 120px; }
+
+.health-container .player-1,
+.health-container .player-2 {
+  display: block;
+  position: absolute;
+  top: 0; }
+
+.health-container .player-1 {
+  left: 15px;
+  top: 0; }
+
+.health-container .player-2 {
+  right: 15px;
+  top: 0; }
+
+.player-2 img {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH"; }
+
+.icon {
+  width: 25px;
+  height: 25px; }
+
+img.attack-weapon {
+  width: 38px;
+  height: 100px;
+  position: absolute; }
+
+.health-container .player-2 .life-counter {
+  justify-content: flex-end; }
+
+.health-container .life-counter {
+  width: 160px;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 25px;
+  margin-top: 10px; }
+  .health-container .life-counter img {
+    display: block;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    margin-right: 4px; }
+  .health-container .life-counter .health {
+    margin: 0;
+    background-color: red;
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 25px;
+    color: black;
+    width: 100px;
+    height: 25px;
+    flex: 0 0 75px; }
+
+.health-container p.player-marker {
+  margin: 0;
+  font-size: 14px;
+  margin-top: 5px; }
+
+.health-container .player-1 p.player-marker {
+  text-align: left; }
+
+.health-container .player-2 p.player-marker {
+  text-align: right; }
+
+.game-ui {
+  background-color: #333333;
+  height: 50%;
+  padding: 20px; }
+
+.money {
+  color: #4A4A4A;
+  text-align: left;
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 15px;
+  margin-left: -3px; }
+  .money img {
+    margin-right: 4px;
+    flex: 0 0 25px; }
+  .money p {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 25px;
+    flex: 1 0 100px;
+    border: 1px solid green;
+    width: 100px;
+    height: 25px;
+    margin: 0;
+    color: #F6C44B; }
+    .money p span {
+      font-size: 14px;
+      display: inline-block; }
+
+.weapons {
+  display: inline-block;
+  margin-right: 20px;
+  float: left;
+  width: 160px; }
+
+.weapon {
+  background-color: white;
+  height: 115px;
+  border-radius: 2px; }
+  .weapon + .weapon {
+    margin-top: 20px; }
+  .weapon.disabled {
+    opacity: 0.5; }
+
+.weapon-image {
+  height: 80px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center; }
+  .weapon-image img {
+    width: 150px;
+    height: 50px; }
+
+.weapon-cost {
+  background-color: #DDDDDD;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  height: 35px;
+  line-height: 28px; }
+  .weapon-cost p, .weapon-cost img {
+    display: inline-block;
+    vertical-align: middle; }
+  .weapon-cost img {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px; }
+
+button.attack-button {
+  width: 150px;
+  background-color: #A30D13;
+  color: #efaaaa;
+  height: 250px; }
+
+.rge-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); }
+
+.rge-modal {
+  width: 350px;
+  margin: 150px auto;
+  height: 250px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+  background-color: white;
+  box-sizing: border-box; }
+  .rge-modal p {
+    box-sizing: border-box;
+    padding: 35px;
+    height: 175px;
+    background-color: white; }
+  .rge-modal .rge-button-container {
+    padding: 15px;
+    box-sizing: border-box;
+    height: 75px;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-top: 1px solid #cacaca; }
+    .rge-modal .rge-button-container button {
+      flex: 0 0 48%;
+      display: block;
+      margin: 0;
+      padding: 0; }
+      .rge-modal .rge-button-container button.rge-modal-pay-button {
+        background-color: #007100; }
+      .rge-modal .rge-button-container button.rge-modal-decline-button {
+        background-color: transparent;
+        color: #cacaca;
+        font-size: 16px; }
