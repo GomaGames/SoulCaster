@@ -1,0 +1,92 @@
+html,
+.app,
+#root {
+  height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100%; }
+
+h1.title {
+  color: gray; }
+
+button {
+  display: block;
+  background-color: gray;
+  color: white;
+  font-size: 20px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+  margin-top: 15px; }
+  @media (min-width: 70em) {
+    button {
+      width: 30%; } }
+
+.screen {
+  text-align: center;
+  position: relative;
+  height: 100%; }
+
+a.exit-button {
+  text-decoration: none;
+  font-size: 20px;
+  color: #4A4A4A;
+  position: absolute;
+  bottom: 0;
+  left: 25px; }
+
+.players {
+  height: 50%; }
+
+.player {
+  display: inline-block; }
+
+.player-1 .health-container {
+  position: absolute;
+  left: 0;
+  top: 0; }
+
+.player-2 .health-container {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.health {
+  font-weight: bold;
+  font-size: 20px; }
+
+.game-ui {
+  background-color: black;
+  opacity: 0.5;
+  width: 100%;
+  height: 50%; }
+
+.weapons, .attack-button {
+  vertical-align: top; }
+
+.weapons {
+  display: inline-block;
+  width: 50%; }
+
+.weapon {
+  background-color: white;
+  height: 100px;
+  margin-top: 20px; }
+
+.money {
+  color: #4A4A4A;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: left; }
+  .money span {
+    font-size: 14px; }
+
+button.attack-button {
+  width: 50%;
+  display: inline-block;
+  background-color: white;
+  color: #4A4A4A;
+  height: 200px; }

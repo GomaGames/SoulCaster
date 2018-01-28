@@ -6,7 +6,7 @@ type Props = {
 };
 
 function App(props: Props) {
-  return <div>{ props.children }</div>;
+  return <div className="app">{ props.children }</div>;
 }
 
 
