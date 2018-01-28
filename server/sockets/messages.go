@@ -5,15 +5,16 @@ import "encoding/json"
 const (
 	// ops
 	ATTACK           = "ATTACK"
-	ECHO             = "ECHO"
 	CREATE           = "CREATE_ROOM"
 	DISCONNECT       = "DISCONNECT"
-	JOIN             = "JOIN_ROOM"
-	START_GAME       = "START_GAME"
+	ECHO             = "ECHO"
+	GAME_OVER        = "GAME_OVER"
 	GAME_STARTED     = "GAME_STARTED"
+	JOIN             = "JOIN_ROOM"
 	OBTAIN_UPGRADE   = "OBTAIN_UPGRADE"
 	PURCHASE_UPGRADE = "PURCHASE_UPGRADE"
 	RECEIVE_ATTACK   = "RECEIVE_ATTACK"
+	START_GAME       = "START_GAME"
 )
 
 type Message struct {
@@ -69,4 +70,28 @@ func createObtainUpgradeMessage(id, health, money, income int) ([]byte, error) {
 		return nil, err
 	}
 	return createMessage(OBTAIN_UPGRADE, string(payload))
+}
+
+type FinalPlayerInfo struct {
+	PlayerInfo
+	Victory       bool `json:"victory"`
+	RGEPaidHealth int  `json:"rgePaidHealth"`
+	RGEPaidMoney  int  `json:"rgePaidMoney"`
+}
+
+func createFinalPlayerInfo(victory bool, health, money, income, rgePaidHealth, rgePaidMoney int) *FinalPlayerInfo {
+	fpi := &FinalPlayerInfo{
+		Victory:       victory,
+		RGEPaidHealth: rgePaidHealth,
+		RGEPaidMoney:  rgePaidMoney,
+	}
+	fpi.Health = health
+	fpi.Money = money
+	fpi.Income = income
+	return fpi
+}
+
+type GameOver struct {
+	Player1 *FinalPlayerInfo `json:"player1"`
+	Player2 *FinalPlayerInfo `json:"player2"`
 }
