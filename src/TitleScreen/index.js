@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { SET_SOCKET, CREATE_ROOM } from '../store';
-// import WebSocket from 'ws';
 
-const ws = new WebSocket('ws://localhost:8000/ws');
+const ws = new WebSocket(`ws://${window.location.host}/ws`);
 
 class TitleScreen extends React.Component<Props> {
 
