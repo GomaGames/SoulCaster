@@ -7,19 +7,19 @@
   width: 375px;
   border: 1px solid orange;
 
-  &.high{
+  &.res-3{
     background-image: url('/assets/backgrounds/bg_res1.jpg');
   }
 
-  &.med{
+  &.res-2{
     background-image: url('/assets/backgrounds/bg_res2.jpg');
   }
 
-  &.medlo{
+  &.res-1{
     background-image: url('/assets/backgrounds/bg_res3.jpg');
   }
 
-  &.lo{
+  &.res-0{
     background-image: url('/assets/backgrounds/bg_res4.jpg');
   }
 }

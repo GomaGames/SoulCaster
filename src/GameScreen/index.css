@@ -115,13 +115,13 @@ a.exit-button {
   height: 667px;
   width: 375px;
   border: 1px solid orange; }
-  .game-screen.high {
+  .game-screen.res-3 {
     background-image: url("/assets/backgrounds/bg_res1.jpg"); }
-  .game-screen.med {
+  .game-screen.res-2 {
     background-image: url("/assets/backgrounds/bg_res2.jpg"); }
-  .game-screen.medlo {
+  .game-screen.res-1 {
     background-image: url("/assets/backgrounds/bg_res3.jpg"); }
-  .game-screen.lo {
+  .game-screen.res-0 {
     background-image: url("/assets/backgrounds/bg_res4.jpg"); }
 
 .players {
