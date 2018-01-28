@@ -24,6 +24,9 @@ const (
 	// Send pings to peer with this period. Must be less than pongWait.
 	pingPeriod = (pongWait * 9) / 10
 
+	// Time a client must wait before sending another attack
+	attackWait = time.Second
+
 	// Maximum message size allowed from peer.
 	maxMessageSize = 51200
 )
@@ -48,6 +51,9 @@ type Client struct {
 
 	// Buffered channel of outbound messages.
 	send chan []byte
+
+	// The last time the client tried to attack
+	lastAttack *time.Time
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -78,12 +84,17 @@ func (c *Client) readPump() {
 		log.Printf("message: %s", message)
 
 		switch m.Op {
-		case ECHO:
-			c.hub.echo <- &ClientMessage{client: c, message: message}
+		case ATTACK:
+			now := time.Now()
+			if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
+				c.lastAttack = &now
+				// TODO: send attack to opponent (need "rooms")
+			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
+		case ECHO:
+			c.hub.echo <- &ClientMessage{client: c, message: message}
 		}
-
 	}
 }
 
