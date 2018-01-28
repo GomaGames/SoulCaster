@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './index.css';
 import { JOIN_ROOM, PLAYER_JOINED } from '../store';
@@ -11,8 +11,8 @@ type State = {
 
 class JoinRoomScreen extends React.Component<Props, State> {
 
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    if( this.props.socket === null ) return;
 
     this.props.socket.addEventListener('message', function(data) {
       switch(data.op) {
@@ -50,6 +50,8 @@ class JoinRoomScreen extends React.Component<Props, State> {
   }
 
   render() {
+    if(this.props.socket === null) return <Redirect to='/' />;
+
     let content = null;
     let errorMessage = null;
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PLAYER_JOINED, GAME_STARTED } from '../store';
 import './index.css';
@@ -7,6 +7,8 @@ import './index.css';
 class LobbyScreen extends React.Component<Props, State> {
 
   componentDidMount() {
+    if( this.props.socket === null ) return;
+
     // if(this.props.code === null) {
     //   this.props.history.push('/');
     // }
@@ -31,6 +33,8 @@ class LobbyScreen extends React.Component<Props, State> {
   }
 
   render() {
+    if(this.props.socket === null) return <Redirect to='/' />;
+
     let content = null;
 
     if(this.props.joined) {
