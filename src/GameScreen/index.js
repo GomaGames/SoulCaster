@@ -227,7 +227,8 @@ const icons = {
 type State = {
   money: number,
   health: number,
-  income: number
+  income: number,
+  opponentHealth: number
 }
 
 export const AnimationFrame = {
@@ -249,6 +250,7 @@ class GameScreen extends React.Component<Props, State> {
 
     this.props.socket.addEventListener('message', event => {
       const { op, payload } = JSON.parse(event.data);
+      if(op === 'RECEIVE_ATTACK' || op === 'SENT_ATTACK') {}
       switch(op) {
         case 'RGE_TRIGGERED':
           this.props.rge_triggered(JSON.parse(payload));
@@ -256,6 +258,10 @@ class GameScreen extends React.Component<Props, State> {
         case 'RECEIVE_ATTACK':
           const { health } = JSON.parse(payload);
           this.hit(health);
+          break;
+        case 'SENT_ATTACK':
+          let opponentHealth = JSON.parse(payload).health
+          this.setState({ opponentHealth })
           break;
       }
     });
@@ -284,7 +290,7 @@ class GameScreen extends React.Component<Props, State> {
     setTimeout(() => this.setState({opponentAnimationFrame: AnimationFrame.IDLE}), 300);
   }
 
-  attack() {
+  attack(health) {
     // uncomment when done working with characters and ui
     this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
 
@@ -327,7 +333,7 @@ class GameScreen extends React.Component<Props, State> {
             <div className="player-2">
               <div className="life-counter">
                 <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
-                <p className="health player2-health">{ this.state.health }</p>
+                <p className="health player2-health">{ this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
