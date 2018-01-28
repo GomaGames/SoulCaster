@@ -73,6 +73,14 @@ a.exit-button {
   right: 0;
   top: 0; }
 
+.player-2 img {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH"; }
+
 .icon {
   width: 25px;
   height: 25px; }
