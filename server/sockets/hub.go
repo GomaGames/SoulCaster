@@ -168,6 +168,7 @@ func (h *Hub) Run() {
 					log.Printf("Sending disconnect to %p", opponent)
 					opponent.send <- om.message
 				}
+				opponent.LeaveRoom(false)
 			}
 			if om.room != nil {
 				log.Printf("%p left room %v", om.client, om.room.code)

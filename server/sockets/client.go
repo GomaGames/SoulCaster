@@ -29,6 +29,9 @@ const (
 	// Time a client must wait before sending another attack
 	attackWait = time.Second
 
+	// Income timer
+	incomePeriod = time.Second
+
 	// Starting attack power
 	// startingAttackPower = 10
 	startingAttackPower = 500 // TODO: remove!
@@ -85,6 +88,9 @@ type Client struct {
 	// Income per tick
 	income int
 
+	// Send a value to this channel to stop income
+	stopIncome chan bool
+
 	// Amount of health spent on RGE
 	rgePaidHealth int
 
@@ -98,7 +104,12 @@ func (c *Client) SetCurrentRoom(room *Room) {
 }
 
 func (c *Client) LeaveRoom(disconnected bool) {
-	// TODO: stop income timer
+	if c.stopIncome != nil {
+		log.Printf("Player %p stopping income", c)
+		c.stopIncome <- true
+		c.stopIncome = nil
+	}
+
 	if c.currentRoom != nil {
 		log.Printf("%p leaving room %v", c, c.currentRoom.code)
 		c.currentRoom.ready--
@@ -119,7 +130,6 @@ func (c *Client) LeaveRoom(disconnected bool) {
 
 func (c *Client) StartGame() {
 	if c.currentRoom != nil {
-		// TODO: start income timer
 		c.attackPower = startingAttackPower
 		c.health = startingHealth
 		c.money = startingMoney
@@ -131,6 +141,9 @@ func (c *Client) StartGame() {
 			c.send <- msg
 		}
 		c.currentRoom.ready++
+
+		c.stopIncome = make(chan bool)
+		go c.handleIncome()
 	}
 }
 
@@ -157,11 +170,35 @@ func (c *Client) GetFinalPlayerInfo(winner bool) *FinalPlayerInfo {
 	return createFinalPlayerInfo(winner, c.health, c.money, c.income, c.rgePaidHealth, c.rgePaidMoney)
 }
 
+func (c *Client) handleIncome() {
+	log.Printf("Starting income for player %p", c)
+	ticker := time.NewTicker(incomePeriod)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ticker.C:
+			c.money += c.income
+
+			if msg, err := createMessage(SET_MONEY, strconv.Itoa(c.money)); err == nil {
+				c.send <- msg
+			}
+		case <-c.stopIncome:
+			log.Printf("Player %p stopping income", c)
+			return
+		}
+	}
+}
+
 // readPump pumps messages from the websocket connection to the hub.
 func (c *Client) readPump() {
 	defer func() {
 		c.hub.unregister <- c
 		c.conn.Close()
+
+		if c.stopIncome != nil {
+			c.stopIncome <- true
+			c.stopIncome = nil
+		}
 	}()
 	c.conn.SetReadLimit(maxMessageSize)
 	c.conn.SetReadDeadline(time.Now().Add(pongWait))
