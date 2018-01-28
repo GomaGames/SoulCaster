@@ -241,6 +241,9 @@ class GameScreen extends React.Component<Props, State> {
     //         health: data.health
     //       });
     //       break;
+    //     case 'SET_MONEY':
+    //       this.setState({ money: data.money });
+    //       break;
     //   }
     // });
   }
