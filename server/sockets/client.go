@@ -29,6 +29,15 @@ const (
 	// Time a client must wait before sending another attack
 	attackWait = time.Second
 
+	// Starting health
+	startingHealth = 1000
+
+	// Starting money
+	startingMoney = 0
+
+	// Starting income
+	startingIncome = 5
+
 	// Maximum message size allowed from peer.
 	maxMessageSize = 51200
 )
@@ -74,12 +83,13 @@ type Client struct {
 }
 
 func (c *Client) SetCurrentRoom(room *Room) {
-	c.LeaveRoom(false)
+	c.LeaveRoom(true)
 	c.currentRoom = room
 }
 
 func (c *Client) LeaveRoom(disconnected bool) {
 	if c.currentRoom != nil {
+		log.Printf("%p leaving room %v", c, c.currentRoom.code)
 		var message []byte = nil
 		if disconnected {
 			var err error
@@ -91,6 +101,16 @@ func (c *Client) LeaveRoom(disconnected bool) {
 
 		c.hub.leave <- newOpponentMessage(c, c.currentRoom, message)
 		c.currentRoom = nil
+	}
+}
+
+func (c *Client) StartGame() {
+	c.health = startingHealth
+	c.money = startingMoney
+	c.income = startingIncome
+	msg, err := createStartGameMessage(c.health, c.money, c.income)
+	if err == nil {
+		c.send <- msg
 	}
 }
 
@@ -143,18 +163,8 @@ func (c *Client) readPump() {
 		case JOIN:
 			c.hub.join <- &ClientMessage{client: c, message: []byte(m.Payload)}
 		case START_GAME:
-			resp, err := createStartGameMessage()
-			if err != nil {
-				// TODO: return error to client
-				continue
-			}
-			if (c.currentRoom.player1 != nil) {
-				c.currentRoom.player1.send <- []byte(resp)
-			}
-			if (c.currentRoom.player2 != nil) {
-				c.currentRoom.player2.send <- []byte(resp)
-			}
-				
+			c.hub.start <- newOpponentMessage(c, c.currentRoom, nil)
+			c.StartGame()
 		case PURCHASE_UPGRADE:
 			itemId, err := strconv.Atoi(m.Payload)
 			if err != nil {

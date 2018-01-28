@@ -49,12 +49,9 @@ type ObtainUpgradePayload struct {
 	Id int `json:"id"`
 }
 
-func createStartGameMessage() ([]byte, error) {
-	payloadObj := PlayerInfo{}
-	payloadObj.Health = 1000
-	payloadObj.Money = 0
-	payloadObj.Income = 5
-	
+func createStartGameMessage(health, money, income int) ([]byte, error) {
+	payloadObj := PlayerInfo{Money: money, Income: income}
+	payloadObj.Health = health
 	payload, err := json.Marshal(payloadObj)
 	if err != nil {
 		return nil, err
