@@ -106,6 +106,8 @@ func (c *Client) readPump() {
 			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
+		case JOIN:
+			c.hub.join <- &ClientMessage{client: c, message: message}
 		case PURCHASE_UPGRADE:
 			itemId, err := strconv.Atoi(m.Payload)
 			if err != nil {
