@@ -116,13 +116,13 @@ a.exit-button {
   width: 375px;
   border: 1px solid orange; }
   .game-screen.high {
-    background-image: url("/assets/backgrounds/background-high.jpg"); }
+    background-image: url("/assets/backgrounds/bg_res1.jpg"); }
   .game-screen.med {
-    background-image: url("/assets/backgrounds/background-med.jpg"); }
+    background-image: url("/assets/backgrounds/bg_res2.jpg"); }
   .game-screen.medlo {
-    background-image: url("/assets/backgrounds/background-medlo.jpg"); }
+    background-image: url("/assets/backgrounds/bg_res3.jpg"); }
   .game-screen.lo {
-    background-image: url("/assets/backgrounds/background-lo.jpg"); }
+    background-image: url("/assets/backgrounds/bg_res4.jpg"); }
 
 .players {
   height: 50%; }

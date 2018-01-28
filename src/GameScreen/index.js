@@ -12,203 +12,215 @@ const characters = {
   level3: {
     high: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-high.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-high.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res1.png'
       }
     },
     med: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-med.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-med.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res2.png'
       }
     },
     medlo: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res3.png'
       }
     },
     lo: {
       idle: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_3/wizard_c_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_3/wizard_c_color2_hit_res4.png'
       }
     }
   },
   level2: {
     high: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-high.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-high.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res1.png'
       }
     },
     med: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-med.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-med.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res2.png'
       }
     },
     medlo: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res3.png'
       }
     },
     lo: {
       idle: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_2/wizard-level2-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_2/wizard-level2-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_2/wizard_b_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_2/wizard_b_color2_hit_res4.png'
       }
     }
   },
   level1: {
     high: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res1.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res1.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-high.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-high.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res1.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res1.png'
       }
     },
     med: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res2.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res2.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-med.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-med.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res2.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res2.png'
       }
     },
     medlo: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res3.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res3.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-medlo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-medlo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res3.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res3.png'
       }
     },
     lo: {
       idle: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-idle-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-idle-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_idle_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_idle_res4.png'
       },
       attack: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-attack-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-attack-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_attack_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_attack_res4.png'
       },
       hit: {
-        color1: '/assets/characters/wizard_1/wizard-level1-color1-hit-lo.png',
-        color2: '/assets/characters/wizard_1/wizard-level1-color2-hit-lo.png'
+        color1: '/assets/characters/wizard_1/wizard_a_color1_hit_res4.png',
+        color2: '/assets/characters/wizard_1/wizard_a_color2_hit_res4.png'
       }
     }
   }
 }
 
 const buttons = {
-  broomstick: '/assets/weapons/weapon-broomstick-button.png',
-  stick: '/assets/weapons/weapon-stick-button.png',
+  broomstick: '/assets/weapons/weapon_broomstick_button_res1.png',
+  stick: '/assets/weapons/weapon_stick_button_res1.png',
 }
 const weapons = {
   staff: {
-    high: '/assets/weapons/weapon-staff-high.png'
+    high: '/assets/weapons/weapon_staff_attack_res1.png',
+    med: '/assets/weapons/weapon_staff_attack_res1.png',
+    medlo: '/assets/weapons/weapon_staff_attack_res1.png',
+    lo: '/assets/weapons/weapon_staff_attack_res1.png'
   },
   stick: {
-    high: '/assets/weapons/weapon-stick-high.png'
+    high: '/assets/weapons/weapon_stick_attack_res1.png',
+    med: '/assets/weapons/weapon_stick_attack_res1.png',
+    medlo: '/assets/weapons/weapon_stick_attack_res1.png',
+    lo: '/assets/weapons/weapon_stick_attack_res1.png'
+  },
+  broomstick: {
+    high: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    med: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    medlo: '/assets/weapons/weapon_broomstick_attack_res1.png',
+    lo: '/assets/weapons/weapon_stick_broomattack_res1.png'
   }
 }
 const icons = {
   heart: {
-    high: '/assets/icons/icon-heart-high.png',
-    med: '/assets/icons/icon-heart-med.png',
-    medlo: '/assets/icons/icon-heart-medlo.png',
-    lo: '/assets/icons/icon-heart-lo.png'
+    high: '/assets/icons/icon_heart_res1.png',
+    med: '/assets/icons/icon_heart_res2.png',
+    medlo: '/assets/icons/icon_heart_res3.png',
+    lo: '/assets/icons/icon_heart_res4.png'
   },
   coin: {
-    high: '/assets/icons/icon-coin-high.png',
-    med: '/assets/icons/icon-coin-med.png',
-    medlo: '/assets/icons/icon-coin-high.png',
-    lo: '/assets/icons/icon-coin-lo.png'
+    high: '/assets/icons/icon_coin_res1.png',
+    med: '/assets/icons/icon_coin_res2.png',
+    medlo: '/assets/icons/icon_coin_res3.png',
+    lo: '/assets/icons/icon_coin_res4.png'
   }
 }
 
