@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE, RGE_CLEAR } from '../store';
 import Player from './player';
 import RgeModal from './rge_modal';
 import './index.css';
@@ -254,6 +254,7 @@ class GameScreen extends React.Component<Props, State> {
       switch(op) {
         case 'RGE_ACTIVATE':
           this.props.rge_activate(JSON.parse(payload));
+          this.props.rge_clear();
           break;
         case 'RGE_TRIGGERED':
           this.props.rge_triggered(JSON.parse(payload));
@@ -401,6 +402,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     rge_activate: ({ id }) => {
       dispatch({ type: RGE_ACTIVATE, id });
+    },
+    rge_clear: () => {
+      dispatch({ type: RGE_CLEAR });
     }
   };
 };
