@@ -12,11 +12,12 @@ class TitleScreen extends React.Component<Props> {
 
   setupSocket() {
     this.props.set_socket(ws);
-    ws.addEventListener('message', function(data) {
-      console.log(data)
-      switch(data.op) {
-        case 'ROOM_CREATES':
-          this.props.create_room({ code: data.playload });
+    ws.addEventListener('message', event => {
+      const { op, payload } = JSON.parse(event.data);
+
+      switch(op) {
+        case 'ROOM_CREATED':
+          this.props.create_room(payload);
           this.props.history.push('/lobby');
           break;
       }
@@ -54,8 +55,8 @@ const mapDispatchToProps = (dispatch) => {
     set_socket: socket => {
       dispatch({ type: SET_SOCKET, socket });
     },
-    create_room: data => {
-      dispatch({ type: CREATE_ROOM, code: data.code });
+    create_room: code => {
+      dispatch({ type: CREATE_ROOM, code });
     }
   };
 };
