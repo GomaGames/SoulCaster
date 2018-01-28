@@ -1,6 +1,12 @@
 @import '../index.scss';
 
 .lobby-screen{
+  background-color: white;
+
+  h1{
+    // margin: 0;
+  }
+
   h1,
   .subtitle{
     color: $blue;
@@ -19,11 +25,13 @@ p{
 }
 
 .code{
-  border: 1px solid $gray;
+  border: 1px solid #CCCCCC;
+  // padding: 10px;
 
   p{
     font-size: 36px;
     font-weight: bold;
+    color: black;
   }
 
   @include breakpoint(large){

@@ -1,6 +1,11 @@
 $gray: #4A4A4A;
 $blue: #276980;
+$light-blue: #4C83CB;
+$light-teal: #60FCFD;
 $red: #DF5455;
+$green: #007100;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 @mixin breakpoint($point) {
   @if $point == large {
@@ -22,8 +27,12 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 100%;
+}
+
+h1{
+  margin:0;
 }
 
 h1.title{
@@ -39,9 +48,33 @@ button{
   padding: 15px;
   margin: 0 auto;
   margin-top: 15px;
+  border: 0;
+  border-radius: 2px;
+  font-family: 'Open Sans', sans-serif;
 
   @include breakpoint(large){
     width: 30%;
+  }
+}
+
+.bottom-buttons{
+  position: fixed;
+  // padding: 25px;
+  bottom: 50px;
+  left:0;
+  width: 100%;
+  // background-color: pink;
+  display: block;
+
+  button{
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    // margin-left: 25px;
+    // margin-right: 25px;
+    // width: 100%;
+    // width: 100%;
   }
 }
 
