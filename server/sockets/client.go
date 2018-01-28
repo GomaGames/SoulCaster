@@ -142,6 +142,19 @@ func (c *Client) readPump() {
 			c.hub.create <- &ClientMessage{client: c, message: message}
 		case JOIN:
 			c.hub.join <- &ClientMessage{client: c, message: []byte(m.Payload)}
+		case START_GAME:
+			resp, err := createStartGameMessage()
+			if err != nil {
+				// TODO: return error to client
+				continue
+			}
+			if (c.currentRoom.player1 != nil) {
+				c.currentRoom.player1.send <- []byte(resp)
+			}
+			if (c.currentRoom.player2 != nil) {
+				c.currentRoom.player2.send <- []byte(resp)
+			}
+				
 		case PURCHASE_UPGRADE:
 			itemId, err := strconv.Atoi(m.Payload)
 			if err != nil {
