@@ -1,3 +1,9 @@
 .title-screen {
   background-image: url("/assets/title_screen/title_screen.jpg");
   background-size: contain; }
+
+.button.create-room-button {
+  background-color: #276980; }
+
+.button.join-room-button {
+  background-color: #007100; }

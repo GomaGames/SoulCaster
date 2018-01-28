@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 html,
 .app,
 #root {
@@ -6,8 +7,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 100%; }
+
+h1 {
+  margin: 0; }
 
 h1.title {
   color: gray; }
@@ -20,10 +24,25 @@ button {
   width: 100%;
   padding: 15px;
   margin: 0 auto;
-  margin-top: 15px; }
+  margin-top: 15px;
+  border: 0;
+  border-radius: 2px;
+  font-family: 'Open Sans', sans-serif; }
   @media (min-width: 70em) {
     button {
       width: 30%; } }
+
+.bottom-buttons {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  display: block; }
+  .bottom-buttons button {
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto; }
 
 .container {
   padding: 25px; }
@@ -41,22 +60,24 @@ a.exit-button {
   position: absolute;
   left: 25px; }
 
-.lobby-screen h1,
-.lobby-screen .subtitle {
-  color: #276980; }
-
-.lobby-screen.player2 h1,
-.lobby-screen.player2 .subtitle {
-  color: #DF5455; }
+.lobby-screen {
+  background-color: white; }
+  .lobby-screen h1,
+  .lobby-screen .subtitle {
+    color: #276980; }
+  .lobby-screen.player2 h1,
+  .lobby-screen.player2 .subtitle {
+    color: #DF5455; }
 
 p {
   color: #4A4A4A; }
 
 .code {
-  border: 1px solid #4A4A4A; }
+  border: 1px solid #CCCCCC; }
   .code p {
     font-size: 36px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: black; }
   @media (min-width: 70em) {
     .code {
       width: 30%;
