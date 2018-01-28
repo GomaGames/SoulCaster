@@ -1,17 +1,34 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { SET_SOCKET, CREATE_ROOM } from '../store';
 
-type Props = {};
+const ws = new WebSocket(`ws://${window.location.host}/ws`);
 
 class TitleScreen extends React.Component<Props> {
-  createRoom = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
 
-    this.props.history.push('/lobby')
+  componentDidMount() {
+    ws.addEventListener('open', this.setupSocket.bind(this));
   }
 
-  joinRoom = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
+  setupSocket() {
+    this.props.set_socket(ws);
+    ws.addEventListener('message', function(data) {
+      console.log(data)
+      switch(data.op) {
+        case 'ROOM_CREATES':
+          this.props.create_room({ code: data.playload });
+          this.props.history.push('/lobby');
+          break;
+      }
+    });
+  }
 
+  createRoom = () => {
+    let OP = 'CREATE_ROOM';
+    ws.send(JSON.stringify({ op: "CREATE_ROOM" }));
+  }
+
+  joinRoom = () => {
     this.props.history.push('/join')
   }
 
@@ -29,4 +46,17 @@ class TitleScreen extends React.Component<Props> {
   }
 }
 
-export default TitleScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    set_socket: socket => {
+      dispatch({ type: SET_SOCKET, socket });
+    },
+    create_room: data => {
+      dispatch({ type: CREATE_ROOM, code: data.code });
+    }
+  };
+};
+
+const mapStateToProps = (state) => state;
+const ConnectedTitleScreen = connect(mapStateToProps, mapDispatchToProps)(TitleScreen);
+export default ConnectedTitleScreen;

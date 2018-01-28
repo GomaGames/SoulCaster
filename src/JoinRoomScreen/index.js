@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './index.css';
-
-type Props = {
-
-};
+import { JOIN_ROOM, PLAYER_JOINED } from '../store';
 
 type State = {
   code: string, //?
@@ -13,19 +11,37 @@ type State = {
 
 class JoinRoomScreen extends React.Component<Props, State> {
 
+  constructor(props) {
+    super(props)
+
+    this.props.socket.addEventListener('message', function(data) {
+      switch(data.op) {
+        case 'PLAYER_JOINED':
+          this.props.history.push('/lobby');
+          let data = { code: this.state.code, player_number: 2 };
+          this.props.player_joined(true);
+          this.props.join_room(data)
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
   state = {
     code: '',
     invalidCode: false
   }
 
-	join = (event: SyntheticEvent<HTMLButtonElement>) => {
-    (event.currentTarget: HTMLButtonElement);
-
-    if(this.state.code === 'xlrt') {
-      this.props.history.push('/lobby')
-    } else {
-      this.setState({ invalidCode: true });
-    }
+	join = () => {
+    this.props.socket.send(JSON.stringify({ op: 'JOIN_ROOM' }));
+    // if(this.state.code === 'xlrt') {
+    //   this.props.history.push('/lobby');
+    //   let data = { CODE: this.state.code, PLAYER_NUMBER: 2 };
+    //   this.props.join_room(data)
+    // } else {
+    //   this.setState({ invalidCode: true });
+    // }
   }
 
   setCode = (e) => {
@@ -69,4 +85,17 @@ class JoinRoomScreen extends React.Component<Props, State> {
   }
 }
 
-export default JoinRoomScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    join_room: data => {
+      dispatch({ type: JOIN_ROOM, code: data.CODE, player_number: data.PLAYER_NUMBER });
+    },
+    player_joined: joined => {
+      dispatch({ type: PLAYER_JOINED, joined });
+    }
+  };
+};
+
+const mapStateToProps = (state) => state;
+const ConnectedJoinRoom = connect(mapStateToProps, mapDispatchToProps)(JoinRoomScreen);
+export default ConnectedJoinRoom;

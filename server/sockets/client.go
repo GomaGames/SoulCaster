@@ -9,8 +9,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
+	"../game"
 	"github.com/gorilla/websocket"
 )
 
@@ -23,6 +25,9 @@ const (
 
 	// Send pings to peer with this period. Must be less than pongWait.
 	pingPeriod = (pongWait * 9) / 10
+
+	// Time a client must wait before sending another attack
+	attackWait = time.Second
 
 	// Maximum message size allowed from peer.
 	maxMessageSize = 51200
@@ -48,6 +53,21 @@ type Client struct {
 
 	// Buffered channel of outbound messages.
 	send chan []byte
+
+	// The last time the client tried to attack
+	lastAttack *time.Time
+
+	// Attack Power
+	attackPower int
+
+	// Health
+	health int
+
+	// Money
+	money int
+
+	// Income per tick
+	income int
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -78,14 +98,48 @@ func (c *Client) readPump() {
 		log.Printf("message: %s", message)
 
 		switch m.Op {
-		case ECHO:
-			c.hub.echo <- &ClientMessage{client: c, message: message}
+		case ATTACK:
+			now := time.Now()
+			if c.lastAttack == nil || now.Sub(*c.lastAttack) > attackWait {
+				c.lastAttack = &now
+				// TODO: send attack to opponent (need "rooms")
+			}
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
 		case JOIN:
 			c.hub.join <- &ClientMessage{client: c, message: message}
-		}
+		case PURCHASE_UPGRADE:
+			itemId, err := strconv.Atoi(m.Payload)
+			if err != nil {
+				// TODO: return error to client
+				continue
+			}
 
+			item, ok := game.Items[itemId]
+			if !ok {
+				// TODO: return error to client
+				continue
+			}
+
+			if c.money >= item.Cost {
+				response, err := createObtainUpgradeMessage(itemId, c.health, c.money-item.Cost, c.income+item.AdditionalIncome)
+				if err != nil {
+					// TODO: return error to client
+					continue
+				}
+
+				c.money -= item.Cost
+				c.attackPower += item.AdditionalPower
+				c.income += item.AdditionalIncome
+
+				c.send <- []byte(response)
+			} else {
+				// TODO: return error to client
+				continue
+			}
+		case ECHO:
+			c.hub.echo <- &ClientMessage{client: c, message: message}
+		}
 	}
 }
 

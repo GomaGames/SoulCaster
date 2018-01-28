@@ -1,7 +1,13 @@
+html,
+.app,
+#root {
+  height: 100%; }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  height: 100%; }
 
 h1.title {
   color: gray; }
@@ -21,8 +27,8 @@ button {
 
 .screen {
   text-align: center;
-  padding: 25px;
-  position: relative; }
+  position: relative;
+  height: 100%; }
 
 a.exit-button {
   text-decoration: none;
@@ -35,6 +41,10 @@ a.exit-button {
 .lobby-screen h1,
 .lobby-screen .subtitle {
   color: #276980; }
+
+.lobby-screen.player2 h1,
+.lobby-screen.player2 .subtitle {
+  color: #DF5455; }
 
 p {
   color: #4A4A4A; }
