@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect} from 'react-redux';
-import { RECEIVE_ATTACK } from '../../store';
+import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
 type State = {
