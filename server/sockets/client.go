@@ -292,7 +292,9 @@ func (c *Client) readPump() {
 				continue
 			}
 		case RGE_DECLINED:
-			c.send <- createMessage(RGE_ACTIVATE, m.Payload)
+			if msg, err := createMessage(RGE_ACTIVATE, m.Payload); err == nil {
+				c.send <- msg
+			}
 		case ECHO:
 			c.hub.echo <- &ClientMessage{client: c, message: message}
 		}
