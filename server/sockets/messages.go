@@ -7,9 +7,11 @@ const (
 	ATTACK           = "ATTACK"
 	ECHO             = "ECHO"
 	CREATE           = "CREATE_ROOM"
-	JOIN             = "JOIN_ROOM"	
+	DISCONNECT       = "DISCONNECT"
+	JOIN             = "JOIN_ROOM"
 	OBTAIN_UPGRADE   = "OBTAIN_UPGRADE"
 	PURCHASE_UPGRADE = "PURCHASE_UPGRADE"
+	RECEIVE_ATTACK   = "RECEIVE_ATTACK"
 )
 
 type Message struct {
@@ -17,12 +19,25 @@ type Message struct {
 	Payload string `json:"payload"`
 }
 
-func createMessage(op string, payload string) string {
-	return `{"op":"` + op + `", "payload":"` + payload + `"}`
+func createMessage(op string, payload string) ([]byte, error) {
+	msg := Message{
+		Op:      op,
+		Payload: payload,
+	}
+	return json.Marshal(msg)
+}
+
+type HealthInfo struct {
+	Health int `json:"health"`
+}
+
+func createHealthPayload(health int) ([]byte, error) {
+	payloadObj := HealthInfo{Health: health}
+	return json.Marshal(payloadObj)
 }
 
 type PlayerInfo struct {
-	Health int `json:"health"`
+	HealthInfo
 	Money  int `json:"money"`
 	Income int `json:"income"`
 }
@@ -32,14 +47,14 @@ type ObtainUpgradePayload struct {
 	Id int `json:"id"`
 }
 
-func createObtainUpgradeMessage(id, health, money, income int) (string, error) {
+func createObtainUpgradeMessage(id, health, money, income int) ([]byte, error) {
 	payloadObj := ObtainUpgradePayload{Id: id}
 	payloadObj.Health = health
 	payloadObj.Money = money
 	payloadObj.Income = income
 	payload, err := json.Marshal(payloadObj)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return createMessage(OBTAIN_UPGRADE, string(payload)), nil
+	return createMessage(OBTAIN_UPGRADE, string(payload))
 }
