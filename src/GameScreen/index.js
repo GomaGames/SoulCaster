@@ -17,7 +17,7 @@ const characters = {
   level3_player2_idle: '/assets/wizard-level3-color2-idle-high.png'
 }
 const weapons = {
-  weapon_staff_button_high: '/assets/weapon-staff-button-high.png',
+  weapon_stick_button_high: '/assets/weapon-stick-button-high.png',
   weapon_broomstick_button_high: '/assets/weapon-broomstick-button-high.png'
 }
 const icons = {
@@ -93,7 +93,7 @@ class GameScreen extends React.Component<Props, State> {
           <div className="weapons">
             <div className="weapon">
               <div className="weapon-image">
-                <img src={ weapons.weapon_staff_button_high } />
+                <img src={ weapons.weapon_stick_button_high } />
               </div>
               <div className="weapon-cost">
                 <img className="icon-coin icon" src={ icons.coin_high } />
