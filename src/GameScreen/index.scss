@@ -8,19 +8,19 @@
   border: 1px solid orange;
 
   &.high{
-    background-image: url('/assets/backgrounds/background-high.jpg');
+    background-image: url('/assets/backgrounds/bg_res1.jpg');
   }
 
   &.med{
-    background-image: url('/assets/backgrounds/background-med.jpg');
+    background-image: url('/assets/backgrounds/bg_res2.jpg');
   }
 
   &.medlo{
-    background-image: url('/assets/backgrounds/background-medlo.jpg');
+    background-image: url('/assets/backgrounds/bg_res3.jpg');
   }
 
   &.lo{
-    background-image: url('/assets/backgrounds/background-lo.jpg');
+    background-image: url('/assets/backgrounds/bg_res4.jpg');
   }
 }
 
