@@ -20,17 +20,20 @@ type State = {
 
 class GameScreen extends React.Component<Props, State> {
 
-  onComponentDidMount() {
-    this.props.socket.addEventListener('message', function(data) {
-      switch(data.op) {
-        case 'RECEIVE_ATTACK':
-          // trigger animation
-          this.setState({
-            health: data.health
-          });
-          break;
-      }
-    });
+  componentDidMount() {
+    // uncomment when done working with characters and ui
+    // if( this.props.socket === null ) return;
+
+    // this.props.socket.addEventListener('message', function(data) {
+    //   switch(data.op) {
+    //     case 'RECEIVE_ATTACK':
+    //       // trigger animation
+    //       this.setState({
+    //         health: data.health
+    //       });
+    //       break;
+    //   }
+    // });
   }
 
   state = {
@@ -44,7 +47,9 @@ class GameScreen extends React.Component<Props, State> {
   }
 
   render() {
-    console.log(characters)
+    // uncomment when done working with characters and ui
+    // if(this.props.socket === null) return <Redirect to='/' />;
+    
     return (
       <div className="game-screen screen">
         <div className="players">
