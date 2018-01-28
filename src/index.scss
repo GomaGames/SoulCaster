@@ -51,11 +51,24 @@ p{
 }
 
 .player-ready{
-  border: 5px solid red;
-  background-color: pink;
   width: 100%;
   height: 300px;
   margin: 25px auto 25px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  span{
+    display: none;
+  }
+
+  &.player1-ready{
+    background-image: url('/assets/characters/ready-player-1.jpg');
+  }
+
+  &.player2-ready{
+    background-image: url('/assets/characters/ready-player-2.jpg');
+  }
 }
 
 button{

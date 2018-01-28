@@ -164,11 +164,13 @@ func (h *Hub) Run() {
 		case om := <-h.leave:
 			if om.message != nil {
 				opponent := om.GetOpponent()
-				if _, ok := h.clients[opponent]; ok {
-					log.Printf("Sending disconnect to %p", opponent)
-					opponent.send <- om.message
+				if opponent != nil {
+					if _, ok := h.clients[opponent]; ok {
+						log.Printf("Sending disconnect to %p", opponent)
+						opponent.send <- om.message
+					}
+					opponent.LeaveRoom(false)
 				}
-				opponent.LeaveRoom(false)
 			}
 			if om.room != nil {
 				log.Printf("%p left room %v", om.client, om.room.code)

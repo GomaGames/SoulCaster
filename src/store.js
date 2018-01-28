@@ -9,6 +9,7 @@ export const GAME_STARTED = 'GAME_STARTED';
 export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
 export const RGE_TRIGGERED = 'RGE_TRIGGERED';
 export const RGE_ACTIVATE = 'RGE_ACTIVATE';
+export const RGE_CLEAR = 'RGE_CLEAR';
 
 const initialState = {
   joined: false,
@@ -85,6 +86,11 @@ export const store = createStore((state = initialState, action) => {
       } else {
         return state;
       }
+    case RGE_CLEAR:
+      return {
+        ...state,
+        rge : null
+      };
     default:
       return state;
   }

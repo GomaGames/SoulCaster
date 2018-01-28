@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { throttle } from 'lodash';
-import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE } from '../store';
+import { RECEIVE_ATTACK, RGE_TRIGGERED, RGE_ACTIVATE, RGE_CLEAR } from '../store';
 import Player from './player';
 import RgeModal from './rge_modal';
 import './index.css';
@@ -252,8 +252,9 @@ class GameScreen extends React.Component<Props, State> {
       const { op, payload } = JSON.parse(event.data);
       if(op === 'RECEIVE_ATTACK' || op === 'SENT_ATTACK') {}
       switch(op) {
-        case 'RGE':
-          this.props.rge(JSON.parse(payload));
+        case 'RGE_ACTIVATE':
+          this.props.rge_activate(JSON.parse(payload));
+          this.props.rge_clear();
           break;
         case 'RGE_TRIGGERED':
           this.props.rge_triggered(JSON.parse(payload));
@@ -265,6 +266,11 @@ class GameScreen extends React.Component<Props, State> {
         case 'SENT_ATTACK':
           let opponentHealth = JSON.parse(payload).health
           this.setState({ opponentHealth })
+          break;
+        case 'SET_MONEY':
+          const money = +payload;
+          this.setState({ money });
+        default:
           break;
       }
     });
@@ -322,14 +328,14 @@ class GameScreen extends React.Component<Props, State> {
             <div className="player-1">
               <div className="life-counter">
                 <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
-                <p className="health player1-health">{ this.state.health }</p>
+                <p className="health player1-health">{ playerNumber === 1 ? this.state.health : this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
               <div className="life-counter">
                 <img className="icon-heart icon" src={ icons.heart[this.props.resolution] } alt="icon-heart"/>
-                <p className="health player2-health">{ this.state.opponentHealth }</p>
+                <p className="health player2-health">{ playerNumber === 2 ? this.state.health : this.state.opponentHealth }</p>
               </div>
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
@@ -396,6 +402,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     rge_activate: ({ id }) => {
       dispatch({ type: RGE_ACTIVATE, id });
+    },
+    rge_clear: () => {
+      dispatch({ type: RGE_CLEAR });
     }
   };
 };

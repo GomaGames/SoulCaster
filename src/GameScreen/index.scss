@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
   height: 667px;
   width: 375px;
-  border: 1px solid orange;
+  // border: 1px solid orange;
 
   &.res-3{
     background-image: url('/assets/backgrounds/bg_res1.jpg');
@@ -29,13 +29,13 @@
 }
 
 .player{
-  border: 1px solid red;
+  // border: 1px solid red;
   display: block;
   top: 130px;
   position: absolute;
 
   &.player-1{
-    border: 1px solid green;
+    // border: 1px solid green;
     left: 20px;
 
     &.player-1-attack{
@@ -49,7 +49,7 @@
   }
 
   &.player-2{
-    border: 1px solid purple;
+    // border: 1px solid purple;
     right: 20px;
 
     &.player-2-attack{
@@ -138,7 +138,7 @@ img.attack-weapon{
 
     .health{
       margin:0;
-      background-color: red;
+      // background-color: red;
       display: block;
       font-weight: bold;
       font-size: 20px;
@@ -189,7 +189,7 @@ img.attack-weapon{
     font-size: 30px;
     line-height: 25px;
     flex: 1 0 100px;
-    border: 1px solid green;
+    // border: 1px solid green;
     width: 100px;
     height: 25px;
     margin: 0;

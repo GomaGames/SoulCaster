@@ -24,11 +24,18 @@ p {
   margin-top: 10px; }
 
 .player-ready {
-  border: 5px solid red;
-  background-color: pink;
   width: 100%;
   height: 300px;
-  margin: 25px auto 25px; }
+  margin: 25px auto 25px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+  .player-ready span {
+    display: none; }
+  .player-ready.player1-ready {
+    background-image: url("/assets/characters/ready-player-1.jpg"); }
+  .player-ready.player2-ready {
+    background-image: url("/assets/characters/ready-player-2.jpg"); }
 
 button {
   display: block;
@@ -113,8 +120,7 @@ a.exit-button {
   background-size: contain;
   background-repeat: no-repeat;
   height: 667px;
-  width: 375px;
-  border: 1px solid orange; }
+  width: 375px; }
   .game-screen.res-3 {
     background-image: url("/assets/backgrounds/bg_res1.jpg"); }
   .game-screen.res-2 {
@@ -128,12 +134,10 @@ a.exit-button {
   height: 50%; }
 
 .player {
-  border: 1px solid red;
   display: block;
   top: 130px;
   position: absolute; }
   .player.player-1 {
-    border: 1px solid green;
     left: 20px; }
     .player.player-1.player-1-attack {
       left: 100px; }
@@ -141,7 +145,6 @@ a.exit-button {
       top: -14px;
       left: 87px; }
   .player.player-2 {
-    border: 1px solid purple;
     right: 20px; }
     .player.player-2.player-2-attack {
       left: 100px; }
@@ -200,7 +203,6 @@ img.attack-weapon {
     margin-right: 4px; }
   .health-container .life-counter .health {
     margin: 0;
-    background-color: red;
     display: block;
     font-weight: bold;
     font-size: 20px;
@@ -241,7 +243,6 @@ img.attack-weapon {
     font-size: 30px;
     line-height: 25px;
     flex: 1 0 100px;
-    border: 1px solid green;
     width: 100px;
     height: 25px;
     margin: 0;
