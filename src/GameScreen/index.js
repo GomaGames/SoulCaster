@@ -29,7 +29,12 @@ const buttons = {
   stick: '/assets/weapons/weapon-stick-button.png',
 }
 const weapons = {
-  
+  staff: {
+    high: '/assets/weapons/weapon-staff-high.png'
+  },
+  stick: {
+    high: '/assets/weapons/weapon-stick-high.png'
+  }
 }
 const icons = {
   heart: {
