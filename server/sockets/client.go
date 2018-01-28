@@ -138,6 +138,10 @@ func (c *Client) ReceiveAttack(damage int) {
 	c.health -= damage
 	payload, err := createHealthPayload(c.health)
 	if err == nil {
+		// TODO: handle errors
+		if msg, err := createMessage(SENT_ATTACK, string(payload)); err == nil {
+			c.hub.opponent <- newOpponentMessage(c, c.currentRoom, msg)
+		}
 		if msg, err := createMessage(RECEIVE_ATTACK, string(payload)); err == nil {
 			c.send <- msg
 		}
