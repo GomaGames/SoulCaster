@@ -77,8 +77,11 @@ func (c *Client) readPump() {
 
 		log.Printf("message: %s", message)
 
-		if m.Op == ECHO {
+		switch m.Op {
+		case ECHO:
 			c.hub.echo <- &ClientMessage{client: c, message: message}
+		case CREATE:
+			c.hub.create <- &ClientMessage{client: c, message: message}
 		}
 
 	}
