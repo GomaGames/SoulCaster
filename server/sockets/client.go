@@ -237,8 +237,22 @@ func (c *Client) readPump() {
 					c.lastAttack = &now
 					c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
 					c.rgeAttackCount += 1
+					sendRge := false
+					id := 0
 					if c.rgeAttackCount == attackResolutionCapCount1 {
-						if resp, err := createRgeTriggerMessage(1); err == nil {
+						sendRge = true
+						id = 1
+					}
+					if c.rgeAttackCount == attackResolutionCapCount2 {
+						sendRge = true
+						id = 2
+					}
+					if c.rgeAttackCount == attackResolutionCapCount3 {
+						sendRge = true
+						id = 3
+					}
+					if sendRge {
+						if resp, err := createRgeTriggerMessage(id); err == nil {
 							c.send <- resp
 						}
 					}
