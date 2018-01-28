@@ -16,7 +16,7 @@ const rge = {
       resolution : -1
     },
     resolution_levels, 
-    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${LEVEL_DEGRADE}. Pay 50g to restore?`
+    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${resolution_levels[LEVEL_DEGRADE]}. Pay 50g to restore?`
   },
   2 : {
     id : 2,
@@ -28,7 +28,7 @@ const rge = {
       resolution : -1
     },
     resolution_levels, 
-    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${LEVEL_DEGRADE}. Pay 100 health to restore?`
+    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${resolution_levels[LEVEL_DEGRADE]}. Pay 100 health to restore?`
   },
   3 : {
     id : 3,
@@ -40,7 +40,7 @@ const rge = {
       resolution : -1
     },
     resolution_levels, 
-    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${LEVEL_DEGRADE}. Pay 200g and 200 health to restore?`
+    text : LEVEL_DEGRADE => `Your maximum resolution has been bandwidth capped by ${resolution_levels[LEVEL_DEGRADE]}. Pay 200g and 200 health to restore?`
   },
 }
 export default rge;
