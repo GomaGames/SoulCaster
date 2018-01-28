@@ -99,6 +99,9 @@ a.exit-button {
     top: -80px;
     left: 90px; }
 
+.player-1-attack {
+  margin-left: 150px; }
+
 .player-2 {
   text-align: right; }
   .player-2 p, .player-2 img {

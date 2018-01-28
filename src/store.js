@@ -10,6 +10,7 @@ export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
 const initialState = {
   joined: false,
   room: null,
+  playerNumber: null,
   code: null,
   socket: null,
   health: null,
