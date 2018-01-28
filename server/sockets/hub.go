@@ -22,12 +22,19 @@ type Hub struct {
 	// Echo channel for clients.
 	echo chan *ClientMessage
 
+	// Create room channel for clients.
+	create chan *ClientMessage
+
 	// Register requests from the clients.
 	register chan *Client
 
 	// Unregister requests from clients.
 	unregister chan *Client
 }
+
+var (
+	rooms = make(map[string]bool)	
+)
 
 // channel type
 type ClientMessage struct {
@@ -42,6 +49,7 @@ func NewHub() *Hub {
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		clients:    make(map[*Client]bool),
+		create:     make(chan *ClientMessage),
 	}
 }
 
@@ -58,6 +66,11 @@ func (h *Hub) Run() {
 				delete(h.clients, client)
 				close(client.send)
 			}
+		case cm := <-h.create:
+			roomCode := createUniqueRoomCode()
+			rooms[roomCode] = true
+			resp := createMessage("ROOM_CREATED", roomCode)
+			cm.client.send <- []byte(resp)
 		case cm := <-h.echo:
 
 			messageDecoder := json.NewDecoder(bytes.NewReader(cm.message))
