@@ -3,7 +3,9 @@ $blue: #276980;
 $light-blue: #4C83CB;
 $light-teal: #60FCFD;
 $red: #DF5455;
+$dark-red: #A30D13;
 $green: #007100;
+$gold: #F6C44B;
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
@@ -58,12 +60,10 @@ button{
 }
 
 .bottom-buttons{
-  position: fixed;
-  // padding: 25px;
+  position: absolute;
   bottom: 50px;
   left:0;
   width: 100%;
-  // background-color: pink;
   display: block;
 
   button{
@@ -71,10 +71,6 @@ button{
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    // margin-left: 25px;
-    // margin-right: 25px;
-    // width: 100%;
-    // width: 100%;
   }
 }
 

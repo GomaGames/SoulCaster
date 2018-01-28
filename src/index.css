@@ -33,7 +33,7 @@ button {
       width: 30%; } }
 
 .bottom-buttons {
-  position: fixed;
+  position: absolute;
   bottom: 50px;
   left: 0;
   width: 100%;
