@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { throttle } from 'lodash';
 import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
@@ -217,6 +218,11 @@ type State = {
 
 class GameScreen extends React.Component<Props, State> {
 
+  constructor(props) {
+    super(props);
+    this.attack = throttle(this.attack,1000);
+  }
+
   componentDidMount() {
     // uncomment when done working with characters and ui
     // if( this.props.socket === null ) return;
@@ -241,11 +247,11 @@ class GameScreen extends React.Component<Props, State> {
     opponentState: 'idle'
   }
 
-  attack = () => {
+  attack() {
     // uncomment when done working with characters and ui
     // this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
     this.setState({ playerState: 'attack' });
-    setTimeout(function() { this.setState({playerState: 'idle'}); }.bind(this), 600);
+    setTimeout(() => this.setState({playerState: 'idle'}), 300);
   }
 
   render() {
@@ -304,7 +310,7 @@ class GameScreen extends React.Component<Props, State> {
               </div>
             </div>
           </div>
-          <button className="attack-button" type="button" onClick={ this.attack }>Attack</button>
+          <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
         </div>
       </div>
     )

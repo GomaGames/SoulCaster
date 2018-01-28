@@ -4,12 +4,13 @@
   "private": true,
   "proxy": {
     "/ws": {
-      "target" : "http://localhost:8000",
-      "ws" : true
+      "target": "http://localhost:8000",
+      "ws": true
     }
   },
   "dependencies": {
     "bufferutil": "^3.0.3",
+    "lodash": "^4.17.4",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
