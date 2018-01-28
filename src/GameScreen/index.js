@@ -236,11 +236,16 @@ class GameScreen extends React.Component<Props, State> {
   state = {
     money: this.props.money,
     health: this.props.health,
-    income: this.props.income
+    income: this.props.income,
+    playerState: 'idle',
+    opponentState: 'idle'
   }
 
   attack = () => {
-    this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+    // uncomment when done working with characters and ui
+    // this.props.socket.send(JSON.stringify({ op: 'ATTACK' }));
+    this.setState({ playerState: 'attack' });
+    setTimeout(function() { this.setState({playerState: 'idle'}); }.bind(this), 600);
   }
 
   render() {
@@ -266,10 +271,12 @@ class GameScreen extends React.Component<Props, State> {
             </div>
           </div>
           <div className="player player-1">
-            <img src={ characters.level3[res].idle.color1 } alt="player"/>
+            <img src={ characters.level3[res][this.state.playerState].color1 } alt="player"/>
+            <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/>
           </div>
           <div className="player player-2">
             <img src={ characters.level3[res].idle.color2 } alt="player"/>
+            <img className="attack-weapon" src={ weapons.stick.high } alt="weapon"/>
           </div>
         </div>
         <div className="game-ui">
@@ -297,7 +304,7 @@ class GameScreen extends React.Component<Props, State> {
               </div>
             </div>
           </div>
-          <button className="attack-button" type="button attack-button" onClick={ this.attack }>Attack</button>
+          <button className="attack-button" type="button" onClick={ this.attack }>Attack</button>
         </div>
       </div>
     )

@@ -42,7 +42,8 @@ a.exit-button {
   left: 25px; }
 
 .game-screen {
-  background-size: contain; }
+  background-size: contain;
+  background-repeat: no-repeat; }
   .game-screen.high {
     background-image: url("/assets/backgrounds/background-high.jpg"); }
   .game-screen.med {
@@ -57,8 +58,8 @@ a.exit-button {
 
 .player {
   display: inline-block;
-  width: 50%;
-  margin-top: 50px; }
+  margin-top: 50px;
+  position: relative; }
   .player img {
     width: 130px;
     height: 120px; }
@@ -94,11 +95,22 @@ a.exit-button {
   text-align: left; }
   .player-1 p, .player-1 img {
     margin-left: 25px; }
+  .player-1 .attack-weapon {
+    top: -80px;
+    left: 90px; }
 
 .player-2 {
   text-align: right; }
   .player-2 p, .player-2 img {
     margin-right: 25px; }
+  .player-2 .attack-weapon {
+    top: -80px;
+    right: 90px; }
+
+img.attack-weapon {
+  width: 57px;
+  height: 150px;
+  position: absolute; }
 
 .health {
   font-weight: bold;

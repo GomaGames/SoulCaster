@@ -2,6 +2,7 @@
 
 .game-screen{
   background-size: contain;
+  background-repeat: no-repeat;
 
   &.high{
     background-image: url('/assets/backgrounds/background-high.jpg');
@@ -26,8 +27,8 @@
 
 .player{
   display: inline-block;
-  width: 50%;
   margin-top: 50px;
+  position: relative;
 
   img{
     width: 130px;
@@ -81,12 +82,28 @@
   p,img {
     margin-left: 25px;
   }
+
+  .attack-weapon{
+    top: -80px;
+    left: 90px;
+  }
 }
 .player-2{
   text-align: right;
   p,img {
     margin-right: 25px;
   }
+
+  .attack-weapon{
+    top: -80px;
+    right: 90px;
+  }
+}
+
+img.attack-weapon{
+  width: 57px;
+  height: 150px;
+  position: absolute;
 }
 
 .health{
