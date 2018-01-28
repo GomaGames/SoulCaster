@@ -21,12 +21,13 @@ class TitleScreen extends React.Component<Props> {
           this.props.create_room(payload);
           this.props.history.push('/lobby');
           break;
+        default:
+          break;
       }
     });
   }
 
   createRoom = () => {
-    let OP = 'CREATE_ROOM';
     ws.send(JSON.stringify({ op: "CREATE_ROOM" }));
     this.props.history.push('/lobby'); //remve this
   }
