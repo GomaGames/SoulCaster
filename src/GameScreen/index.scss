@@ -1,5 +1,25 @@
 @import '../index.scss';
 
+.game-screen{
+  background-size: contain;
+
+  &.high{
+    background-image: url('/assets/backgrounds/background-high.jpg');
+  }
+
+  &.med{
+    background-image: url('/assets/backgrounds/background-med.jpg');
+  }
+
+  &.medlo{
+    background-image: url('/assets/backgrounds/background-medlo.jpg');
+  }
+
+  &.lo{
+    background-image: url('/assets/backgrounds/background-lo.jpg');
+  }
+}
+
 .players{
   height: 50%;
 }

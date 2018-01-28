@@ -41,6 +41,17 @@ a.exit-button {
   position: absolute;
   left: 25px; }
 
+.game-screen {
+  background-size: contain; }
+  .game-screen.high {
+    background-image: url("/assets/backgrounds/background-high.jpg"); }
+  .game-screen.med {
+    background-image: url("/assets/backgrounds/background-med.jpg"); }
+  .game-screen.medlo {
+    background-image: url("/assets/backgrounds/background-medlo.jpg"); }
+  .game-screen.lo {
+    background-image: url("/assets/backgrounds/background-lo.jpg"); }
+
 .players {
   height: 50%; }
 
