@@ -25,6 +25,9 @@ type Hub struct {
 	// Create room channel for clients.
 	create chan *ClientMessage
 
+	// Join room channel for clients.
+	join chan *ClientMessage
+
 	// Register requests from the clients.
 	register chan *Client
 
@@ -33,7 +36,7 @@ type Hub struct {
 }
 
 var (
-	rooms = make(map[string]bool)	
+	rooms = make(map[string]*RoomData)	
 )
 
 // channel type
@@ -50,6 +53,7 @@ func NewHub() *Hub {
 		unregister: make(chan *Client),
 		clients:    make(map[*Client]bool),
 		create:     make(chan *ClientMessage),
+		join:       make(chan *ClientMessage),
 	}
 }
 
@@ -68,8 +72,20 @@ func (h *Hub) Run() {
 			}
 		case cm := <-h.create:
 			roomCode := createUniqueRoomCode()
-			rooms[roomCode] = true
-			resp := createMessage("ROOM_CREATED", roomCode)
+			rooms[roomCode] = &RoomData{}
+			rooms[roomCode].player1 = cm.client
+			resp := createMessage("ROOM_CREATED", roomCode)		
+			cm.client.send <- []byte(resp)
+		case cm := <-h.join:
+			roomCode,_ := getPayload(cm.message)
+			var resp string
+			if _, ok := rooms[roomCode]; ok {
+				resp = createMessage("PLAYER_JOINED", "")
+				rooms[roomCode].player1.send <- []byte(resp)
+				rooms[roomCode].player2 = cm.client
+			} else {
+				resp = createMessage("JOIN_ROOM_ERROR", "Invalid Room Code")
+			}
 			cm.client.send <- []byte(resp)
 		case cm := <-h.echo:
 
