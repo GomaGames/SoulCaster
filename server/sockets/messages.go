@@ -17,6 +17,7 @@ const (
 	SENT_ATTACK      = "SENT_ATTACK"
 	SET_MONEY        = "SET_MONEY"
 	START_GAME       = "START_GAME"
+	RGE_TRIGGERED    = "RGE_TRIGGERED"
 )
 
 type Message struct {
@@ -72,6 +73,19 @@ func createObtainUpgradeMessage(id, health, money, income int) ([]byte, error) {
 		return nil, err
 	}
 	return createMessage(OBTAIN_UPGRADE, string(payload))
+}
+
+type RgeTrigger struct {
+	Id int `json:"id"`
+}
+
+func createRgeTriggerMessage(id int) ([]byte, error) {
+	payloadObj := RgeTrigger{Id: id}
+	payload, err := json.Marshal(payloadObj)
+	if err != nil {
+		return nil, err
+	}
+	return createMessage(RGE_TRIGGERED, string(payload))	
 }
 
 type FinalPlayerInfo struct {
