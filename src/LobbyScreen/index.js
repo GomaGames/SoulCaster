@@ -13,13 +13,14 @@ class LobbyScreen extends React.Component<Props, State> {
     //   this.props.history.push('/');
     // }
 
-    this.props.socket.addEventListener('message', function(data) {
-      switch(data.op) {
+    this.props.socket.addEventListener('message', event => {
+      const { op, payload } = JSON.parse(event.data);
+      switch(op) {
         case 'PLAYER_JOINED':
           this.props.player_joined(true);
           break;
         case 'GAME_STARTED':
-          this.props.game_started(data);
+          this.props.game_started(payload);
           this.props.history.push('/game');
           break;
         default:
@@ -66,8 +67,8 @@ const mapDispatchToProps = (dispatch) => {
     player_joined: joined => {
       dispatch({ type: PLAYER_JOINED, joined });
     },
-    game_started: data => {
-      dispatch({ type: GAME_STARTED, health: data.health, money: data.money, income: data.income });
+    game_started: ({ health, money, income }) => {
+      dispatch({ type: GAME_STARTED, health, money, income });
     }
   };
 };
