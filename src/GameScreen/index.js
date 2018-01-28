@@ -9,28 +9,41 @@ const characters = {
   level3: {
     high: {
       idle: {
-        color1: '/assets/wizard-level3-color1-idle-high.png',
-        color2: '/assets/wizard-level3-color2-idle-high.png'
+        color1: '/assets/characters/wizard_3/wizard-level3-color1-idle-high.png',
+        color2: '/assets/characters/wizard_3/wizard-level3-color2-idle-high.png'
       },
       attack: {
-        color1: '/assets/wizard-level3-color1-attack-high.png'
-        // color2: '/assets/wizard-level3-color2-attack-high.png'
+        color1: '/assets/characters/wizard_3/wizard-level3-color1-attack-high.png',
+        color2: '/assets/characters/wizard_3/wizard-level3-color2-attack-high.png'
       },
       hit: {
-        color1: '/assets/wizard-level3-color1-hit-high.png'
-        // color2: '/assets/wizard-level3-color2-hit-high.png'
+        color1: '/assets/characters/wizard_3/wizard-level3-color1-hit-high.png',
+        color2: '/assets/characters/wizard_3/wizard-level3-color2-hit-high.png'
       }
     }
   }
 }
 
+const buttons = {
+  broomstick: '/assets/weapons/weapon-broomstick-button.png',
+  stick: '/assets/weapons/weapon-stick-button.png',
+}
 const weapons = {
-  weapon_stick_button_high: '/assets/weapon-stick-button-high.png',
-  weapon_broomstick_button_high: '/assets/weapon-broomstick-button-high.png'
+  
 }
 const icons = {
-  heart_high: '/assets/icon-heart-high.png',
-  coin_high: '/assets/icon-coin-high.png'
+  heart: {
+    high: '/assets/icons/icon-heart-high.png',
+    med: '/assets/icons/icon-heart-med.png',
+    medlo: '/assets/icons/icon-heart-medlo.png',
+    lo: '/assets/icons/icon-heart-lo.png'
+  },
+  coin: {
+    high: '/assets/icons/icon-coin-high.png',
+    med: '/assets/icons/icon-coin-med.png',
+    medlo: '/assets/icons/icon-coin-high.png',
+    lo: '/assets/icons/icon-coin-lo.png'
+  }
 }
 
 type State = {
@@ -78,12 +91,12 @@ class GameScreen extends React.Component<Props, State> {
         <div className="players">
           <div className="health-container">
             <div className="player-1">
-              <img className="icon-heart icon" src={ icons.heart_high } alt="icon-heart"/>
+              <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
               <p className="health player1-health">{ this.state.health }</p>
               <p>{ this.props.playerNumber === 1 ? 'You' : ''}</p>
             </div>
             <div className="player-2">
-              <img className="icon-heart icon" src={ icons.heart_high } alt="icon-heart"/>
+              <img className="icon-heart icon" src={ icons.heart.high } alt="icon-heart"/>
               <p className="health player2-health">{ this.state.health }</p>
               <p>{ this.props.playerNumber === 2 ? 'You' : ''}</p>
             </div>
@@ -97,25 +110,25 @@ class GameScreen extends React.Component<Props, State> {
         </div>
         <div className="game-ui">
           <div className="money">
-            <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
+            <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
             <p>{ this.state.money } <span>+3.13/s</span></p>
           </div>
           <div className="weapons">
             <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
               <div className="weapon-image">
-                <img src={ weapons.weapon_stick_button_high } alt="weapon"/>
+                <img src={ buttons.stick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
             <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
               <div className="weapon-image">
-                <img src={ weapons.weapon_broomstick_button_high } alt="weapon"/>
+                <img src={ buttons.broomstick } alt="weapon"/>
               </div>
               <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin_high } alt="icon-coin"/>
+                <img className="icon-coin icon" src={ icons.coin.high } alt="icon-coin"/>
                 <p>200</p>
               </div>
             </div>
