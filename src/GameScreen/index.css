@@ -44,7 +44,11 @@ a.exit-button {
   height: 50%; }
 
 .player {
-  display: inline-block; }
+  display: inline-block;
+  width: 50%;
+  margin-top: 50px; }
+  .player img {
+    width: 130px; }
 
 .player-1 .health-container {
   position: absolute;
@@ -55,6 +59,21 @@ a.exit-button {
   position: absolute;
   right: 0;
   top: 0; }
+
+.health-container .player-1,
+.health-container .player-2 {
+  display: inline-block;
+  width: 50%; }
+
+.player-1 {
+  text-align: left; }
+  .player-1 p, .player-1 img {
+    margin-left: 25px; }
+
+.player-2 {
+  text-align: right; }
+  .player-2 p, .player-2 img {
+    margin-right: 25px; }
 
 .health {
   font-weight: bold;

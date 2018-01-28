@@ -6,6 +6,12 @@
 
 .player{
   display: inline-block;
+  width: 50%;
+  margin-top: 50px;
+
+  img{
+    width: 130px;
+  }
 }
 
 .player-1{
@@ -23,6 +29,28 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+}
+
+.health-container{
+
+  .player-1,
+  .player-2{
+    display: inline-block;
+    width: 50%;
+  }
+}
+
+.player-1{
+  text-align: left;
+  p,img {
+    margin-left: 25px;
+  }
+}
+.player-2{
+  text-align: right;
+  p,img {
+    margin-right: 25px;
   }
 }
 

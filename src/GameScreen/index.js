@@ -3,6 +3,12 @@ import { connect} from 'react-redux';
 import { RECEIVE_ATTACK } from '../store';
 import './index.css';
 
+const characters = { 
+  level3_player1_idle: '/assets/wizard-level3-color1-idle-high.png',
+  level3_player2_idle: '/assets/wizard-level3-color2-idle-high.png'
+}
+
+
 type State = {
   money: number,
   health: number,
@@ -35,20 +41,25 @@ class GameScreen extends React.Component<Props, State> {
   }
 
   render() {
+    console.log(characters)
     return (
       <div className="game-screen screen">
         <div className="players">
-          <div className="player player-1">
-            <div className="health-container">
-              <p className="health">{ this.state.health }</p>
+          <div className="health-container">
+            <div className="player-1">
+              <p className="health player1-health">{ this.state.health }</p>
+              <p>{ this.props.playerNumber === 1 ? 'You' : 'You'}</p>
+            </div>
+            <div className="player-2">
+              <p className="health player1-health">{ this.state.health }</p>
               <p>{ this.props.playerNumber === 1 ? 'You' : 'You'}</p>
             </div>
           </div>
+          <div className="player player-1">
+            <img src={ characters.level3_player1_idle } />
+          </div>
           <div className="player player-2">
-            <div className="health-container">
-              <p className="health">{ this.state.health }</p>
-              <p>{ this.props.playerNumber === 2 ? 'You' : ''}</p>
-            </div>
+            <img src={ characters.level3_player2_idle } />
           </div>
         </div>
         <div className="game-ui">
