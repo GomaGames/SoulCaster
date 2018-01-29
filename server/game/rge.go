@@ -6,11 +6,13 @@ type RGEInfo struct {
 }
 
 var ResolutionCapped1 = RGEInfo{
-	Money: 50,
+	Health: 0,
+	Money:  50,
 }
 
 var ResolutionCapped2 = RGEInfo{
 	Health: 100,
+	Money:  0,
 }
 
 var ResolutionCapped3 = RGEInfo{
