@@ -4,6 +4,10 @@ metadata:
   name: soulcaster
   namespace: soulcaster
   annotations:
+    nginx.org/websocket-services: "soulcaster"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "0s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "0s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "0s"
     kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "gce"
 spec:

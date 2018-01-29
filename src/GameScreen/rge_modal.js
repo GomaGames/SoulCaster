@@ -5,12 +5,12 @@ import './index.css';
 class RgeModal extends React.Component<Props, State> {
 
   pay = () => {
-    const payload = JSON.stringify({ id : this.props.id })
+    const payload = new String(this.props.id);
     this.props.socket.send(JSON.stringify({ op: 'RGE_PAID', payload }));
   }
 
   decline = () => {
-    const payload = JSON.stringify({ id : this.props.id })
+    const payload = new String(this.props.id);
     this.props.socket.send(JSON.stringify({ op: 'RGE_DECLINED', payload }));
   }
 

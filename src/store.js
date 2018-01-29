@@ -10,6 +10,7 @@ export const RECEIVE_ATTACK = 'RECEIVE_ATTACK';
 export const RGE_TRIGGERED = 'RGE_TRIGGERED';
 export const RGE_ACTIVATE = 'RGE_ACTIVATE';
 export const RGE_CLEAR = 'RGE_CLEAR';
+export const SET_PLAYER_INFO = 'SET_PLAYER_INFO';
 
 const initialState = {
   joined: false,
@@ -86,6 +87,13 @@ export const store = createStore((state = initialState, action) => {
       } else {
         return state;
       }
+    case SET_PLAYER_INFO:
+      return {
+        ...state,
+        health : action.health,
+        money : action.money,
+        income : action.income
+      };
     case RGE_CLEAR:
       return {
         ...state,

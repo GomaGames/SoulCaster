@@ -4,23 +4,24 @@ import "encoding/json"
 
 const (
 	// ops
-	ATTACK           = "ATTACK"
-	CREATE           = "CREATE_ROOM"
-	DISCONNECT       = "DISCONNECT"
-	ECHO             = "ECHO"
-	GAME_OVER        = "GAME_OVER"
-	GAME_STARTED     = "GAME_STARTED"
-	JOIN             = "JOIN_ROOM"
-	OBTAIN_UPGRADE   = "OBTAIN_UPGRADE"
-	PURCHASE_UPGRADE = "PURCHASE_UPGRADE"
-	RECEIVE_ATTACK   = "RECEIVE_ATTACK"
-	SENT_ATTACK      = "SENT_ATTACK"
-	SET_MONEY        = "SET_MONEY"
-	START_GAME       = "START_GAME"
-	RGE_TRIGGERED    = "RGE_TRIGGERED"
-	RGE_PAID         = "RGE_PAID"
-	RGE_DECLINED     = "RGE_DECLINED"
-	RGE_ACTIVATE     = "RGE_ACTIVATE"
+	ATTACK                = "ATTACK"
+	CREATE                = "CREATE_ROOM"
+	DISCONNECT            = "DISCONNECT"
+	ECHO                  = "ECHO"
+	GAME_OVER             = "GAME_OVER"
+	GAME_STARTED          = "GAME_STARTED"
+	JOIN                  = "JOIN_ROOM"
+	OBTAIN_UPGRADE        = "OBTAIN_UPGRADE"
+	PURCHASE_UPGRADE      = "PURCHASE_UPGRADE"
+	RECEIVE_ATTACK        = "RECEIVE_ATTACK"
+	SENT_ATTACK           = "SENT_ATTACK"
+	SET_MONEY             = "SET_MONEY"
+	START_GAME            = "START_GAME"
+	RGE_TRIGGERED         = "RGE_TRIGGERED"
+	RGE_PAID              = "RGE_PAID"
+	RGE_DECLINED          = "RGE_DECLINED"
+	RGE_ACTIVATE          = "RGE_ACTIVATE"
+	RGE_PAYMENT_CONFIRMED = "RGE_PAYMENT_CONFIRMED"
 )
 
 type Message struct {
@@ -76,6 +77,19 @@ func createObtainUpgradeMessage(id, health, money, income int) ([]byte, error) {
 		return nil, err
 	}
 	return createMessage(OBTAIN_UPGRADE, string(payload))
+}
+
+func createPayRgeMessage(id, health, money, income int) ([]byte, error) {
+	payloadObj := PlayerInfo{
+		Money:  money,
+		Income: income,
+	}
+	payloadObj.Health = 0
+	payload, err := json.Marshal(payloadObj)
+	if err != nil {
+		return nil, err
+	}
+	return createMessage(RGE_PAYMENT_CONFIRMED, string(payload))
 }
 
 type RgeTrigger struct {

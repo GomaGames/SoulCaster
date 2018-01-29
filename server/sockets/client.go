@@ -237,8 +237,22 @@ func (c *Client) readPump() {
 					c.lastAttack = &now
 					c.hub.attack <- newAttackMessage(c, c.currentRoom, c.attackPower)
 					c.rgeAttackCount += 1
+					sendRge := false
+					id := 0
 					if c.rgeAttackCount == attackResolutionCapCount1 {
-						if resp, err := createRgeTriggerMessage(1); err == nil {
+						sendRge = true
+						id = 1
+					}
+					if c.rgeAttackCount == attackResolutionCapCount2 {
+						sendRge = true
+						id = 2
+					}
+					if c.rgeAttackCount == attackResolutionCapCount3 {
+						sendRge = true
+						id = 3
+					}
+					if sendRge {
+						if resp, err := createRgeTriggerMessage(id); err == nil {
 							c.send <- resp
 						}
 					}
@@ -286,11 +300,37 @@ func (c *Client) readPump() {
 				// TODO: return error to client
 				continue
 			}
-		// case RGE_PAID:
-		// 	rgeId, err := strconv.Atoi(m.Payload)
-		// 	if err != nil {
-		// 		continue
-		// 	}
+		case RGE_PAID:
+			rgeID, err := strconv.Atoi(m.Payload)
+			if err != nil {
+				log.Println(err)
+				// TODO: return error to client
+				continue
+			}
+
+			rge, ok := game.RGEs[rgeID]
+			if !ok {
+				// TODO: return error to client
+				continue
+			}
+
+			if c.money >= rge.Money && c.health >= rge.Health {
+				response, err := createPayRgeMessage(rgeID, c.health-rge.Health, c.money-rge.Money, c.income)
+				if err != nil {
+					log.Println(err)
+					// TODO: return error to client
+					continue
+				}
+
+				c.money -= rge.Money
+				c.health -= rge.Health
+
+				c.send <- []byte(response)
+			} else {
+				// TODO: return error to client
+				log.Println("@TODO NOT ENOUGH MONEY")
+				continue
+			}
 		case RGE_DECLINED:
 			if msg, err := createMessage(RGE_ACTIVATE, m.Payload); err == nil {
 				c.send <- msg
