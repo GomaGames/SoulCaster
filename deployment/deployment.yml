@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: soulcaster
-        image: gomagames/soulcaster:1.0.1
+        image: gomagames/soulcaster:1.0.2
         ports:
         - containerPort: 80
