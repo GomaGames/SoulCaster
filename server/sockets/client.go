@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"../game"
@@ -261,7 +262,7 @@ func (c *Client) readPump() {
 		case CREATE:
 			c.hub.create <- &ClientMessage{client: c, message: message}
 		case JOIN:
-			c.hub.join <- &ClientMessage{client: c, message: []byte(m.Payload)}
+			c.hub.join <- &ClientMessage{client: c, message: []byte(strings.ToUpper(m.Payload))}
 		case START_GAME:
 			if c.currentRoom != nil {
 				c.hub.start <- &RoomMessage{client: c, room: c.currentRoom}
