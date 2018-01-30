@@ -332,7 +332,7 @@ func (c *Client) readPump() {
 				continue
 			}
 		case RGE_DECLINED:
-			if msg, err := createMessage(RGE_ACTIVATE, m.Payload); err == nil {
+			if msg, err := createMessage(RGE_ACTIVATE, "{\"id\":"+m.Payload+"}"); err == nil {
 				c.send <- msg
 			}
 		case ECHO:
