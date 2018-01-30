@@ -69,7 +69,7 @@ class JoinRoomScreen extends React.Component<Props, State> {
       content = <div className="code-area">
         <p>Enter code from Player 1:</p>
         <div className="code">
-          <input placeholder="Enter Code Here" onChange={ this.setCode.bind(this) } />
+          <input placeholder="Enter Code" onChange={ this.setCode.bind(this) } />
         </div>
       </div>
     }

@@ -110,7 +110,8 @@ a.exit-button {
     width: 100%;
     text-align: center;
     color: black;
-    border: 0; }
+    border: 0;
+    text-transform: uppercase; }
   .code p.error-message {
     font-size: 14px;
     color: #DF5455;

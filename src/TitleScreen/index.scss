@@ -1,10 +1,13 @@
 @import '../index.scss';
 
 .title-screen{
-  width: 375px;
-  height: 667px;
+  // width: 375px;
+  // height: 667px;
 	background-image: url('/assets/title_screen/titlescreen.jpg');
-	background-size: contain;
+	background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-color: #1529A6;
+  background-position: center center;
 }
 
 .button.create-room-button{

@@ -110,15 +110,14 @@ a.exit-button {
     width: 100%;
     text-align: center;
     color: black;
-    border: 0; }
+    border: 0;
+    text-transform: uppercase; }
   .code p.error-message {
     font-size: 14px;
     color: #DF5455;
     font-style: italic; }
 
 .lobby-screen {
-  height: 667px;
-  width: 375px;
   background-color: white; }
   .lobby-screen h1,
   .lobby-screen .subtitle {
