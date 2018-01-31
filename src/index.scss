@@ -54,7 +54,7 @@ p{
   width: 100%;
   height: 300px;
   margin: 25px auto 25px;
-  background-size: cover;
+  background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
 
@@ -128,6 +128,8 @@ a.exit-button{
 // CODE
 
 .code-area{
+  max-width: 300px;
+  margin: 0 auto;
 
   > p{
     margin-bottom: 5px;
@@ -163,6 +165,7 @@ a.exit-button{
     text-align: center;
     color: black;
     border: 0;
+    text-transform: uppercase;
   }
 
   p.error-message{

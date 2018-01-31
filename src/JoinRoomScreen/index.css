@@ -27,7 +27,7 @@ p {
   width: 100%;
   height: 300px;
   margin: 25px auto 25px;
-  background-size: cover;
+  background-size: contain;
   background-position: center center;
   background-repeat: no-repeat; }
   .player-ready span {
@@ -82,8 +82,11 @@ a.exit-button {
   left: 25px;
   bottom: 25px; }
 
-.code-area > p {
-  margin-bottom: 5px; }
+.code-area {
+  max-width: 300px;
+  margin: 0 auto; }
+  .code-area > p {
+    margin-bottom: 5px; }
 
 .code {
   border: 1px solid #CCCCCC;
@@ -110,18 +113,16 @@ a.exit-button {
     width: 100%;
     text-align: center;
     color: black;
-    border: 0; }
+    border: 0;
+    text-transform: uppercase; }
   .code p.error-message {
     font-size: 14px;
     color: #DF5455;
     font-style: italic; }
 
-.join-room-screen {
-  height: 667px;
-  width: 375px; }
-  .join-room-screen h1,
-  .join-room-screen .subtitle {
-    color: #555588; }
+.join-room-screen h1,
+.join-room-screen .subtitle {
+  color: #555588; }
 
 .join-button {
   background-color: #555588; }

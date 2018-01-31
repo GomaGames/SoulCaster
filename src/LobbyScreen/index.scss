@@ -1,8 +1,8 @@
 @import '../index.scss';
 
 .lobby-screen{
-  height: 667px;
-  width: 375px;
+  // height: 667px;
+  // width: 375px;
   background-color: white;
 
   h1,
@@ -20,4 +20,6 @@
 
 .start-game-button{
   background-color: $green;
+  max-width: 300px;
+  margin: 0 auto;
 }

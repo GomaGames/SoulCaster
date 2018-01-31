@@ -344,47 +344,53 @@ class GameScreen extends React.Component<Props, State> {
               <p className="player-marker">{ playerNumber === 2 ? 'You' : ''}</p>
             </div>
           </div>
-          <Player 
-            number={1}
-            playerNumber={playerNumber} 
-            characterSrc={ characters.level3[this.props.resolution] }
-            animationFrame={this.state.animationFrame}
-            opponentAnimationFrame={this.state.opponentAnimationFrame}
-            weaponSrc={ weapons.stick[this.props.resolution] } />
-          <Player 
-            number={2}
-            playerNumber={playerNumber} 
-            characterSrc={ characters.level3[this.props.resolution] }
-            animationFrame={this.state.animationFrame}
-            opponentAnimationFrame={this.state.opponentAnimationFrame}
-            weaponSrc={ weapons.stick[this.props.resolution] } />
+          <div className="attack-area">
+            <Player 
+              number={1}
+              playerNumber={playerNumber} 
+              characterSrc={ characters.level3[this.props.resolution] }
+              animationFrame={this.state.animationFrame}
+              opponentAnimationFrame={this.state.opponentAnimationFrame}
+              weaponSrc={ weapons.stick[this.props.resolution] } />
+            <Player 
+              number={2}
+              playerNumber={playerNumber} 
+              characterSrc={ characters.level3[this.props.resolution] }
+              animationFrame={this.state.animationFrame}
+              opponentAnimationFrame={this.state.opponentAnimationFrame}
+              weaponSrc={ weapons.stick[this.props.resolution] } />
+          </div>
         </div>
         <div className="game-ui">
           <div className="money">
             <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
             <p>{ this.state.money } <span>+3.13/s</span></p>
           </div>
-          <div className="weapons">
-            <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
-              <div className="weapon-image">
-                <img src={ buttons.stick } alt="weapon"/>
+          <div className="ui-buttons">
+            <div className="weapons">
+              <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
+                <div className="weapon-image">
+                  <img src={ buttons.stick } alt="weapon"/>
+                </div>
+                <div className="weapon-cost">
+                  <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
+                  <p>200</p>
+                </div>
               </div>
-              <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
-                <p>200</p>
+              <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
+                <div className="weapon-image">
+                  <img src={ buttons.broomstick } alt="weapon"/>
+                </div>
+                <div className="weapon-cost">
+                  <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
+                  <p>200</p>
+                </div>
               </div>
             </div>
-            <div className={ this.state.money < weaponCost ? 'weapon disabled' : 'weapon' }>
-              <div className="weapon-image">
-                <img src={ buttons.broomstick } alt="weapon"/>
-              </div>
-              <div className="weapon-cost">
-                <img className="icon-coin icon" src={ icons.coin[this.props.resolution] } alt="icon-coin"/>
-                <p>200</p>
-              </div>
+            <div className="attack-button-container">
+              <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
             </div>
           </div>
-          <button className="attack-button" type="button" onClick={ this.attack.bind(this) }>Attack</button>
         </div>
 
         { this.props.rge !== null ?

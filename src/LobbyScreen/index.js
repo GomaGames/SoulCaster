@@ -53,7 +53,7 @@ class LobbyScreen extends React.Component<Props, State> {
       <div className={ this.props.playerNumber === 2 ? "player2-lobby lobby-screen screen" : "player1-lobby lobby-screen screen" } >
         <div className="container">
           <h1>Ready?</h1>
-          <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for Player 2...' }</p>
+          <p className="subtitle">{ this.props.player2 ? 'It\'s time for battle!' : 'Waiting for other player...' }</p>
           <div className={ this.props.playerNumber === 2 ? "player2-ready player-ready" : "player1-ready player-ready" }><span>i'm player 1 or 2</span></div>
           { content }
           <Link className='exit-button' to='/'>&#8249; Exit</Link>

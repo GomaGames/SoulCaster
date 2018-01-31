@@ -1,10 +1,10 @@
 @import '../index.scss';
 
 .game-screen{
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  height: 667px;
-  width: 375px;
+  // height: 667px;
+  // width: 375px;
   // border: 1px solid orange;
 
   &.res-3{
@@ -28,15 +28,29 @@
   height: 50%;
 }
 
+.attack-area{
+  // border: 1px solid red;
+  // top: 15%;
+  width: 100%;
+  max-width: 300px;
+  margin: 25% auto 0;
+  height: 120px;
+  position: relative;
+  // position: absolute;
+}
+
 .player{
   // border: 1px solid red;
   display: block;
-  top: 130px;
+  width: 130px;
+  height: 120px;
+  // top: 130px;
   position: absolute;
 
   &.player-1{
     // border: 1px solid green;
-    left: 20px;
+    // left: 20px;
+    left: 0;
 
     &.player-1-attack{
       left: 100px;
@@ -50,10 +64,11 @@
 
   &.player-2{
     // border: 1px solid purple;
-    right: 20px;
+    // right: 20px;
+    right: 0;
 
     &.player-2-attack{
-      left: 100px;
+      right: 100px;
     }
     
     // this is a guess.
@@ -138,15 +153,13 @@ img.attack-weapon{
 
     .health{
       margin:0;
-      // background-color: red;
       display: block;
-      font-weight: bold;
       font-size: 20px;
       line-height: 25px;
       color: black;
-      width: 100px; // temporary
       height: 25px;
-      flex: 0 0 75px;
+      flex: 0 0 auto;
+      text-align: left;
     }
   }
 
@@ -154,6 +167,7 @@ img.attack-weapon{
     margin: 0;
     font-size: 14px;
     margin-top: 5px;
+    color: black;
   }
 
   .player-1 p.player-marker{
@@ -168,7 +182,10 @@ img.attack-weapon{
 .game-ui{
   background-color: #333333;
   height: 50%;
-  padding: 20px;
+  // padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 .money{
@@ -176,6 +193,7 @@ img.attack-weapon{
   text-align: left;
   display: flex;
   flex-flow: row nowrap;
+  padding: 20px 20px 0;
   margin-bottom: 15px;
   margin-left: -3px;
 
@@ -189,7 +207,6 @@ img.attack-weapon{
     font-size: 30px;
     line-height: 25px;
     flex: 1 0 100px;
-    // border: 1px solid green;
     width: 100px;
     height: 25px;
     margin: 0;
@@ -198,20 +215,30 @@ img.attack-weapon{
     span{
       font-size: 14px;
       display: inline-block;
+      margin-left: 4px;
     }
   }
 }
 
+.ui-buttons{
+  padding: 0 20px 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .weapons {
-  display: inline-block;
-  margin-right: 20px;
-  float: left;
-  width: 160px;
+  // display: inline-block;
+  // margin-right: 20px;
+  // float: left;
+  // width: 160px;
+  flex: 0 0 47%;
 }
 
 .weapon {
+  flex: 0 0 47%;
   background-color: white;
-  height: 115px;
+  // height: 115px;
   border-radius: 2px;
 
   + .weapon{
@@ -255,11 +282,17 @@ img.attack-weapon{
   }
 }
 
+.attack-button-container{
+  flex: 0 0 47%;
+}
+
 button.attack-button {
-  width: 150px;
+  // width: 100%;
+  flex: 0 0 47%;
   background-color: $dark-red;
   color: lighten($red, 20%);
-  height: 250px;
+  height: 100%;
+  margin-top: 0;
 }
 
 // RGE MODAL
